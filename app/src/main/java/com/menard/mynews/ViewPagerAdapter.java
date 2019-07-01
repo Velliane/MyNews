@@ -6,29 +6,30 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.menard.mynews.controller.PageFragment;
+import com.menard.mynews.model.Category;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    private int[] colors;
 
-    public ViewPagerAdapter(FragmentManager manager, int[]colors){
+
+    public ViewPagerAdapter(FragmentManager manager){
         super(manager);
-        this.colors = colors;
+
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return Category.values().length;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Page" + position;
+        return Category.values()[position].getName();
     }
 
     @Override
     public Fragment getItem(int position) {
-        return (PageFragment.newInstance(position, this.colors[position] ));
+        return (PageFragment.newInstance(position));
     }
 }

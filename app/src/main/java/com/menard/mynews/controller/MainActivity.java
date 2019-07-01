@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureViewPager(){
         ViewPager viewPager = findViewById(R.id.activity_main_viewpager);
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getResources().getIntArray(R.array.colorPagesViewPager)) {
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()) {
         });
 
         //-- Add tabs --
         TabLayout tabLayout = findViewById(R.id.activity_main_tabs);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 }

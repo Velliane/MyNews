@@ -17,17 +17,15 @@ public class PageFragment extends Fragment {
      * Keys for Bundle
      */
     private static final String KEY_POSITION= "position";
-    private static final String KEY_COLOR= "color";
 
     public PageFragment(){}
 
-    public static PageFragment newInstance(int position, int color) {
+    public static PageFragment newInstance(int position) {
 
         PageFragment fragment = new PageFragment();
 
         Bundle arguments = new Bundle();
         arguments.putInt(KEY_POSITION, position);
-        arguments.putInt(KEY_COLOR, color);
         fragment.setArguments(arguments);
 
         return fragment;
@@ -41,7 +39,6 @@ public class PageFragment extends Fragment {
         RecyclerView list = result.findViewById(R.id.fragment_list);
 
         int position = getArguments().getInt(KEY_POSITION, -1);
-        int color = getArguments().getInt(KEY_COLOR, -1);
 
         return result;
     }

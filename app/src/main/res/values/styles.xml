@@ -9,9 +9,14 @@
     </style>
 
     <style name="ToolBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#00bbd3</item>
-        <item name="colorPrimaryDark">#0096a6</item>
-        <!-- <item name="actionMenuTextColor">@android:color/white</item> -->
+        <item name="colorPrimary">@color/LightBlue</item>
+        <item name="colorPrimaryDark">@color/DarkBlue</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionOverflowButtonStyle">@style/ButtonOverflow</item>
+    </style>
+
+    <style name="ButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/toolbar_more_24px</item>
     </style>
 
 </resources>
