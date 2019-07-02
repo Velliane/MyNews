@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:hint="Search query term"
+        android:hint="@string/search_hint_edit_txt"
         android:layout_margin="20dp" />
 
     <include
@@ -37,6 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Enable notifications (once per day)"/>
+        android:text="@string/notification_switch"/>
 
 </RelativeLayout>
