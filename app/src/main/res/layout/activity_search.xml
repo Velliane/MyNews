@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:layout="http://schemas.android.com/apk/res-auto"
     tools:context=".controller.SearchActivity">
 
     <include
@@ -50,7 +49,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/activity_search_begin_date_layout"
+            android:layout_toEndOf="@+id/activity_search_begin_date_layout"
             android:layout_margin="20dp"
             android:orientation="vertical">
 
@@ -76,6 +75,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_below="@+id/activity_search_date_selection"
         />
 

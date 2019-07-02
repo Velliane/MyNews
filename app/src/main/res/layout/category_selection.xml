@@ -8,9 +8,11 @@
     android:rowCount="3" >
 
     <CheckBox
+        android:paddingEnd="100dp"
         android:text="Category 1"/>
 
     <CheckBox
+        android:paddingEnd="100dp"
         android:text="Category 2"/>
     <CheckBox
         android:text="Category 3"/>

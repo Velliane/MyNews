@@ -1,5 +1,6 @@
 package com.menard.mynews.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -40,14 +41,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_activity_main_search:
+                Intent searchActivity = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(searchActivity);
+                break;
 
             case R.id.menu_activity_main_notifications:
+                Intent notificationActivity = new Intent(MainActivity.this, NotificationActivity.class);
+                startActivity(notificationActivity);
+                break;
 
             case R.id.menu_activity_main_help:
 
+
             case R.id.menu_activity_main_about:
 
-            return true;
+               return true;
         }
         return super.onOptionsItemSelected(item);
     }
