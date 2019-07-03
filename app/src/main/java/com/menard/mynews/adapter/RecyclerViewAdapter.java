@@ -22,7 +22,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int i) {
+    public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
+
 
         articlesViewHolder.title.setText("Titre de l'article");
         articlesViewHolder.date.setText("02/07/2019");
