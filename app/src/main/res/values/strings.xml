@@ -4,6 +4,12 @@
     <!-- NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="drawer_title_section">Section</string>
+    <string name="drawer_section_arts">Arts</string>
+    <string name="drawer_section_movies">Movies</string>
+    <string name="drawer_section_multimedia">Multimedia</string>
+    <string name="drawer_section_science">Science</string>
+    <string name="drawer_section_travel">Travel</string>
 
     <!-- Toolbar -->
     <string name="toolbar_search">Search</string>
@@ -21,5 +27,7 @@
 
     <!-- Notification Activity Layout -->
     <string name="notification_switch">Enable notifications (once per day)</string>
+
+
 
 </resources>

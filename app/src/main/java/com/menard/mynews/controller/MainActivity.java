@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import com.menard.mynews.R;
 import com.menard.mynews.adapter.ViewPagerAdapter;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         configureViewPager();
         configureDrawerLayout();
         configureNavigationView();
+
 
     }
 

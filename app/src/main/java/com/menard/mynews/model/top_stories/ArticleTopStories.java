@@ -4,7 +4,7 @@ package com.menard.mynews.model.top_stories;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.menard.mynews.model.top_stories.Result;
+
 
 public class ArticleTopStories {
 

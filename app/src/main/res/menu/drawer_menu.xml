@@ -5,24 +5,24 @@
 
 
 
-    <item android:title="Section">
+    <item android:title="@string/drawer_title_section">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/activity_main_drawer_arts"
-                    android:title="Arts" />
+                    android:title="@string/drawer_section_arts" />
                 <item
                     android:id="@+id/activity_main_drawer_movies"
-                    android:title="Movies" />
+                    android:title="@string/drawer_section_movies" />
                 <item
                     android:id="@+id/activity_main_drawer_multimedia"
-                    android:title="Multimedia" />
+                    android:title="@string/drawer_section_multimedia" />
                 <item
                     android:id="@+id/activity_main_drawer_science"
-                    android:title="Science" />
+                    android:title="@string/drawer_section_science" />
                 <item
                     android:id="@+id/activity_main_drawer_travel"
-                    android:title="Travel" />
+                    android:title="@string/drawer_section_travel" />
             </group>
         </menu>
     </item>

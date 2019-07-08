@@ -9,20 +9,17 @@
 
     <CheckBox
         android:paddingEnd="100dp"
-        android:text="Category 1"/>
+        android:text="@string/drawer_section_arts"/>
 
     <CheckBox
         android:paddingEnd="100dp"
-        android:text="Category 2"/>
+        android:text="@string/drawer_section_movies"/>
     <CheckBox
-        android:text="Category 3"/>
+        android:text="@string/drawer_section_multimedia"/>
     <CheckBox
-        android:text="Category 4"/>
+        android:text="@string/drawer_section_science"/>
     <CheckBox
-        android:text="Category 5"/>
-    <CheckBox
-        android:text="Category 6"/>
-    <CheckBox
-        android:text="Category 7"/>
+        android:text="@string/drawer_section_travel"/>
+
 
 </GridLayout>

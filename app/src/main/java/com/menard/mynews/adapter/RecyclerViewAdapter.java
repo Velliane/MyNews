@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.menard.mynews.R;
 
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ArticlesViewHolder> {
 
 
@@ -23,6 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
+
 
 
         articlesViewHolder.title.setText("Titre de l'article");
