@@ -5,6 +5,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="drawer_title_section">Section</string>
+    <string name="drawer_top_stories">Top Stories</string>
+    <string name="drawer_most_popular">Most Popular</string>
     <string name="drawer_section_arts">Arts</string>
     <string name="drawer_section_movies">Movies</string>
     <string name="drawer_section_multimedia">Multimedia</string>

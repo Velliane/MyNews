@@ -1,29 +1,33 @@
-package com.menard.mynews.controller;
+package com.menard.mynews.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.menard.mynews.R;
 import com.menard.mynews.adapter.ViewPagerAdapter;
+import com.menard.mynews.model.Category;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    /** ToolBar */
     Toolbar toolbar;
+    /** ViewPager */
+    ViewPager viewPager;
+
     DrawerLayout drawerLayout;
 
     @Override
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //-- Configuration --
         configureViewPager();
         configureDrawerLayout();
         configureNavigationView();
@@ -49,7 +54,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
+    /**
+     * When click on the ToolBar Items, start other activities
+     * @param item the items
+     * @return the activity
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -73,11 +82,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Change the page of the viewPager, when clicking on the items
+     * @param menuItem the items of the NavigationDrawer
+     * @return the page
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-
-
+            case R.id.activity_main_drawer_top_stories:
+                viewPager.setCurrentItem(Category.TOP_STORIES.ordinal());
+                break;
+            case R.id.activity_main_drawer_most_popular:
+                viewPager.setCurrentItem(Category.MOST_POPULAR.ordinal());
+                break;
+            case R.id.activity_main_drawer_multimedia:
+                viewPager.setCurrentItem(Category.MULTIMEDIA.ordinal());
+                break;
+            case R.id.activity_main_drawer_science:
+                viewPager.setCurrentItem(Category.SCIENCE.ordinal());
+                break;
+            case R.id.activity_main_drawer_travel:
+                viewPager.setCurrentItem(Category.TRAVEL.ordinal());
+                break;
+             default:
+                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -92,10 +121,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    // -- CONFIGURATION --
+
+    // -- CONFIGURATION -- //
 
     private void configureViewPager(){
-        ViewPager viewPager = findViewById(R.id.activity_main_viewpager);
+        viewPager = findViewById(R.id.activity_main_viewpager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()) {
         });
         //-- Add tabs --
@@ -116,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.activity_main_navigation);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
 
 }

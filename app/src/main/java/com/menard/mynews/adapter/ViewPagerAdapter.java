@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.menard.mynews.controller.PageFragment;
+import com.menard.mynews.controller.fragments.MostPopularFragment;
+import com.menard.mynews.controller.fragments.MultimediaFragment;
+import com.menard.mynews.controller.fragments.ScienceFragment;
+import com.menard.mynews.controller.fragments.TopStoriesFragment;
+import com.menard.mynews.controller.fragments.TravelFragment;
 import com.menard.mynews.model.Category;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
-
-    public ViewPagerAdapter(FragmentManager manager){
+    public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
 
     }
@@ -30,6 +33,19 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return (PageFragment.newInstance(position));
+        switch (position) {
+            case 0:
+                return TopStoriesFragment.newInstance();
+            case 1:
+                return MostPopularFragment.newInstance();
+            case 2:
+                return MultimediaFragment.newInstance();
+            case 3:
+                return ScienceFragment.newInstance();
+            case 4:
+                return TravelFragment.newInstance();
+            default:
+                return null;
+        }
     }
 }

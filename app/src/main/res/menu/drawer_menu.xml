@@ -9,11 +9,11 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/activity_main_drawer_arts"
-                    android:title="@string/drawer_section_arts" />
+                    android:id="@+id/activity_main_drawer_top_stories"
+                    android:title="@string/drawer_top_stories" />
                 <item
-                    android:id="@+id/activity_main_drawer_movies"
-                    android:title="@string/drawer_section_movies" />
+                    android:id="@+id/activity_main_drawer_most_popular"
+                    android:title="@string/drawer_most_popular" />
                 <item
                     android:id="@+id/activity_main_drawer_multimedia"
                     android:title="@string/drawer_section_multimedia" />

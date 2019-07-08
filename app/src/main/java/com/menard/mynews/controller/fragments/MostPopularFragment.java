@@ -1,33 +1,30 @@
-package com.menard.mynews.controller;
+package com.menard.mynews.controller.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.menard.mynews.R;
 import com.menard.mynews.adapter.RecyclerViewAdapter;
 
-public class PageFragment extends Fragment {
+public class MostPopularFragment extends Fragment {
 
-    /**
-     * Keys for Bundle
-     */
-    private static final String KEY_POSITION= "position";
 
-    public PageFragment(){}
 
-    public static PageFragment newInstance(int position) {
+    public MostPopularFragment(){}
 
-        PageFragment fragment = new PageFragment();
+    public static MostPopularFragment newInstance() {
+
+        MostPopularFragment fragment = new MostPopularFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putInt(KEY_POSITION, position);
         fragment.setArguments(arguments);
 
         return fragment;
@@ -45,7 +42,7 @@ public class PageFragment extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter();
         list.setAdapter(adapter);
 
-        int position = getArguments().getInt(KEY_POSITION, -1);
+
 
         return result;
     }

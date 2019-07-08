@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".controller.MainActivity">
+    tools:context=".controller.activities.MainActivity">
 
 
     <com.google.android.material.navigation.NavigationView
