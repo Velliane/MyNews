@@ -11,26 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.menard.mynews.R;
-import com.menard.mynews.adapter.RecyclerViewAdapter;
+import com.menard.mynews.adapter.TopStoriesAdapter;
+import com.menard.mynews.model.top_stories.ArticleTopStories;
+import com.menard.mynews.model.top_stories.Result;
+import com.menard.mynews.utils.NewYorkTimesAPI;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TopStoriesFragment extends Fragment {
 
-    /**
-     * Keys for Bundle
-     */
-    //private static final String KEY_POSITION= "position";
 
     public TopStoriesFragment(){}
 
     public static TopStoriesFragment newInstance() {
-
-        TopStoriesFragment fragment = new TopStoriesFragment();
-
-        Bundle arguments = new Bundle();
-        //arguments.putInt(KEY_POSITION, position);
-        fragment.setArguments(arguments);
-
-        return fragment;
+        return new TopStoriesFragment();
     }
 
     @Nullable
@@ -38,14 +38,36 @@ public class TopStoriesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View result = inflater.inflate(R.layout.fragment_page, container, false);
-        RecyclerView list = result.findViewById(R.id.fragment_list);
+        final RecyclerView list = result.findViewById(R.id.fragment_list);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        list.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter();
-        list.setAdapter(adapter);
+        //-- Get list of articles --
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.nytimes.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        //int position = getArguments().getInt(KEY_POSITION, -1);
+        NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
+        Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("home", "yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+
+        call.enqueue(new Callback<ArticleTopStories>() {
+            @Override
+            public void onResponse(@NonNull Call<ArticleTopStories> call,@NonNull Response<ArticleTopStories> response) {
+
+                ArticleTopStories articleTopStories = response.body();
+                assert articleTopStories != null;
+                List<Result> articleList = articleTopStories.getResults();
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                list.setLayoutManager(layoutManager);
+                TopStoriesAdapter adapter = new TopStoriesAdapter(articleList, getContext());
+                list.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ArticleTopStories> call,@NonNull Throwable t) {
+
+            }
+        });
 
         return result;
     }

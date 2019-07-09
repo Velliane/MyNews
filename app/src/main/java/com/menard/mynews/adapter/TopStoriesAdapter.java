@@ -2,6 +2,8 @@ package com.menard.mynews.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.menard.mynews.R;
+import com.menard.mynews.model.top_stories.Result;
+
+import java.util.List;
 
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ArticlesViewHolder> {
+public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ArticlesViewHolder> {
 
+    private List<Result> listResult;
+    private Context mContext;
+
+    public TopStoriesAdapter(List<Result> list, Context context){
+        listResult = list;
+        mContext = context;
+    }
 
     @NonNull
     @Override
@@ -25,11 +37,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
 
+        Result result = listResult.get(position);
 
-
-        articlesViewHolder.title.setText("Titre de l'article");
-        articlesViewHolder.date.setText("02/07/2019");
-        articlesViewHolder.description.setText("Courte description");
+        articlesViewHolder.title.setText(result.getTitle());
+        articlesViewHolder.date.setText(result.getUpdatedDate());
+        articlesViewHolder.description.setText(result.getAbstract());
 
     }
 

@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.Retrofit;
+
 
 
 public interface NewYorkTimesAPI {
@@ -23,11 +23,6 @@ public interface NewYorkTimesAPI {
     @GET("svc/search/v2/articlesearch.json")
     Call<ArticleSearched> getSearched(@Query("q") String section, @Query("api-key") String value);
 
-
-   Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://api.nytimes.com/svc/topstories/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
 
 
