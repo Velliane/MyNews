@@ -39,9 +39,9 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
         Result result = listResult.get(position);
 
-        articlesViewHolder.title.setText(result.getTitle());
+        articlesViewHolder.title.setText(result.getSection());
         articlesViewHolder.date.setText(result.getUpdatedDate());
-        articlesViewHolder.description.setText(result.getAbstract());
+        articlesViewHolder.description.setText(result.getTitle());
 
     }
 
