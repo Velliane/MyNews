@@ -1,6 +1,7 @@
 package com.menard.mynews.controller.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.menard.mynews.utils.NewYorkTimesAPI;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +43,13 @@ public class MultimediaFragment extends Fragment {
         View result = inflater.inflate(R.layout.fragment_page, container, false);
         final RecyclerView list = result.findViewById(R.id.fragment_list);
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        // add logging as last interceptor
+        httpClient.addInterceptor(logging);
+
         //-- Get list of articles --
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.nytimes.com/")
@@ -53,14 +63,18 @@ public class MultimediaFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ArticleTopStories> call,@NonNull Response<ArticleTopStories> response) {
 
-                ArticleTopStories articleTopStories = response.body();
-                assert articleTopStories != null;
-                List<Result> articleList = articleTopStories.getResults();
+                if (response.isSuccessful()) {
+                    ArticleTopStories articleTopStories = response.body();
+                    assert articleTopStories != null;
+                    List<Result> articleList = articleTopStories.getResults();
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                list.setLayoutManager(layoutManager);
-                TopStoriesAdapter adapter = new TopStoriesAdapter(articleList, getContext());
-                list.setAdapter(adapter);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    list.setLayoutManager(layoutManager);
+                    TopStoriesAdapter adapter = new TopStoriesAdapter(articleList, getContext());
+                    list.setAdapter(adapter);
+                } else {
+                    Log.e("TAG", "response not successful");
+                }
             }
 
             @Override

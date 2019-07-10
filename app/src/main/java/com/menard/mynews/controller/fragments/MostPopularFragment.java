@@ -1,6 +1,7 @@
 package com.menard.mynews.controller.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +48,10 @@ public class MostPopularFragment extends Fragment {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
         // add logging as last interceptor
-        httpClient.addInterceptor(logging);  // <-- this is the important line!
+        httpClient.addInterceptor(logging);
+
         //-- Get list of articles --
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.nytimes.com/")
@@ -67,14 +67,18 @@ public class MostPopularFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ArticleMostPopular> call,@NonNull Response<ArticleMostPopular> response) {
 
-                ArticleMostPopular articleMostPopular = response.body();
-                assert articleMostPopular != null;
-                List<Result> articleList = articleMostPopular.getResults();
+                if (response.isSuccessful()) {
+                    ArticleMostPopular articleMostPopular = response.body();
+                    assert articleMostPopular != null;
+                    List<Result> articleList = articleMostPopular.getResults();
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                list.setLayoutManager(layoutManager);
-                MostPopularAdapter adapter = new MostPopularAdapter(articleList, getContext());
-                list.setAdapter(adapter);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    list.setLayoutManager(layoutManager);
+                    MostPopularAdapter adapter = new MostPopularAdapter(articleList, getContext());
+                    list.setAdapter(adapter);
+                }else {
+                    Log.e("TAG", "response not successful");
+                }
             }
 
             @Override
