@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 viewPager.setCurrentItem(Category.MOST_POPULAR.ordinal());
                 break;
             case R.id.activity_main_drawer_multimedia:
-                viewPager.setCurrentItem(Category.MULTIMEDIA.ordinal());
+                viewPager.setCurrentItem(Category.MOVIES.ordinal());
                 break;
             case R.id.activity_main_drawer_science:
                 viewPager.setCurrentItem(Category.SCIENCE.ordinal());

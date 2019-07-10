@@ -4,7 +4,7 @@ public enum Category {
 
     TOP_STORIES("TOP STORIES"),
     MOST_POPULAR("MOST POPULAR"),
-    MULTIMEDIA("MULTIMEDIA"),
+    MOVIES("MOVIES"),
     SCIENCE("SCIENCE"),
     TRAVEL("TRAVEL");
 

@@ -28,12 +28,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MultimediaFragment extends Fragment {
+public class MoviesFragment extends Fragment {
 
-    public MultimediaFragment(){}
+    public MoviesFragment(){}
 
-    public static MultimediaFragment newInstance() {
-       return new MultimediaFragment();
+    public static MoviesFragment newInstance() {
+       return new MoviesFragment();
     }
 
     @Nullable

@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.menard.mynews.controller.fragments.MostPopularFragment;
-import com.menard.mynews.controller.fragments.MultimediaFragment;
+import com.menard.mynews.controller.fragments.MoviesFragment;
 import com.menard.mynews.controller.fragments.ScienceFragment;
 import com.menard.mynews.controller.fragments.TopStoriesFragment;
 import com.menard.mynews.controller.fragments.TravelFragment;
@@ -39,7 +39,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return MostPopularFragment.newInstance();
             case 2:
-                return MultimediaFragment.newInstance();
+                return MoviesFragment.newInstance();
             case 3:
                 return ScienceFragment.newInstance();
             case 4:
