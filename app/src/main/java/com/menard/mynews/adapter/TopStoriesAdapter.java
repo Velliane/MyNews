@@ -1,15 +1,19 @@
 package com.menard.mynews.adapter;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.menard.mynews.R;
 import com.menard.mynews.model.top_stories.Result;
 
@@ -38,10 +42,21 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
     public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
 
         Result result = listResult.get(position);
+        String imageURL = "";
 
         articlesViewHolder.title.setText(result.getSection());
         articlesViewHolder.date.setText(result.getUpdatedDate());
         articlesViewHolder.description.setText(result.getTitle());
+
+
+        if(result.getMultimedia().size() >= 1) {
+            imageURL = result.getMultimedia().get(0).getUrl();
+        }
+
+        if(result.getMultimedia().size() > 0) {
+            Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
+        }
+
 
     }
 
