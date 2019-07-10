@@ -47,7 +47,7 @@ public class MultimediaFragment extends Fragment {
                 .build();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("multimedia", "yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("movies", "yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
 
         call.enqueue(new Callback<ArticleTopStories>() {
             @Override

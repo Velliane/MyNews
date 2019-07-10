@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.menard.mynews.R;
-import com.menard.mynews.model.most_popular.Article;
+import com.menard.mynews.model.most_popular.Result;
 
 import java.util.List;
 
 public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.ArticlesViewHolder> {
 
-    private List<Article> listResult;
+    private List<Result> listResult;
     private Context mContext;
 
-    public MostPopularAdapter(List<Article> list, Context context){
+    public MostPopularAdapter(List<Result> list, Context context){
         listResult = list;
         mContext = context;
     }
@@ -36,7 +36,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     @Override
     public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
 
-        Article result = listResult.get(position);
+        Result result = listResult.get(position);
 
         articlesViewHolder.title.setText(result.getTitle());
         articlesViewHolder.date.setText(result.getPublishedDate());

@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Article {
+public class Result {
 
     @SerializedName("url")
     @Expose
@@ -54,10 +54,10 @@ public class Article {
     private List<String> orgFacet = null;
     @SerializedName("per_facet")
     @Expose
-    private List<String> perFacet = null;
+    private String perFacet;
     @SerializedName("geo_facet")
     @Expose
-    private List<String> geoFacet = null;
+    private String geoFacet;
     @SerializedName("media")
     @Expose
     private List<Medium> media = null;
@@ -185,19 +185,19 @@ public class Article {
         this.orgFacet = orgFacet;
     }
 
-    public List<String> getPerFacet() {
+    public String getPerFacet() {
         return perFacet;
     }
 
-    public void setPerFacet(List<String> perFacet) {
+    public void setPerFacet(String perFacet) {
         this.perFacet = perFacet;
     }
 
-    public List<String> getGeoFacet() {
+    public String getGeoFacet() {
         return geoFacet;
     }
 
-    public void setGeoFacet(List<String> geoFacet) {
+    public void setGeoFacet(String geoFacet) {
         this.geoFacet = geoFacet;
     }
 
