@@ -74,10 +74,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.menu_activity_main_help:
-
+                Intent helpActivity = new Intent(MainActivity.this, HelpActivity.class);
+                startActivity(helpActivity);
+                break;
 
             case R.id.menu_activity_main_about:
-
+                Intent aboutActivity = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(aboutActivity);
                return true;
         }
         return super.onOptionsItemSelected(item);
