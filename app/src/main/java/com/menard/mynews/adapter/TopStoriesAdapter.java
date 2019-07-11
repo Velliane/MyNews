@@ -1,34 +1,31 @@
 package com.menard.mynews.adapter;
 
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.menard.mynews.R;
 import com.menard.mynews.model.top_stories.Result;
 
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.ZoneId;
 import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.format.DateTimeFormatterBuilder;
 
 import java.util.List;
-import java.util.Locale;
+
+import saschpe.android.customtabs.CustomTabsHelper;
+import saschpe.android.customtabs.WebViewFallback;
 
 
 public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ArticlesViewHolder>{
@@ -101,6 +98,17 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int itemPosition = getAdapterPosition();
+
+                    CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
+                                                                        .setToolbarColor(mContext.getResources().getColor(R.color.colorPrimary))
+                                                                        .setShowTitle(true)
+                                                                        .build();
+                    CustomTabsHelper.addKeepAliveExtra(mContext, customTabsIntent.intent);
+
+                    CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
+                            Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
+
 
                 }
             });
