@@ -83,7 +83,7 @@ public class MostPopularFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ArticleMostPopular> call,@NonNull Throwable t) {
-
+                    t.printStackTrace();
             }
         });
 

@@ -1,6 +1,7 @@
 package com.menard.mynews.controller.fragments;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,7 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TopStoriesFragment extends Fragment {
 
 
-    public TopStoriesFragment(){}
+    public TopStoriesFragment() {
+    }
 
     public static TopStoriesFragment newInstance() {
         return new TopStoriesFragment();
@@ -62,7 +64,7 @@ public class TopStoriesFragment extends Fragment {
 
         call.enqueue(new Callback<ArticleTopStories>() {
             @Override
-            public void onResponse(@NonNull Call<ArticleTopStories> call,@NonNull Response<ArticleTopStories> response) {
+            public void onResponse(@NonNull Call<ArticleTopStories> call, @NonNull Response<ArticleTopStories> response) {
 
                 if (response.isSuccessful()) {
                     ArticleTopStories articleTopStories = response.body();
@@ -79,11 +81,22 @@ public class TopStoriesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ArticleTopStories> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArticleTopStories> call, @NonNull Throwable t) {
 
             }
         });
 
+
         return result;
+
+
     }
+
 }
+
+
+
+
+
+
+

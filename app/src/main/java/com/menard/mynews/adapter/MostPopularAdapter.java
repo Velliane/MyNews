@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.menard.mynews.R;
 import com.menard.mynews.model.most_popular.Result;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.List;
+import java.util.Locale;
 
 public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.ArticlesViewHolder> {
 
@@ -38,9 +42,12 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
         Result result = listResult.get(position);
 
-        articlesViewHolder.title.setText(result.getTitle());
+        articlesViewHolder.title.setText(result.getSection());
+        articlesViewHolder.description.setText(result.getTitle());
+
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        //LocalDate date = LocalDate.parse(result.getPublishedDate(), formatter);
         articlesViewHolder.date.setText(result.getPublishedDate());
-        articlesViewHolder.description.setText(result.getAbstract());
     }
 
 
