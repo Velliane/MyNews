@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_activity_main_about:
                 Intent aboutActivity = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(aboutActivity);
-               return true;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.activity_main_drawer_most_popular:
                 viewPager.setCurrentItem(Category.MOST_POPULAR.ordinal());
                 break;
-            case R.id.activity_main_drawer_multimedia:
+            case R.id.activity_main_drawer_movies:
                 viewPager.setCurrentItem(Category.MOVIES.ordinal());
                 break;
             case R.id.activity_main_drawer_science:
@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.activity_main_drawer_travel:
                 viewPager.setCurrentItem(Category.TRAVEL.ordinal());
                 break;
-             default:
-                 break;
+            default:
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

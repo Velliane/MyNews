@@ -8,17 +8,15 @@
     android:rowCount="3" >
 
     <CheckBox
-        android:paddingEnd="100dp"
-        android:text="@string/drawer_section_arts"/>
-
-    <CheckBox
+        android:id="@+id/category_selection_movies"
         android:paddingEnd="100dp"
         android:text="@string/drawer_section_movies"/>
+
     <CheckBox
-        android:text="@string/drawer_section_multimedia"/>
-    <CheckBox
+        android:id="@+id/category_selection_science"
         android:text="@string/drawer_section_science"/>
     <CheckBox
+        android:id="@+id/category_selection_travel"
         android:text="@string/drawer_section_travel"/>
 
 

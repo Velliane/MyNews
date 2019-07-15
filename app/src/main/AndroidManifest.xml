@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ToolBarTheme">
-        <activity android:name=".controller.activities.AboutActivity"></activity>
+        <activity android:name=".controller.activities.SearchedArticlesActivity"></activity>
+        <activity android:name=".controller.activities.AboutActivity" />
         <activity android:name=".controller.activities.HelpActivity" />
         <activity android:name=".controller.activities.NotificationActivity" />
         <activity android:name=".controller.activities.SearchActivity" />

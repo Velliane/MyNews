@@ -15,8 +15,8 @@
                     android:id="@+id/activity_main_drawer_most_popular"
                     android:title="@string/drawer_most_popular" />
                 <item
-                    android:id="@+id/activity_main_drawer_multimedia"
-                    android:title="@string/drawer_section_multimedia" />
+                    android:id="@+id/activity_main_drawer_movies"
+                    android:title="@string/drawer_section_movies" />
                 <item
                     android:id="@+id/activity_main_drawer_science"
                     android:title="@string/drawer_section_science" />
