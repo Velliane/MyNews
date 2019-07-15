@@ -46,9 +46,9 @@ public class Result {
     @SerializedName("views")
     @Expose
     private Integer views;
-    @SerializedName("des_facet")
-    @Expose
-    private List<String> desFacet = null;
+//    @SerializedName("des_facet")
+//    @Expose
+//    private List<String> desFacet = null;
 //    @SerializedName("org_facet")
 //    @Expose
 //    private List<String> orgFacet = null;
@@ -169,13 +169,13 @@ public class Result {
         this.views = views;
     }
 
-    public List<String> getDesFacet() {
-        return desFacet;
-    }
-
-    public void setDesFacet(List<String> desFacet) {
-        this.desFacet = desFacet;
-    }
+//    public List<String> getDesFacet() {
+//        return desFacet;
+//    }
+//
+//    public void setDesFacet(List<String> desFacet) {
+//        this.desFacet = desFacet;
+//    }
 
 //    public List<String> getOrgFacet() {
 //        return orgFacet;

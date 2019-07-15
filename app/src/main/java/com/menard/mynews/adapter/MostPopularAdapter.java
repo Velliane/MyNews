@@ -57,6 +57,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         //LocalDate date = LocalDate.parse(result.getPublishedDate(), formatter);
+        // TODO change format of the date
         articlesViewHolder.date.setText(result.getPublishedDate());
 
         //-- Get the first image in the list of multimedia --
@@ -73,7 +74,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 20;
     }
 
     class ArticlesViewHolder extends RecyclerView.ViewHolder{

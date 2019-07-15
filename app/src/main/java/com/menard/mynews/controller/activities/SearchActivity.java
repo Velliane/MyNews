@@ -44,22 +44,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mCategoryTravel = findViewById(R.id.category_selection_travel);
 
         mSearchButton = findViewById(R.id.activity_search_button);
-
+        mSearchButton.setOnClickListener(this);
 
 
     }
 
-    private void startSearchedArticlesActivity(){
-        Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
-        intent.putExtra("QUERY", mTextSearched);
-        startActivity(intent);
-    }
 
 
     @Override
     public void onClick(View v) {
         if(v == mSearchButton){
-            startSearchedArticlesActivity();
+            Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
+            intent.putExtra("QUERY", mTextSearched);
+            startActivity(intent);
         }
 
         if(v == mCategoryMovies){
@@ -77,6 +74,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if(v == mCategoryTravel){
 
         }
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

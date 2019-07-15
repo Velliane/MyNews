@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.menard.mynews.R;
 import com.menard.mynews.model.top_stories.Result;
+import com.menard.mynews.utils.DateUtils;
 
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -57,9 +58,8 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         articlesViewHolder.description.setText(result.getTitle());
 
         //-- Change the format of the date --
-        OffsetDateTime offsetDateTime = OffsetDateTime.parse(result.getPublishedDate());
-        String date = offsetDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        articlesViewHolder.date.setText(date);
+
+        articlesViewHolder.date.setText(DateUtils.parseZonedDate(result.getPublishedDate()));
 
 
         //-- Get the first image in the list of multimedia --

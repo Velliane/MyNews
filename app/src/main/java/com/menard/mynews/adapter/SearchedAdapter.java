@@ -18,6 +18,12 @@ import com.bumptech.glide.Glide;
 import com.menard.mynews.R;
 import com.menard.mynews.model.search.Doc;
 import com.menard.mynews.model.search.Multimedium;
+import com.menard.mynews.utils.DateUtils;
+
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.List;
 
@@ -50,13 +56,15 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
 
         holder.title.setText(result.getSectionName());
         holder.description.setText(result.getAbstract());
-        holder.date.setText(result.getPubDate());
+        // TODO change format of the date
 
-        List<Multimedium> multimediumList = result.getMultimedia();
-        imageURL = multimediumList.get(0).getUrl();
-        if(multimediumList.size() > 0) {
-            Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
-        }
+        holder.date.setText(DateUtils.parseDate(result.getPubDate()));
+
+        //List<Multimedium> multimediumList = result.getMultimedia();
+        //imageURL = multimediumList.get(0).getUrl();
+        //if(multimediumList.size() > 0) {
+          //  Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
+        //}
 
 
 
@@ -64,7 +72,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
 
     @Override
     public int getItemCount() {
-        return 20;
+        return mListResult.size();
     }
 
 

@@ -1,5 +1,6 @@
 package com.menard.mynews.controller.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -40,6 +41,10 @@ public class SearchedArticlesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //-- Get extra from intent --
+        Intent intent = getIntent();
+        String textSearched = intent.getStringExtra("QUERY");
+
 
         mListArticles = findViewById(R.id.activity_search_list_articles);
 
@@ -58,7 +63,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
                 .build();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleSearched> call = newYorkTimesAPI.getSearched("arts","yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(textSearched,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
 
         call.enqueue(new Callback<ArticleSearched>() {
             @Override
@@ -84,7 +89,12 @@ public class SearchedArticlesActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 
