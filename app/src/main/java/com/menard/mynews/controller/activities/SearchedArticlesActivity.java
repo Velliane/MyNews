@@ -63,7 +63,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
                 .build();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(textSearched,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(textSearched, null, null, null,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
 
         call.enqueue(new Callback<ArticleSearched>() {
             @Override

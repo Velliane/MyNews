@@ -20,9 +20,6 @@ import com.menard.mynews.R;
 import com.menard.mynews.model.top_stories.Result;
 import com.menard.mynews.utils.DateUtils;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
-
 import java.util.List;
 
 import saschpe.android.customtabs.CustomTabsHelper;
@@ -58,8 +55,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         articlesViewHolder.description.setText(result.getTitle());
 
         //-- Change the format of the date --
-
-        articlesViewHolder.date.setText(DateUtils.parseZonedDate(result.getPublishedDate()));
+        articlesViewHolder.date.setText(DateUtils.parseZonedDate(result.getUpdatedDate()));
 
 
         //-- Get the first image in the list of multimedia --
@@ -69,6 +65,8 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         //-- Add it in the ImageView with Glide --
         if(result.getMultimedia().size() > 0) {
             Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
+        }else {
+            Glide.with(mContext).load(mContext.getResources().getIdentifier("no_image_available_64", "drawable", mContext.getPackageName())).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         }
 
 
@@ -98,20 +96,25 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int itemPosition = getAdapterPosition();
-
-                    CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
-                                                                        .setToolbarColor(mContext.getResources().getColor(R.color.colorPrimary))
-                                                                        .setShowTitle(true)
-                                                                        .build();
-                    CustomTabsHelper.addKeepAliveExtra(mContext, customTabsIntent.intent);
-
-                    CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
-                            Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
-
-
+                    openCustomTabs();
                 }
             });
+        }
+
+        /**
+         * Open CustomTabs
+         */
+        private void openCustomTabs(){
+            int itemPosition = getAdapterPosition();
+
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
+                    .setToolbarColor(mContext.getResources().getColor(R.color.colorPrimary))
+                    .setShowTitle(true)
+                    .build();
+            CustomTabsHelper.addKeepAliveExtra(mContext, customTabsIntent.intent);
+
+            CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
+                    Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
         }
 
     }

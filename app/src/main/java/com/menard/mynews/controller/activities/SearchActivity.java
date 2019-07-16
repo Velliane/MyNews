@@ -38,10 +38,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSearchText = findViewById(R.id.activity_search_edit_txt);
-        mTextSearched = mSearchText.getText().toString();
         mCategoryMovies = findViewById(R.id.category_selection_movies);
+        mCategoryMovies.setTag(1);
         mCategoryScience = findViewById(R.id.category_selection_science);
+        mCategoryScience.setTag(2);
         mCategoryTravel = findViewById(R.id.category_selection_travel);
+        mCategoryTravel.setTag(3);
 
         mSearchButton = findViewById(R.id.activity_search_button);
         mSearchButton.setOnClickListener(this);
@@ -54,6 +56,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if(v == mSearchButton){
+            mTextSearched = mSearchText.getText().toString();
             Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
             intent.putExtra("QUERY", mTextSearched);
             startActivity(intent);

@@ -18,9 +18,8 @@ import com.bumptech.glide.Glide;
 import com.menard.mynews.R;
 import com.menard.mynews.model.most_popular.MediaMetadatum;
 import com.menard.mynews.model.most_popular.Result;
+import com.menard.mynews.utils.DateUtils;
 
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.List;
 
@@ -50,15 +49,13 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
 
         Result result = listResult.get(position);
-        String imageURL = "";
+        String imageURL;
 
         articlesViewHolder.title.setText(result.getSection());
         articlesViewHolder.description.setText(result.getTitle());
 
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-        //LocalDate date = LocalDate.parse(result.getPublishedDate(), formatter);
-        // TODO change format of the date
-        articlesViewHolder.date.setText(result.getPublishedDate());
+        // Change format of the date
+        articlesViewHolder.date.setText(DateUtils.parseMostPopularDate(result.getPublishedDate()));
 
         //-- Get the first image in the list of multimedia --
         List<MediaMetadatum> mediaMetadatumList = result.getMedia().get(0).getMediaMetadata();
@@ -67,6 +64,8 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         //-- Add it in the ImageView with Glide --
         if(mediaMetadatumList.size() > 0) {
             Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
+        }else {
+            Glide.with(mContext).load(mContext.getResources().getIdentifier("no_image_available_64", "drawable", mContext.getPackageName())).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         }
     }
 
@@ -95,20 +94,25 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int itemPosition = getAdapterPosition();
-
-                    CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
-                            .setToolbarColor(mContext.getResources().getColor(R.color.colorPrimary))
-                            .setShowTitle(true)
-                            .build();
-                    CustomTabsHelper.addKeepAliveExtra(mContext, customTabsIntent.intent);
-
-                    CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
-                            Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
-
-
+                    openCustomTabs();
                 }
             });
+        }
+
+        /**
+         * Open CustomTabs
+         */
+        private void openCustomTabs(){
+            int itemPosition = getAdapterPosition();
+
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
+                    .setToolbarColor(mContext.getResources().getColor(R.color.colorPrimary))
+                    .setShowTitle(true)
+                    .build();
+            CustomTabsHelper.addKeepAliveExtra(mContext, customTabsIntent.intent);
+
+            CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
+                    Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
         }
 
     }

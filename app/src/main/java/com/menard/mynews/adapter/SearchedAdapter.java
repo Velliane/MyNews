@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +20,6 @@ import com.menard.mynews.R;
 import com.menard.mynews.model.search.Doc;
 import com.menard.mynews.model.search.Multimedium;
 import com.menard.mynews.utils.DateUtils;
-
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.List;
 
@@ -52,19 +48,22 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
     public void onBindViewHolder(@NonNull ArticlesViewHolder holder, int position) {
 
         Doc result = mListResult.get(position);
-        String imageURL = "";
+        String imageURL;
 
         holder.title.setText(result.getSectionName());
         holder.description.setText(result.getAbstract());
         // TODO change format of the date
 
-        holder.date.setText(DateUtils.parseDate(result.getPubDate()));
+        holder.date.setText(DateUtils.parseSearchedDate(result.getPubDate()));
 
-        //List<Multimedium> multimediumList = result.getMultimedia();
-        //imageURL = multimediumList.get(0).getUrl();
-        //if(multimediumList.size() > 0) {
-          //  Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
-        //}
+        List<Multimedium> multimediumList = result.getMultimedia();
+
+        if(multimediumList.size() > 0) {
+            imageURL = multimediumList.get(0).getUrl();
+            Glide.with(mContext).load("https://static01.nyt.com/"+imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
+        }else {
+            Glide.with(mContext).load(mContext.getResources().getIdentifier("no_image_available_64", "drawable", mContext.getPackageName())).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
+        }
 
 
 
