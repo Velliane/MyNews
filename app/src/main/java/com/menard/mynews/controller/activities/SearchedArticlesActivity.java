@@ -44,6 +44,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
         //-- Get extra from intent --
         Intent intent = getIntent();
         String textSearched = intent.getStringExtra("QUERY");
+        String section = intent.getStringExtra("SECTION");
 
 
         mListArticles = findViewById(R.id.activity_search_list_articles);
@@ -63,7 +64,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
                 .build();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(textSearched, null, null, null,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(textSearched, section, null, null,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
 
         call.enqueue(new Callback<ArticleSearched>() {
             @Override

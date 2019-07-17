@@ -12,7 +12,9 @@ import android.widget.EditText;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.menard.mynews.CategorySelector;
 import com.menard.mynews.R;
+import com.menard.mynews.utils.SearchedRequest;
 
 import java.util.List;
 
@@ -20,9 +22,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     private EditText mSearchText;
     private Button mSearchButton;
-    private CheckBox mCategoryMovies;
-    private CheckBox mCategoryScience;
-    private CheckBox mCategoryTravel;
+    public CategorySelector mCategorySelector;
+
     String mTextSearched;
 
 
@@ -38,16 +39,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSearchText = findViewById(R.id.activity_search_edit_txt);
-        mCategoryMovies = findViewById(R.id.category_selection_movies);
-        mCategoryMovies.setTag(1);
-        mCategoryScience = findViewById(R.id.category_selection_science);
-        mCategoryScience.setTag(2);
-        mCategoryTravel = findViewById(R.id.category_selection_travel);
-        mCategoryTravel.setTag(3);
-
         mSearchButton = findViewById(R.id.activity_search_button);
         mSearchButton.setOnClickListener(this);
 
+        mCategorySelector = new CategorySelector(this);
 
     }
 
@@ -57,26 +52,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if(v == mSearchButton){
             mTextSearched = mSearchText.getText().toString();
+            String section = new SearchedRequest(mCategorySelector).getSectionSelected();
             Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
             intent.putExtra("QUERY", mTextSearched);
+            intent.putExtra("SECTION", section);
             startActivity(intent);
         }
 
-        if(v == mCategoryMovies){
-            if(mCategoryMovies.isChecked()){
-
-            }else {
-
-            }
-        }
-
-        if(v == mCategoryScience){
-
-        }
-
-        if(v == mCategoryTravel){
-
-        }
     }
 
     @Override
