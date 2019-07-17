@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -18,9 +19,20 @@ import androidx.work.WorkerParameters;
 
 import com.menard.mynews.R;
 import com.menard.mynews.controller.activities.NotificationActivity;
+import com.menard.mynews.model.search.ArticleSearched;
+import com.menard.mynews.model.search.Doc;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NotififyWorker extends Worker {
 
@@ -47,11 +59,52 @@ public class NotififyWorker extends Worker {
     @Override
     public ListenableWorker.Result doWork() {
 
-        String title = getInputData().getString(Constants.EXTRA_TITLE);
-        String text = getInputData().getString(Constants.EXTRA_TEXT);
-        int id = (int) getInputData().getLong(Constants.EXTRA_ID, 0);
+        final String title = getInputData().getString(Constants.EXTRA_TITLE);
+        final String text = getInputData().getString(Constants.EXTRA_TEXT);
+        final int id = (int) getInputData().getLong(Constants.EXTRA_ID, 0);
+        String keyword = getInputData().getString("KEYWORD");
 
-        sendNotification(title, text, id);
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+        //-- Get list of articles --
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.nytimes.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
+                .build();
+
+        NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
+        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, null, null, null,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+
+        call.enqueue(new Callback<ArticleSearched>() {
+            @Override
+            public void onResponse(@NonNull Call<ArticleSearched> call, @NonNull Response<ArticleSearched> response) {
+
+                if (response.isSuccessful()) {
+                    ArticleSearched articleSearched = response.body();
+                    assert articleSearched != null;
+                    //List<Doc> mDocList = articleSearched.getResponse().getDocs();
+                    sendNotification(title, text, id);
+                }else {
+                    Log.e("TAG", "response not successful");
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ArticleSearched> call,@NonNull Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+
+
         return Result.success();
     }
 

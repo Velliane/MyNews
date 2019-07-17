@@ -10,7 +10,7 @@ public class Constants {
     public static final String EXTRA_ID = "ID";
 
     public static final String TITLE = "MyNews";
-    public static final String TEXT = "New articles are available";
+    public static final String TEXT = "New article(s) are available";
 
     public static final String SHARED_PREFERENCE = "SHARED PREFERENCES";
     public static final String PREFS_KEYWORD = "PREFS KEYWORD";
