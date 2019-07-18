@@ -1,5 +1,6 @@
 package com.menard.mynews.controller.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,23 +46,16 @@ public class MostPopularFragment extends Fragment {
         final RecyclerView list = result.findViewById(R.id.fragment_list);
 
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        // add logging as last interceptor
-        httpClient.addInterceptor(logging);
-
-        //-- Get list of articles --
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.nytimes.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-
+        Retrofit retrofit = getRetrofit();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleMostPopular> call = newYorkTimesAPI.getMostPopular("yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
 
         call.enqueue(new Callback<ArticleMostPopular>() {
             @Override
@@ -76,6 +70,8 @@ public class MostPopularFragment extends Fragment {
                     list.setLayoutManager(layoutManager);
                     MostPopularAdapter adapter = new MostPopularAdapter(articleList, getContext());
                     list.setAdapter(adapter);
+
+                    progressDialog.dismiss();
                 }else {
                     Log.e("TAG", "response not successful");
                 }
@@ -86,9 +82,22 @@ public class MostPopularFragment extends Fragment {
                     t.printStackTrace();
             }
         });
-
-
-
         return result;
+    }
+
+    /**
+     * Configure Retrofit
+     * @return retrofit
+     */
+    private Retrofit getRetrofit(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+        return new Retrofit.Builder()
+                .baseUrl("http://api.nytimes.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 }

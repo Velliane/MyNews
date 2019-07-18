@@ -1,11 +1,9 @@
 package com.menard.mynews;
 
-import android.app.Service;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
 import android.widget.Toast;
@@ -15,6 +13,7 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
     public CheckBox moviesChBox;
     public CheckBox scienceChBox;
     public CheckBox travelChBox;
+    public boolean isCheckButtonClicked;
 
     public CategorySelector(Context context) {
         super(context);
@@ -28,6 +27,8 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
         this.scienceChBox.setOnClickListener(this);
         this.travelChBox = view.findViewById(R.id.category_selection_travel);
         this.travelChBox.setOnClickListener(this);
+
+        isCheckButtonClicked = false;
     }
 
     @Override
@@ -40,22 +41,17 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
     public void onClick(View v) {
         if(moviesChBox.isChecked())
             Toast.makeText(getContext(), "Movies",Toast.LENGTH_SHORT).show();
-            //moviesIsChecked();
+         isCheckButtonClicked = true;
         if(scienceChBox.isChecked())
-            //scienceIsChecked();
+            Toast.makeText(getContext(), "Science", Toast.LENGTH_SHORT).show();
+         isCheckButtonClicked = true;
         if(travelChBox.isChecked())
-            travelIsChecked();
+            Toast.makeText(getContext(), "Travel", Toast.LENGTH_SHORT).show();
+            isCheckButtonClicked = true;
     }
 
-    public boolean moviesIsChecked(){
-        return moviesChBox.isChecked();
-    }
 
-    public boolean scienceIsChecked(){
-        return scienceChBox.isChecked();
-    }
-
-    public boolean travelIsChecked(){
-        return travelChBox.isChecked();
+    public boolean atLeastOnBoxChecked(){
+        return  isCheckButtonClicked;
     }
 }

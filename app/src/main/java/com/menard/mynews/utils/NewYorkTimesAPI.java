@@ -6,8 +6,6 @@ import com.menard.mynews.model.most_popular.ArticleMostPopular;
 import com.menard.mynews.model.search.ArticleSearched;
 import com.menard.mynews.model.top_stories.ArticleTopStories;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -22,7 +20,7 @@ public interface NewYorkTimesAPI {
     @GET("svc/mostpopular/v2/viewed/7.json")
     Call<ArticleMostPopular> getMostPopular(@Query("api-key") String value);
 
-    @GET("svc/search/v2/articlesearch.json")
+    @GET("svc/search/v2/articlesearch.json?sort=newest")
     Call<ArticleSearched> getSearched(@Query("q") String keywords, @Nullable @Query("fq") String filterSection, @Nullable @Query("begin_date") String beginDate, @Nullable @Query("end_date") String endDate, @Query("api-key") String value);
 
 
