@@ -11,6 +11,7 @@ public class DateUtils {
     private static DateTimeFormatter mostpopularDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static DateTimeFormatter requestDateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
     private static DateTimeFormatter humanDateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private static DateTimeFormatter humanDateTimeFormatterTwo = DateTimeFormatter.ofPattern("d/M/y");
 
     public static String parseSearchedDate(String date){
         LocalDateTime dateTime = LocalDateTime.parse(date, searchedDateTimeFormatter);
@@ -28,7 +29,7 @@ public class DateUtils {
     }
 
     public static String parseRequestDate(String date){
-        LocalDate localdate = LocalDate.parse(date, humanDateTimeFormatter);
+        LocalDate localdate = LocalDate.parse(date, humanDateTimeFormatterTwo);
         return localdate.format(requestDateTimeFormatter);
     }
 }

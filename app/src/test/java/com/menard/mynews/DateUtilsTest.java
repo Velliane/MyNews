@@ -4,6 +4,8 @@ import com.menard.mynews.utils.DateUtils;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 public class DateUtilsTest {
@@ -33,5 +35,14 @@ public class DateUtilsTest {
         String changedDate = DateUtils.parseMostPopularDate(date);
 
         assertEquals("21/06/19", changedDate);
+    }
+
+    @Test
+    public void parseRequestDate(){
+        String date = "2/7/2019";
+
+        String changedDate = DateUtils.parseRequestDate(date);
+
+        assertEquals("20190702", changedDate);
     }
 }

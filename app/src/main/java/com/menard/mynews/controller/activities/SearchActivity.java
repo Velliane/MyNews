@@ -26,8 +26,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mBeginDate;
     private TextView mEndDate;
     public CategorySelector mCategorySelector;
-    private DatePickerDialog beginDatePickerDialog;
-    private DatePickerDialog endDatePickerDialog;
 
     String mTextSearched;
 
@@ -59,12 +57,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mEndDate = findViewById(R.id.activity_search_spinner_end_date);
         mEndDate.setClickable(true);
         mEndDate.setOnClickListener(this);
-
-
-
-
     }
-
 
 
     @Override
@@ -74,28 +67,29 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
+        //-- Select begin date --
         if(v == mBeginDate){
-            beginDatePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog beginDatePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    String newDate = dayOfMonth +"/"+month+"/"+year;
+                    String newDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                     mBeginDate.setText(newDate);
                 }
-            }, year, month, day );
+            }, year, month, day);
             beginDatePickerDialog.show();
         }
-
+        //-- Select end date --
         if(v == mEndDate){
-            endDatePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog endDatePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    String newDate = dayOfMonth +"/"+month+"/"+year;
+                    String newDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                     mEndDate.setText(newDate);
                 }
-            }, year, month, day );
+            }, year, month, day);
             endDatePickerDialog.show();
         }
-
+        //-- Start SearchedArticlesActivity with filter --
         if(v == mSearchButton){
             mTextSearched = mSearchText.getText().toString();
             String section = new SearchedRequest(mCategorySelector).getSectionSelected();
@@ -107,8 +101,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             intent.putExtra("END_DATE", DateUtils.parseRequestDate(mEndDate.getText().toString()));
             startActivity(intent);
         }
-
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
