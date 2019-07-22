@@ -62,7 +62,9 @@ public class NotififyWorker extends Worker {
         final String title = getInputData().getString(Constants.EXTRA_TITLE);
         final String text = getInputData().getString(Constants.EXTRA_TEXT);
         final int id = (int) getInputData().getLong(Constants.EXTRA_ID, 0);
-        String keyword = getInputData().getString("KEYWORD");
+
+        String keyword = getInputData().getString(Constants.EXTRA_KEYWORD);
+        String section = getInputData().getString(Constants.EXTRA_SECTION);
 
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -78,7 +80,7 @@ public class NotififyWorker extends Worker {
                 .build();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, null, null, null,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, section, null, null,Constants.API_KEY);
 
         call.enqueue(new Callback<ArticleSearched>() {
             @Override

@@ -72,15 +72,15 @@
 
     </RelativeLayout>
 
-    <include
-        layout="@layout/category_selection"
-        android:layout_width="wrap_content"
+
+    <com.menard.mynews.CategorySelector
+        android:id="@+id/activity_search_category_selection"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_below="@+id/activity_search_date_selection"
-        />
+        android:layout_below="@+id/activity_search_date_selection"/>
 
     <Button
         android:id="@+id/activity_search_button"
@@ -90,6 +90,6 @@
         android:background="@color/LightBlue"
         android:text="@string/search_button"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/category_selection_layout"/>
+        android:layout_below="@id/activity_search_category_selection" />
 
 </RelativeLayout>

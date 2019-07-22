@@ -17,6 +17,7 @@ import com.menard.mynews.R;
 import com.menard.mynews.adapter.MostPopularAdapter;
 import com.menard.mynews.model.most_popular.ArticleMostPopular;
 import com.menard.mynews.model.most_popular.Result;
+import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NewYorkTimesAPI;
 
 import java.util.List;
@@ -49,7 +50,7 @@ public class MostPopularFragment extends Fragment {
         Retrofit retrofit = getRetrofit();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleMostPopular> call = newYorkTimesAPI.getMostPopular("yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleMostPopular> call = newYorkTimesAPI.getMostPopular(Constants.API_KEY);
 
         final ProgressDialog progressDialog;
         progressDialog = new ProgressDialog(getContext());

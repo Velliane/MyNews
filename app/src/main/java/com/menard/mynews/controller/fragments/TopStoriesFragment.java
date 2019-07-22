@@ -19,6 +19,7 @@ import com.menard.mynews.R;
 import com.menard.mynews.adapter.TopStoriesAdapter;
 import com.menard.mynews.model.top_stories.ArticleTopStories;
 import com.menard.mynews.model.top_stories.Result;
+import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NewYorkTimesAPI;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class TopStoriesFragment extends Fragment {
 
         Retrofit retrofit = getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("home", "yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("home", Constants.API_KEY);
 
         final ProgressDialog progressDialog;
         progressDialog = new ProgressDialog(getContext());

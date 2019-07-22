@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.menard.mynews.CategorySelector;
 import com.menard.mynews.R;
+import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.DateUtils;
 import com.menard.mynews.utils.SearchedRequest;
 
@@ -25,7 +26,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private Button mSearchButton;
     private TextView mBeginDate;
     private TextView mEndDate;
-    public CategorySelector mCategorySelector;
+    private CategorySelector mCategorySelector;
 
     String mTextSearched;
 
@@ -43,14 +44,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         mSearchText = findViewById(R.id.activity_search_edit_txt);
         mSearchButton = findViewById(R.id.activity_search_button);
-        mSearchButton.setClickable(false);
+        mSearchButton.setEnabled(false);
         mSearchButton.setOnClickListener(this);
 
-        mCategorySelector = new CategorySelector(this);
-        boolean boxChecked = mCategorySelector.isCheckButtonClicked;
-        if(boxChecked)
-            mSearchButton.setClickable(true);
+        //-- Category selection --
+        mCategorySelector = findViewById(R.id.activity_search_category_selection);
+        boolean boxChecked = mCategorySelector.atLeastOnBoxChecked();
+        if(boxChecked && mTextSearched!= null)
+            mSearchButton.setEnabled(true);
 
+        //-- Date selection --
         mBeginDate = findViewById(R.id.activity_search_spinner_begin_date);
         mBeginDate.setClickable(true);
         mBeginDate.setOnClickListener(this);
@@ -95,10 +98,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             String section = new SearchedRequest(mCategorySelector).getSectionSelected();
 
             Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
-            intent.putExtra("QUERY", mTextSearched);
-            intent.putExtra("SECTION", section);
-            intent.putExtra("BEGIN_DATE", DateUtils.parseRequestDate(mBeginDate.getText().toString()));
-            intent.putExtra("END_DATE", DateUtils.parseRequestDate(mEndDate.getText().toString()));
+            intent.putExtra(Constants.EXTRA_KEYWORD, mTextSearched);
+            intent.putExtra(Constants.EXTRA_SECTION, section);
+            intent.putExtra(Constants.EXTRA_BEGIN_DATE, DateUtils.parseRequestDate(mBeginDate.getText().toString()));
+            intent.putExtra(Constants.EXTRA_END_DATE, DateUtils.parseRequestDate(mEndDate.getText().toString()));
             startActivity(intent);
         }
     }

@@ -3,6 +3,7 @@ package com.menard.mynews.controller.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.work.Data;
 
+import com.menard.mynews.CategorySelector;
 import com.menard.mynews.R;
 import com.menard.mynews.adapter.SearchedAdapter;
 import com.menard.mynews.model.search.ArticleSearched;
@@ -22,6 +24,7 @@ import com.menard.mynews.model.search.Doc;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NewYorkTimesAPI;
 import com.menard.mynews.utils.NotififyWorker;
+import com.menard.mynews.utils.SearchedRequest;
 
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class NotificationActivity extends AppCompatActivity {
     public SharedPreferences mSharedPreferences;
     public EditText textSearched;
     public SharedPreferences.Editor editor;
+    private CategorySelector mCategorySelector;
 
 
 
@@ -57,6 +61,9 @@ public class NotificationActivity extends AppCompatActivity {
 
         mSwitch = findViewById(R.id.activity_notification_switch);
         textSearched = findViewById(R.id.activity_search_edit_txt);
+
+        mCategorySelector = findViewById(R.id.activity_notification_category);
+
 
 
         mSharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
@@ -102,10 +109,18 @@ public class NotificationActivity extends AppCompatActivity {
                 editor.apply();
             }
 
+            //-- If no category selected --
+            if(!mCategorySelector.atLeastOnBoxChecked()){
+                Toast.makeText(NotificationActivity.this, "At least one category must be selected", Toast.LENGTH_SHORT).show();
+                mSwitch.setChecked(false);
+            }
+
+            String section = new SearchedRequest(mCategorySelector).getSectionSelected();
             Data data = new Data.Builder().putString(Constants.EXTRA_TITLE, Constants.TITLE)
                     .putString(Constants.EXTRA_TEXT,Constants.TEXT)
                     .putInt(Constants.EXTRA_ID, 1)
-                    .putString("KEYWORD", textSearched.getText().toString())
+                    .putString(Constants.EXTRA_KEYWORD, textSearched.getText().toString())
+                    .putString(Constants.EXTRA_SECTION, section)
                     .build();
             NotififyWorker.scheduleReminder(data);
 

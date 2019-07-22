@@ -1,6 +1,7 @@
 package com.menard.mynews;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,18 +18,27 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
 
     public CategorySelector(Context context) {
         super(context);
+        initView();
+    }
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.category_selection, null);
-        //inflate(getContext(),R.layout.category_selection,this);
-        this.moviesChBox = view.findViewById(R.id.category_selection_movies);
-        this.moviesChBox.setOnClickListener(this);
-        this.scienceChBox = view.findViewById(R.id.category_selection_science);
-        this.scienceChBox.setOnClickListener(this);
-        this.travelChBox = view.findViewById(R.id.category_selection_travel);
-        this.travelChBox.setOnClickListener(this);
+    public CategorySelector(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
+        initView();
+    }
 
-        isCheckButtonClicked = false;
+    protected void initView(){
+            LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate( R.layout.category_selection, null);
+            addView(view);
+
+            moviesChBox = view.findViewById(R.id.category_selection_movies);
+            moviesChBox.setOnClickListener(this);
+            scienceChBox = view.findViewById(R.id.category_selection_science);
+            scienceChBox.setOnClickListener(this);
+            travelChBox = view.findViewById(R.id.category_selection_travel);
+            travelChBox.setOnClickListener(this);
+
+            isCheckButtonClicked = false;
     }
 
     @Override

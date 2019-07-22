@@ -14,6 +14,7 @@ import com.menard.mynews.R;
 import com.menard.mynews.adapter.SearchedAdapter;
 import com.menard.mynews.model.search.ArticleSearched;
 import com.menard.mynews.model.search.Doc;
+import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NewYorkTimesAPI;
 
 import java.util.List;
@@ -43,8 +44,10 @@ public class SearchedArticlesActivity extends AppCompatActivity {
 
         //-- Get extra from intent --
         Intent intent = getIntent();
-        String textSearched = intent.getStringExtra("QUERY");
-        String section = intent.getStringExtra("SECTION");
+        String keyword = intent.getStringExtra(Constants.EXTRA_KEYWORD);
+        String section = intent.getStringExtra(Constants.EXTRA_SECTION);
+        String beginDate = intent.getStringExtra(Constants.EXTRA_BEGIN_DATE);
+        String endDate = intent.getStringExtra(Constants.EXTRA_END_DATE);
 
 
         mListArticles = findViewById(R.id.activity_search_list_articles);
@@ -64,7 +67,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
                 .build();
 
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
-        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(textSearched, section, null, null,"yHD5uUtRQngsZLyVUwKbVKSxvEihrB0m");
+        Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, section, beginDate, endDate,Constants.API_KEY);
 
         call.enqueue(new Callback<ArticleSearched>() {
             @Override
