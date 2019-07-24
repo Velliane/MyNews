@@ -1,5 +1,7 @@
 package com.menard.mynews.utils;
 
+import androidx.annotation.Nullable;
+
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
@@ -28,7 +30,11 @@ public class DateUtils {
         return dateTime.format(humanDateTimeFormatter);
     }
 
-    public static String parseRequestDate(String date){
+    @Nullable
+    public static String parseRequestDate(@Nullable String date){
+        if(date == null || date.isEmpty()) {
+            return null;
+        }
         LocalDate localdate = LocalDate.parse(date, humanDateTimeFormatterTwo);
         return localdate.format(requestDateTimeFormatter);
     }

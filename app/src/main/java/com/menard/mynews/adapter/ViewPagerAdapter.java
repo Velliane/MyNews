@@ -1,5 +1,6 @@
 package com.menard.mynews.adapter;
 
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,6 +31,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return Category.values()[position].getName();
     }
+
 
     @Override
     public Fragment getItem(int position) {

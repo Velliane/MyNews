@@ -20,9 +20,8 @@ import androidx.work.WorkerParameters;
 import com.menard.mynews.R;
 import com.menard.mynews.controller.activities.NotificationActivity;
 import com.menard.mynews.model.search.ArticleSearched;
-import com.menard.mynews.model.search.Doc;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -82,29 +81,17 @@ public class NotififyWorker extends Worker {
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, section, null, null,Constants.API_KEY);
 
-        call.enqueue(new Callback<ArticleSearched>() {
-            @Override
-            public void onResponse(@NonNull Call<ArticleSearched> call, @NonNull Response<ArticleSearched> response) {
-
-                if (response.isSuccessful()) {
-                    ArticleSearched articleSearched = response.body();
-                    assert articleSearched != null;
-                    //List<Doc> mDocList = articleSearched.getResponse().getDocs();
-                    sendNotification(title, text, id);
-                }else {
-                    Log.e("TAG", "response not successful");
-                }
+        ArticleSearched response = null;
+        try {
+            response = call.execute().body();
+            sendNotification(title, text, id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<ArticleSearched> call,@NonNull Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-
+                 // TODO   Log.e("TAG", "response not successful");
 
 
         return Result.success();

@@ -62,7 +62,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
             imageURL = multimediumList.get(0).getUrl();
             Glide.with(mContext).load("https://static01.nyt.com/"+imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
         }else {
-            Glide.with(mContext).load(mContext.getResources().getIdentifier("no_image_available_64", "drawable", mContext.getPackageName())).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
+            Glide.with(mContext).load(R.drawable.no_image_available_64).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
         }
 
 

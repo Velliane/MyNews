@@ -44,14 +44,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         mSearchText = findViewById(R.id.activity_search_edit_txt);
         mSearchButton = findViewById(R.id.activity_search_button);
-        mSearchButton.setEnabled(false);
+        mSearchButton.setEnabled(true);
         mSearchButton.setOnClickListener(this);
 
         //-- Category selection --
         mCategorySelector = findViewById(R.id.activity_search_category_selection);
-        boolean boxChecked = mCategorySelector.atLeastOnBoxChecked();
-        if(boxChecked && mTextSearched!= null)
-            mSearchButton.setEnabled(true);
+        //boolean boxChecked = mCategorySelector.atLeastOnBoxChecked();
+        //if(boxChecked && mTextSearched!= null)
+          //  mSearchButton.setEnabled(true);
 
         //-- Date selection --
         mBeginDate = findViewById(R.id.activity_search_spinner_begin_date);

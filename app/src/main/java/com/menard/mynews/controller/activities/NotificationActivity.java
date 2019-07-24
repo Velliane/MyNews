@@ -1,49 +1,35 @@
 package com.menard.mynews.controller.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.work.Data;
 
 import com.menard.mynews.CategorySelector;
 import com.menard.mynews.R;
-import com.menard.mynews.adapter.SearchedAdapter;
-import com.menard.mynews.model.search.ArticleSearched;
-import com.menard.mynews.model.search.Doc;
 import com.menard.mynews.utils.Constants;
-import com.menard.mynews.utils.NewYorkTimesAPI;
 import com.menard.mynews.utils.NotififyWorker;
 import com.menard.mynews.utils.SearchedRequest;
-
-import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NotificationActivity extends AppCompatActivity {
 
 
-    Switch mSwitch;
-
+    /**
+     * Switch Button
+     */
+    private Switch mSwitch;
+    /** Shared Preferences */
     public SharedPreferences mSharedPreferences;
-    public EditText textSearched;
     public SharedPreferences.Editor editor;
+    /** EditText */
+    public EditText textSearched;
+    /** Category Selector */
     private CategorySelector mCategorySelector;
 
 
@@ -61,11 +47,9 @@ public class NotificationActivity extends AppCompatActivity {
 
         mSwitch = findViewById(R.id.activity_notification_switch);
         textSearched = findViewById(R.id.activity_search_edit_txt);
-
         mCategorySelector = findViewById(R.id.activity_notification_category);
 
-
-
+        //-- Get Shared Preferences --
         mSharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
         editor = mSharedPreferences.edit();
 
@@ -75,15 +59,14 @@ public class NotificationActivity extends AppCompatActivity {
             textSearched.setText(mSharedPreferences.getString(Constants.PREFS_KEYWORD, ""));
         }
 
-        //-- Save the input of the edittext in shared preferences --
-        editor.putString(Constants.PREFS_KEYWORD, textSearched.getText().toString());
-        editor.apply();
-
 
         //-- Enable or disable the notification by clicking on the switch button --
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //-- Save the input of the edittext in shared preferences --
+                editor.putString(Constants.PREFS_KEYWORD, textSearched.getText().toString());
+                editor.apply();
                 configureNotification(isChecked);
             }
 
@@ -93,7 +76,6 @@ public class NotificationActivity extends AppCompatActivity {
 
     /**
      * Configure the notification
-     *
      * @param isChecked state of the switch button
      */
     public void configureNotification(boolean isChecked) {
@@ -102,18 +84,13 @@ public class NotificationActivity extends AppCompatActivity {
             editor.apply();
 
             //-- If edit text si empty, unchecked the switch button --
-            if (textSearched.getText().toString().equals("")) {
-                Toast.makeText(NotificationActivity.this, "Input value must not be empty", Toast.LENGTH_SHORT).show();
+            if (textSearched.getText().toString().equals("") && !mCategorySelector.atLeastOnBoxChecked()) {
+                Toast.makeText(NotificationActivity.this, "Input value or category must not be empty", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
                 editor.putBoolean(Constants.PREFS_NOTIFICATION, false);
                 editor.apply();
             }
 
-            //-- If no category selected --
-            if(!mCategorySelector.atLeastOnBoxChecked()){
-                Toast.makeText(NotificationActivity.this, "At least one category must be selected", Toast.LENGTH_SHORT).show();
-                mSwitch.setChecked(false);
-            }
 
             String section = new SearchedRequest(mCategorySelector).getSectionSelected();
             Data data = new Data.Builder().putString(Constants.EXTRA_TITLE, Constants.TITLE)

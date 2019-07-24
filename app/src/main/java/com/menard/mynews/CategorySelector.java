@@ -27,15 +27,15 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
     }
 
     protected void initView(){
-            LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate( R.layout.category_selection, null);
-            addView(view);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            inflater.inflate( R.layout.category_selection, this, true);
 
-            moviesChBox = view.findViewById(R.id.category_selection_movies);
+
+            moviesChBox = findViewById(R.id.category_selection_movies);
             moviesChBox.setOnClickListener(this);
-            scienceChBox = view.findViewById(R.id.category_selection_science);
+            scienceChBox = findViewById(R.id.category_selection_science);
             scienceChBox.setOnClickListener(this);
-            travelChBox = view.findViewById(R.id.category_selection_travel);
+            travelChBox = findViewById(R.id.category_selection_travel);
             travelChBox.setOnClickListener(this);
 
             isCheckButtonClicked = false;
