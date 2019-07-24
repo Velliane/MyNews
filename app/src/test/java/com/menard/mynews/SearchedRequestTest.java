@@ -1,6 +1,8 @@
 package com.menard.mynews;
 
 import android.content.Context;
+
+import com.menard.mynews.controller.activities.SearchActivity;
 import com.menard.mynews.utils.SearchedRequest;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
@@ -11,7 +13,7 @@ public class SearchedRequestTest {
 
     @Test
     public void getThreeSectionSelected(){
-        CategorySelector categorySelector = new CategorySelector(mock(Context.class));
+        CategorySelector categorySelector = new CategorySelector(mock(SearchActivity.class));
         SearchedRequest searchedRequest = new SearchedRequest(categorySelector);
         categorySelector.travelChBox.isChecked();
         categorySelector.scienceChBox.isChecked();
@@ -24,7 +26,7 @@ public class SearchedRequestTest {
 
     @Test
     public void getTwoSectionSelected(){
-        CategorySelector categorySelector = new CategorySelector(mock(Context.class));
+        CategorySelector categorySelector = new CategorySelector(mock(SearchActivity.class));
         SearchedRequest searchedRequest = new SearchedRequest(categorySelector);
         categorySelector.travelChBox.isChecked();
         categorySelector.scienceChBox.isChecked();
@@ -36,7 +38,7 @@ public class SearchedRequestTest {
 
     @Test
     public void getOneSectionSelected(){
-        CategorySelector categorySelector = new CategorySelector(mock(Context.class));
+        CategorySelector categorySelector = new CategorySelector(mock(SearchActivity.class));
         SearchedRequest searchedRequest = new SearchedRequest(categorySelector);
         categorySelector.scienceChBox.isChecked();
 

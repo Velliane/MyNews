@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,16 +20,14 @@ import com.menard.mynews.model.most_popular.ArticleMostPopular;
 import com.menard.mynews.model.most_popular.Result;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NewYorkTimesAPI;
+import com.menard.mynews.utils.RetrofitService;
 
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MostPopularFragment extends Fragment {
 
@@ -45,10 +44,9 @@ public class MostPopularFragment extends Fragment {
 
         View result = inflater.inflate(R.layout.fragment_page, container, false);
         final RecyclerView list = result.findViewById(R.id.fragment_list);
+        final TextView textView = result.findViewById(R.id.fragment_txtview);
 
-
-        Retrofit retrofit = getRetrofit();
-
+        Retrofit retrofit = RetrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleMostPopular> call = newYorkTimesAPI.getMostPopular(Constants.API_KEY);
 
@@ -80,25 +78,13 @@ public class MostPopularFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ArticleMostPopular> call,@NonNull Throwable t) {
-                    t.printStackTrace();
+                t.printStackTrace();
+                //-- Show error message --
+                list.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
             }
         });
         return result;
     }
 
-    /**
-     * Configure Retrofit
-     * @return retrofit
-     */
-    private Retrofit getRetrofit(){
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-
-        return new Retrofit.Builder()
-                .baseUrl("http://api.nytimes.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }
 }

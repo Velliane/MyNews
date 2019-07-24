@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.menard.mynews.model.top_stories.ArticleTopStories;
 import com.menard.mynews.model.top_stories.Result;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NewYorkTimesAPI;
+import com.menard.mynews.utils.RetrofitService;
 
 import java.util.List;
 
@@ -44,10 +46,9 @@ public class MoviesFragment extends Fragment {
 
         View result = inflater.inflate(R.layout.fragment_page, container, false);
         final RecyclerView list = result.findViewById(R.id.fragment_list);
+        final TextView textView = result.findViewById(R.id.fragment_txtview);
 
-
-        Retrofit retrofit = getRetrofit();
-
+        Retrofit retrofit = RetrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("movies", Constants.API_KEY);
 
@@ -78,25 +79,13 @@ public class MoviesFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ArticleTopStories> call,@NonNull Throwable t) {
-
+                t.printStackTrace();
+                //-- Show error message --
+                list.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
             }
         });
         return result;
     }
 
-    /**
-     * Configure Retrofit
-     * @return retrofit
-     */
-    private Retrofit getRetrofit(){
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-
-        return new Retrofit.Builder()
-                .baseUrl("http://api.nytimes.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }
 }
