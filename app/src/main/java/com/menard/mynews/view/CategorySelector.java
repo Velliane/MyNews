@@ -11,12 +11,16 @@ import android.widget.Toast;
 
 import com.menard.mynews.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CategorySelector extends GridLayout implements View.OnClickListener {
 
     public CheckBox moviesChBox;
     public CheckBox scienceChBox;
     public CheckBox travelChBox;
     public boolean isCheckButtonClicked;
+    private List<CheckBox> checkBoxList;
 
     public CategorySelector(Context context) {
         super(context);
@@ -31,14 +35,17 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
     private void initView(){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             inflater.inflate( R.layout.category_selection, this, true);
-
+            checkBoxList = new ArrayList<>();
 
             moviesChBox = findViewById(R.id.category_selection_movies);
             moviesChBox.setOnClickListener(this);
+            checkBoxList.add(moviesChBox);
             scienceChBox = findViewById(R.id.category_selection_science);
             scienceChBox.setOnClickListener(this);
+            checkBoxList.add(scienceChBox);
             travelChBox = findViewById(R.id.category_selection_travel);
             travelChBox.setOnClickListener(this);
+            checkBoxList.add(travelChBox);
 
             isCheckButtonClicked = false;
     }
@@ -53,17 +60,19 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
     public void onClick(View v) {
         if(moviesChBox.isChecked())
             Toast.makeText(getContext(), "Movies",Toast.LENGTH_SHORT).show();
-         isCheckButtonClicked = true;
         if(scienceChBox.isChecked())
             Toast.makeText(getContext(), "Science", Toast.LENGTH_SHORT).show();
-         isCheckButtonClicked = true;
         if(travelChBox.isChecked())
             Toast.makeText(getContext(), "Travel", Toast.LENGTH_SHORT).show();
-            isCheckButtonClicked = true;
     }
 
 
     public boolean atLeastOnBoxChecked(){
-        return  isCheckButtonClicked;
+        boolean isCheckButtonClicked = false;
+        for(int i = 0; i< checkBoxList.size(); i++) {
+            if(checkBoxList.get(i).isChecked())
+                isCheckButtonClicked = true;
+        }
+        return isCheckButtonClicked;
     }
 }

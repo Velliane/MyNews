@@ -13,6 +13,7 @@
         <item name="colorPrimaryDark">@color/DarkBlue</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:actionOverflowButtonStyle">@style/ButtonOverflow</item>
+        <!--TODO change backArrow Color<item name="colorControlNormal">@color/white</item> -->
     </style>
 
     <style name="ButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">

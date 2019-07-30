@@ -2,12 +2,16 @@ package com.menard.mynews.controller.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,7 +24,7 @@ import com.menard.mynews.utils.SearchedRequest;
 
 import java.util.Calendar;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
     private EditText mSearchText;
     private Button mSearchButton;
@@ -44,17 +48,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSearchText = findViewById(R.id.activity_search_edit_txt);
+        mSearchText.addTextChangedListener(this);
         mSearchButton = findViewById(R.id.activity_search_button);
-        mSearchButton.setEnabled(true);
+        mSearchButton.setEnabled(false);
         mSearchButton.setOnClickListener(this);
 
         //-- Category selection --
         mCategorySelector = findViewById(R.id.activity_search_category_selection);
-        //boolean boxChecked = mCategorySelector.atLeastOnBoxChecked();
-        //if(boxChecked && mTextSearched!= null)
-          //  mSearchButton.setEnabled(true);
 
-        mSearchedRequest= new SearchedRequest(mCategorySelector);
+        mSearchedRequest = new SearchedRequest(mCategorySelector);
 
         //-- Date selection --
         mBeginDate = findViewById(R.id.activity_search_spinner_begin_date);
@@ -66,6 +68,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+
     @Override
     public void onClick(View v) {
         final Calendar calendar = Calendar.getInstance();
@@ -75,23 +78,28 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         //-- Select begin date --
         if(v == mBeginDate){
-            showDatePickerDialog(year, month, day);
+            showDatePickerDialog(mBeginDate, year, month, day);
         }
         //-- Select end date --
         if(v == mEndDate){
-            showDatePickerDialog(year, month, day);
+            showDatePickerDialog(mEndDate, year, month, day);
         }
         //-- Start SearchedArticlesActivity with filter --
         if(v == mSearchButton){
-            mTextSearched = mSearchText.getText().toString();
-            String section = mSearchedRequest.getSections(mSearchedRequest.getSectionSelected());
+            boolean boxChecked = mCategorySelector.atLeastOnBoxChecked();
+            if(!boxChecked){
+                Toast.makeText(this, "Select at least on category", Toast.LENGTH_SHORT).show();
+            }else {
+                mTextSearched = mSearchText.getText().toString();
+                String section = mSearchedRequest.getSections(mSearchedRequest.getSectionSelected());
 
-            Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
-            intent.putExtra(Constants.EXTRA_KEYWORD, mTextSearched);
-            intent.putExtra(Constants.EXTRA_SECTION, section);
-            intent.putExtra(Constants.EXTRA_BEGIN_DATE, DateUtils.parseRequestDate(mBeginDate.getText().toString()));
-            intent.putExtra(Constants.EXTRA_END_DATE, DateUtils.parseRequestDate(mEndDate.getText().toString()));
-            startActivity(intent);
+                Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
+                intent.putExtra(Constants.EXTRA_KEYWORD, mTextSearched);
+                intent.putExtra(Constants.EXTRA_SECTION, section);
+                intent.putExtra(Constants.EXTRA_BEGIN_DATE, DateUtils.parseRequestDate(mBeginDate.getText().toString()));
+                intent.putExtra(Constants.EXTRA_END_DATE, DateUtils.parseRequestDate(mEndDate.getText().toString()));
+                startActivity(intent);
+            }
         }
     }
 
@@ -108,14 +116,31 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
      * @param month the actual month
      * @param day the actual day
      */
-    private void showDatePickerDialog(int year, int month, int day){
+    private void showDatePickerDialog(final TextView textView, int year, int month, int day){
         DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String newDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                mBeginDate.setText(newDate);
+                textView.setText(newDate);
             }
         }, year, month, day);
         datePickerDialog.show();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if(!"".equals(mSearchText.getText().toString())){
+            mSearchButton.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }
