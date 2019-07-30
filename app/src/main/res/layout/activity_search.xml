@@ -73,7 +73,7 @@
     </RelativeLayout>
 
 
-    <com.menard.mynews.CategorySelector
+    <com.menard.mynews.view.CategorySelector
         android:id="@+id/activity_search_category_selection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

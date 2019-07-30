@@ -21,7 +21,7 @@
         android:layout_margin="20dp" />
 
 
-    <com.menard.mynews.CategorySelector
+    <com.menard.mynews.view.CategorySelector
         android:id="@+id/activity_notification_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

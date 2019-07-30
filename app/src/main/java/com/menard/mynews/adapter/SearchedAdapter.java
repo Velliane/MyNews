@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -16,6 +17,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.menard.mynews.BaseSQLite;
 import com.menard.mynews.R;
 import com.menard.mynews.model.search.Doc;
 import com.menard.mynews.model.search.Multimedium;
@@ -30,6 +32,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
 
     private List<Doc> mListResult;
     private Context mContext;
+    private BaseSQLite baseSQLite;
 
     public SearchedAdapter(List<Doc> listResult, Context context){
         mListResult = listResult;
@@ -49,12 +52,15 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
 
         Doc result = mListResult.get(position);
         String imageURL;
+        baseSQLite = new BaseSQLite(mContext);
 
         holder.title.setText(result.getSectionName());
         holder.description.setText(result.getAbstract());
-        // TODO change format of the date
 
         holder.date.setText(DateUtils.parseSearchedDate(result.getPubDate()));
+        if(baseSQLite.checkURL(result.getWebUrl())){
+            holder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.LightBlue));
+        }
 
         List<Multimedium> multimediumList = result.getMultimedia();
 
@@ -81,6 +87,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
         private final TextView title;
         private final TextView date;
         private final TextView description;
+        private final RelativeLayout relativeLayout;
 
         ArticlesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +95,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
             title = itemView.findViewById(R.id.article_title);
             date = itemView.findViewById(R.id.article_date);
             description = itemView.findViewById(R.id.article_description);
+            relativeLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,6 +119,9 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
 
             CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
                     Uri.parse(mListResult.get(itemPosition).getWebUrl()), new WebViewFallback());
+
+            baseSQLite.addNewURL(mListResult.get(itemPosition).getWebUrl());
+            notifyDataSetChanged();
         }
 
     }

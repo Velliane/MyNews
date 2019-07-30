@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.menard.mynews.CategorySelector;
+import com.menard.mynews.view.CategorySelector;
 import com.menard.mynews.R;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.DateUtils;
@@ -27,6 +27,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mBeginDate;
     private TextView mEndDate;
     private CategorySelector mCategorySelector;
+    private SearchedRequest mSearchedRequest;
 
     String mTextSearched;
 
@@ -53,6 +54,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         //if(boxChecked && mTextSearched!= null)
           //  mSearchButton.setEnabled(true);
 
+        mSearchedRequest= new SearchedRequest(mCategorySelector);
+
         //-- Date selection --
         mBeginDate = findViewById(R.id.activity_search_spinner_begin_date);
         mBeginDate.setClickable(true);
@@ -72,30 +75,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         //-- Select begin date --
         if(v == mBeginDate){
-            DatePickerDialog beginDatePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    String newDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                    mBeginDate.setText(newDate);
-                }
-            }, year, month, day);
-            beginDatePickerDialog.show();
+            showDatePickerDialog(year, month, day);
         }
         //-- Select end date --
         if(v == mEndDate){
-            DatePickerDialog endDatePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    String newDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                    mEndDate.setText(newDate);
-                }
-            }, year, month, day);
-            endDatePickerDialog.show();
+            showDatePickerDialog(year, month, day);
         }
         //-- Start SearchedArticlesActivity with filter --
         if(v == mSearchButton){
             mTextSearched = mSearchText.getText().toString();
-            String section = new SearchedRequest(mCategorySelector).getSectionSelected();
+            String section = mSearchedRequest.getSections(mSearchedRequest.getSectionSelected());
 
             Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
             intent.putExtra(Constants.EXTRA_KEYWORD, mTextSearched);
@@ -113,4 +102,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
+    /**
+     * Show DatePickerDialog
+     * @param year the actual year
+     * @param month the actual month
+     * @param day the actual day
+     */
+    private void showDatePickerDialog(int year, int month, int day){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String newDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                mBeginDate.setText(newDate);
+            }
+        }, year, month, day);
+        datePickerDialog.show();
+    }
 }

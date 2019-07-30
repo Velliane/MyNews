@@ -32,6 +32,9 @@ import retrofit2.Retrofit;
 public class MostPopularFragment extends Fragment {
 
 
+    private RecyclerView list;
+    private RetrofitService retrofitService = new RetrofitService();
+
     public MostPopularFragment(){}
 
     public static MostPopularFragment newInstance() {
@@ -43,10 +46,10 @@ public class MostPopularFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View result = inflater.inflate(R.layout.fragment_page, container, false);
-        final RecyclerView list = result.findViewById(R.id.fragment_list);
+        list = result.findViewById(R.id.fragment_list);
         final TextView textView = result.findViewById(R.id.fragment_txtview);
 
-        Retrofit retrofit = RetrofitService.getRetrofit();
+        Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleMostPopular> call = newYorkTimesAPI.getMostPopular(Constants.API_KEY);
 
@@ -64,11 +67,7 @@ public class MostPopularFragment extends Fragment {
                     ArticleMostPopular articleMostPopular = response.body();
                     assert articleMostPopular != null;
                     List<Result> articleList = articleMostPopular.getResults();
-
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    list.setLayoutManager(layoutManager);
-                    MostPopularAdapter adapter = new MostPopularAdapter(articleList, getContext());
-                    list.setAdapter(adapter);
+                    configureRecyclerView(articleList);
 
                     progressDialog.dismiss();
                 }else {
@@ -85,6 +84,17 @@ public class MostPopularFragment extends Fragment {
             }
         });
         return result;
+    }
+
+    /**
+     * Configure the RecyclerView
+     * @param articleList the list of Result
+     */
+    private void configureRecyclerView(List<Result> articleList){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        list.setLayoutManager(layoutManager);
+        MostPopularAdapter adapter = new MostPopularAdapter(articleList, getContext());
+        list.setAdapter(adapter);
     }
 
 }

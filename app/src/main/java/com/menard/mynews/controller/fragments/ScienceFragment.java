@@ -34,6 +34,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ScienceFragment extends Fragment {
 
+    /**
+     * Retrofit Service
+     */
+    private RetrofitService retrofitService = new RetrofitService();
 
     public ScienceFragment(){}
 
@@ -49,7 +53,7 @@ public class ScienceFragment extends Fragment {
         final RecyclerView list = result.findViewById(R.id.fragment_list);
         final TextView textView = result.findViewById(R.id.fragment_txtview);
 
-        Retrofit retrofit = RetrofitService.getRetrofit();
+        Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("science", Constants.API_KEY);
 

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.work.Data;
 
-import com.menard.mynews.CategorySelector;
+import com.menard.mynews.view.CategorySelector;
 import com.menard.mynews.R;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NotififyWorker;
@@ -31,6 +31,7 @@ public class NotificationActivity extends AppCompatActivity {
     public EditText textSearched;
     /** Category Selector */
     private CategorySelector mCategorySelector;
+    private SearchedRequest mSearchedRequest;
 
 
 
@@ -49,6 +50,7 @@ public class NotificationActivity extends AppCompatActivity {
         textSearched = findViewById(R.id.activity_search_edit_txt);
         mCategorySelector = findViewById(R.id.activity_notification_category);
 
+        mSearchedRequest = new SearchedRequest(mCategorySelector);
         //-- Get Shared Preferences --
         mSharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
         editor = mSharedPreferences.edit();
@@ -92,7 +94,7 @@ public class NotificationActivity extends AppCompatActivity {
             }
 
 
-            String section = new SearchedRequest(mCategorySelector).getSectionSelected();
+            String section = mSearchedRequest.getSections(mSearchedRequest.getSectionSelected());
             Data data = new Data.Builder().putString(Constants.EXTRA_TITLE, Constants.TITLE)
                     .putString(Constants.EXTRA_TEXT,Constants.TEXT)
                     .putInt(Constants.EXTRA_ID, 1)
@@ -101,6 +103,7 @@ public class NotificationActivity extends AppCompatActivity {
                     .build();
             NotififyWorker.scheduleReminder(data);
 
+            Toast.makeText(this, "Notification are enabled", Toast.LENGTH_SHORT).show();
 
         } else {
             NotififyWorker.cancelReminder();
@@ -110,7 +113,11 @@ public class NotificationActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
 
 }

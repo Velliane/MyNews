@@ -1,25 +1,34 @@
 package com.menard.mynews.utils;
 
-import com.menard.mynews.CategorySelector;
+import com.menard.mynews.view.CategorySelector;
 
 public class SearchedRequest {
 
 
     private CategorySelector mCategorySelector;
 
-
     public SearchedRequest(CategorySelector categorySelector) {
         mCategorySelector = categorySelector;
     }
 
+   public SearchedRequest makeSearchRequest(CategorySelector categorySelector){
+        return new SearchedRequest(categorySelector);
+    }
 
     /**
      * Return the string of section selected
      * @return a string
      */
-    public String getSectionSelected(){
-        String section = "news_desk:(";
+    public String getSections(String sectionSelected){
+        String sections = "news_desk:(";
+        sections += sectionSelected;
+        sections += ")";
+        return sections;
 
+    }
+
+    public String getSectionSelected(){
+        String section ="";
         if(mCategorySelector.moviesChBox.isChecked()){
             section += " \"Movies\"";
         }
@@ -29,9 +38,7 @@ public class SearchedRequest {
         if(mCategorySelector.travelChBox.isChecked()){
             section += " \"Travel\"";
         }
-        section += ")";
         return section;
-
     }
 
 }

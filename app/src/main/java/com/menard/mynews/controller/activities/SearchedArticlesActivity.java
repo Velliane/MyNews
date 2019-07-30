@@ -1,11 +1,11 @@
 package com.menard.mynews.controller.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,20 +17,19 @@ import com.menard.mynews.model.search.ArticleSearched;
 import com.menard.mynews.model.search.Doc;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NewYorkTimesAPI;
+import com.menard.mynews.utils.RetrofitService;
 
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchedArticlesActivity extends AppCompatActivity {
 
     private RecyclerView mListArticles;
+    private RetrofitService retrofitService = new RetrofitService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +52,8 @@ public class SearchedArticlesActivity extends AppCompatActivity {
 
         mListArticles = findViewById(R.id.activity_search_list_articles);
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        // add logging as last interceptor
-        httpClient.addInterceptor(logging);
-
         //-- Get list of articles --
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.nytimes.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-
+        Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, section, beginDate, endDate,Constants.API_KEY);
 
@@ -84,7 +71,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
                     SearchedAdapter adapter = new SearchedAdapter(articleList, SearchedArticlesActivity.this);
                     mListArticles.setAdapter(adapter);
                 }else {
-                    Log.e("TAG", "response not successful");
+                    showAlertDialog();
                 }
             }
 
@@ -100,6 +87,20 @@ public class SearchedArticlesActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    /**
+     * Show an alertDialog in case of there's no articles available
+     */
+    public void showAlertDialog(){
+        new AlertDialog.Builder(getApplicationContext()).setTitle("No articles find")
+                .setMessage("There is no articles available for your research")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onBackPressed();
+                    }
+                }).show();
     }
 
 

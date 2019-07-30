@@ -1,4 +1,4 @@
-package com.menard.mynews;
+package com.menard.mynews.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
 import android.widget.Toast;
+
+import com.menard.mynews.R;
 
 public class CategorySelector extends GridLayout implements View.OnClickListener {
 

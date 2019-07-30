@@ -15,21 +15,41 @@ public class DateUtils {
     private static DateTimeFormatter humanDateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
     private static DateTimeFormatter humanDateTimeFormatterTwo = DateTimeFormatter.ofPattern("d/M/y");
 
+    /**
+     * Change the format of the date from SearchedArticles
+     * @param date the date to parse
+     * @return the date parsed
+     */
     public static String parseSearchedDate(String date){
         LocalDateTime dateTime = LocalDateTime.parse(date, searchedDateTimeFormatter);
         return dateTime.format(humanDateTimeFormatter);
     }
 
+    /**
+     * Change the format of the date from TopStories
+     * @param date the date to parse
+     * @return the date parsed
+     */
     public static String parseZonedDate (String date){
         OffsetDateTime offsetDateTime = OffsetDateTime.parse(date);
         return offsetDateTime.format(humanDateTimeFormatter);
     }
 
+    /**
+     * Change the format of the date from MostPopular
+     * @param date the date to parse
+     * @return the date parsed
+     */
     public static String parseMostPopularDate (String date){
         LocalDate dateTime = LocalDate.parse(date, mostpopularDateTimeFormatter);
         return dateTime.format(humanDateTimeFormatter);
     }
 
+    /**
+     * Change the format of the date from the DatePickerDialog
+     * @param date the date to parse
+     * @return the date parsed
+     */
     @Nullable
     public static String parseRequestDate(@Nullable String date){
         if(date == null || date.isEmpty()) {

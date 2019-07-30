@@ -46,18 +46,6 @@ public class Result {
     @SerializedName("views")
     @Expose
     private Integer views;
-//    @SerializedName("des_facet")
-//    @Expose
-//    private List<String> desFacet = null;
-//    @SerializedName("org_facet")
-//    @Expose
-//    private List<String> orgFacet = null;
-    //@SerializedName("per_facet")
-    //@Expose
-    //private List<String> perFacet;
-    //@SerializedName("geo_facet")
-    //@Expose
-    //private List<String> geoFacet;
     @SerializedName("media")
     @Expose
     private List<Medium> media = null;
@@ -168,38 +156,6 @@ public class Result {
     public void setViews(Integer views) {
         this.views = views;
     }
-
-//    public List<String> getDesFacet() {
-//        return desFacet;
-//    }
-//
-//    public void setDesFacet(List<String> desFacet) {
-//        this.desFacet = desFacet;
-//    }
-
-//    public List<String> getOrgFacet() {
-//        return orgFacet;
-//    }
-//
-//    public void setOrgFacet(List<String> orgFacet) {
-//        this.orgFacet = orgFacet;
-//    }
-
-//    public List<String> getPerFacet() {
-//        return perFacet;
-//    }
-//
-//    public void setPerFacet(List<String> perFacet) {
-//        this.perFacet = perFacet;
-//    }
-//
-//    public List<String> getGeoFacet() {
-//        return geoFacet;
-//    }
-//
-//    public void setGeoFacet(List<String> geoFacet) {
-//        this.geoFacet = geoFacet;
-//    }
 
     public List<Medium> getMedia() {
         return media;

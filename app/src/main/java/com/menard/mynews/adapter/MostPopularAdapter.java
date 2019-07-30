@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.menard.mynews.BaseSQLite;
 import com.menard.mynews.R;
 import com.menard.mynews.model.most_popular.MediaMetadatum;
 import com.menard.mynews.model.most_popular.Result;
@@ -31,6 +33,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
     private List<Result> listResult;
     private Context mContext;
+    private BaseSQLite baseSQLite;
 
     public MostPopularAdapter(List<Result> list, Context context){
         listResult = list;
@@ -50,12 +53,17 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
         Result result = listResult.get(position);
         String imageURL;
+        baseSQLite = new BaseSQLite(mContext);
 
         articlesViewHolder.title.setText(result.getSection());
         articlesViewHolder.description.setText(result.getTitle());
 
         // Change format of the date
         articlesViewHolder.date.setText(DateUtils.parseMostPopularDate(result.getPublishedDate()));
+
+        if(baseSQLite.checkURL(result.getUrl())){
+            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bleue_grey));
+        }
 
         //-- Get the first image in the list of multimedia --
         List<MediaMetadatum> mediaMetadatumList = result.getMedia().get(0).getMediaMetadata();
@@ -82,14 +90,16 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         private final TextView title;
         private final TextView date;
         private final TextView description;
+        private final RelativeLayout relativeLayout;
 
-        ArticlesViewHolder(@NonNull View itemView){
+        ArticlesViewHolder(@NonNull final View itemView){
 
             super(itemView);
             imageView = itemView.findViewById(R.id.article_image);
             title = itemView.findViewById(R.id.article_title);
             date = itemView.findViewById(R.id.article_date);
             description = itemView.findViewById(R.id.article_description);
+            relativeLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,8 +113,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
          * Open CustomTabs
          */
         private void openCustomTabs(){
-            int itemPosition = getAdapterPosition();
-
+            final int itemPosition = getAdapterPosition();
             CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
                     .setToolbarColor(mContext.getResources().getColor(R.color.colorPrimary))
                     .setShowTitle(true)
@@ -113,6 +122,9 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
             CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
                     Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
+
+            baseSQLite.addNewURL(listResult.get(itemPosition).getUrl());
+            notifyDataSetChanged();
         }
 
     }

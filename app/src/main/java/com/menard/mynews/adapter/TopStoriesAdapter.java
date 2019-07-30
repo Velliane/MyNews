@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.menard.mynews.BaseSQLite;
 import com.menard.mynews.R;
 import com.menard.mynews.model.top_stories.Result;
 import com.menard.mynews.utils.DateUtils;
@@ -30,6 +33,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
     private List<Result> listResult;
     private Context mContext;
+    private BaseSQLite mBaseSQLite;
 
     public TopStoriesAdapter(List<Result> list, Context context){
         listResult = list;
@@ -50,6 +54,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
         Result result = listResult.get(position);
         String imageURL = "";
+        mBaseSQLite = new BaseSQLite(mContext);
 
         articlesViewHolder.title.setText(result.getSection());
         articlesViewHolder.description.setText(result.getTitle());
@@ -57,6 +62,9 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         //-- Change the format of the date --
         articlesViewHolder.date.setText(DateUtils.parseZonedDate(result.getUpdatedDate()));
 
+        if(mBaseSQLite.checkURL(result.getUrl())){
+            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bleue_grey));
+        }
 
         //-- Get the first image in the list of multimedia --
         if(result.getMultimedia().size() >= 1) {
@@ -75,7 +83,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 20;
     }
 
     class ArticlesViewHolder extends RecyclerView.ViewHolder{
@@ -84,6 +92,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         private final TextView title;
         private final TextView date;
         private final TextView description;
+        private final RelativeLayout relativeLayout;
 
         ArticlesViewHolder(@NonNull final View itemView){
 
@@ -92,6 +101,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
             title = itemView.findViewById(R.id.article_title);
             date = itemView.findViewById(R.id.article_date);
             description = itemView.findViewById(R.id.article_description);
+            relativeLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,6 +125,8 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
             CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
                     Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
+            mBaseSQLite.addNewURL(listResult.get(itemPosition).getUrl());
+            notifyDataSetChanged();
         }
 
     }
