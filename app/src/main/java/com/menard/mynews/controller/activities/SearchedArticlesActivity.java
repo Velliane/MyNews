@@ -93,7 +93,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
      * Show an alertDialog in case of there's no articles available
      */
     public void showAlertDialog(){
-        new AlertDialog.Builder(getApplicationContext()).setTitle("No articles find")
+        new AlertDialog.Builder(this).setTitle("No articles find")
                 .setMessage("There is no articles available for your research")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override

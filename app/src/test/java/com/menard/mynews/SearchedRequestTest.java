@@ -16,6 +16,7 @@ public class SearchedRequestTest {
 
     @Test
     public void getThreeSectionSelected(){
+        searchedRequest = new SearchedRequest(mCategorySelector);
         String sectionSelected = "\"Travel\"\"Science\"\"Movies\"";
 
         //when(searchedRequest.getSectionSelected()).thenReturn();

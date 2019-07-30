@@ -28,7 +28,7 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
         initView();
     }
 
-    protected void initView(){
+    private void initView(){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             inflater.inflate( R.layout.category_selection, this, true);
 

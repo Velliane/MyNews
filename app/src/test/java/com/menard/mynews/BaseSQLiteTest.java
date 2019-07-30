@@ -1,7 +1,5 @@
 package com.menard.mynews;
 
-import android.content.Context;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -15,19 +13,14 @@ import static org.mockito.Mockito.when;
 
 public class BaseSQLiteTest {
 
-    private BaseSQLite mBaseSQLite;
-
-    @Before
-    public void createDB(){
-    Context context = ;
-    }
+    private BaseSQLite mBaseSQLite = Mockito.mock(BaseSQLite.class);
 
     @Test
     public void checkIfURLExist(){
         String url = "https://www.nytimes.com/";
 
         //mBaseSQLite.addNewURL(url);
-        Mockito.doNothing().when(mBaseSQLite).addNewURL(url);
+        doNothing().when(mBaseSQLite).addNewURL(url);
 
         assertTrue( mBaseSQLite.checkURL(url));
     }

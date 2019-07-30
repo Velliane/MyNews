@@ -11,9 +11,9 @@ public class SearchedRequest {
         mCategorySelector = categorySelector;
     }
 
-   public SearchedRequest makeSearchRequest(CategorySelector categorySelector){
-        return new SearchedRequest(categorySelector);
-    }
+    //public SearchedRequest makeSearchRequest(CategorySelector categorySelector){
+      //  return new SearchedRequest(categorySelector);
+    //}
 
     /**
      * Return the string of section selected
