@@ -24,20 +24,17 @@ import com.menard.mynews.utils.RetrofitService;
 
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ScienceFragment extends Fragment {
 
     /**
      * Retrofit Service
      */
-    private RetrofitService retrofitService = new RetrofitService();
+    private final RetrofitService retrofitService = new RetrofitService();
 
     public ScienceFragment(){}
 

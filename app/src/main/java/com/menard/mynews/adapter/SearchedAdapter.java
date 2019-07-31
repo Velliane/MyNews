@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,8 +29,8 @@ import saschpe.android.customtabs.WebViewFallback;
 
 public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.ArticlesViewHolder> {
 
-    private List<Doc> mListResult;
-    private Context mContext;
+    private final List<Doc> mListResult;
+    private final Context mContext;
     private BaseSQLite baseSQLite;
 
     public SearchedAdapter(List<Doc> listResult, Context context){
@@ -54,8 +53,8 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
         String imageURL;
         baseSQLite = new BaseSQLite(mContext);
 
-        holder.title.setText(result.getSectionName());
-        holder.description.setText(result.getAbstract());
+        holder.section.setText(result.getSectionName());
+        holder.title.setText(result.getAbstract());
 
         holder.date.setText(DateUtils.parseSearchedDate(result.getPubDate()));
         if(baseSQLite.checkURL(result.getWebUrl())){
@@ -84,17 +83,17 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
     class ArticlesViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView imageView;
-        private final TextView title;
+        private final TextView section;
         private final TextView date;
-        private final TextView description;
+        private final TextView title;
         private final RelativeLayout relativeLayout;
 
         ArticlesViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.article_image);
-            title = itemView.findViewById(R.id.article_title);
+            section = itemView.findViewById(R.id.article_section);
             date = itemView.findViewById(R.id.article_date);
-            description = itemView.findViewById(R.id.article_description);
+            title = itemView.findViewById(R.id.article_title);
             relativeLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {

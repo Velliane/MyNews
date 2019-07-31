@@ -18,18 +18,20 @@
         android:hint="@string/search_hint_edit_txt"
         android:layout_margin="20dp" />
 
-    <RelativeLayout
+    <GridLayout
         android:id="@+id/activity_search_date_selection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:columnCount="2"
         android:layout_below="@+id/activity_search_edit_txt">
 
         <LinearLayout
             android:id="@+id/activity_search_begin_date_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -50,8 +52,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/activity_search_begin_date_layout"
-            android:layout_margin="20dp"
+
             android:orientation="vertical">
 
 
@@ -59,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
-                android:paddingEnd="80dp"
+                android:paddingEnd="90dp"
                 android:text="@string/search_end_date" />
 
             <TextView
@@ -70,7 +71,7 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </GridLayout>
 
 
     <com.menard.mynews.view.CategorySelector

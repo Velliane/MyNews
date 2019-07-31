@@ -20,6 +20,7 @@ import com.menard.mynews.utils.NewYorkTimesAPI;
 import com.menard.mynews.utils.RetrofitService;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +30,7 @@ import retrofit2.Retrofit;
 public class SearchedArticlesActivity extends AppCompatActivity {
 
     private RecyclerView mListArticles;
-    private RetrofitService retrofitService = new RetrofitService();
+    private final RetrofitService retrofitService = new RetrofitService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Search Articles");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         //-- Get extra from intent --
         Intent intent = getIntent();

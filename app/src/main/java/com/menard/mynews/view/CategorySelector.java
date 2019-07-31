@@ -4,17 +4,15 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
-import android.widget.Toast;
 
 import com.menard.mynews.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategorySelector extends GridLayout implements View.OnClickListener {
+public class CategorySelector extends GridLayout {
 
     public CheckBox moviesChBox;
     public CheckBox scienceChBox;
@@ -34,17 +32,17 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
 
     private void initView(){
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            inflater.inflate( R.layout.category_selection, this, true);
+            inflater.inflate(R.layout.category_selection, this, true);
             checkBoxList = new ArrayList<>();
 
             moviesChBox = findViewById(R.id.category_selection_movies);
-            moviesChBox.setOnClickListener(this);
+            //moviesChBox.setOnClickListener(this);
             checkBoxList.add(moviesChBox);
             scienceChBox = findViewById(R.id.category_selection_science);
-            scienceChBox.setOnClickListener(this);
+            //scienceChBox.setOnClickListener(this);
             checkBoxList.add(scienceChBox);
             travelChBox = findViewById(R.id.category_selection_travel);
-            travelChBox.setOnClickListener(this);
+            //travelChBox.setOnClickListener(this);
             checkBoxList.add(travelChBox);
 
             isCheckButtonClicked = false;
@@ -56,15 +54,15 @@ public class CategorySelector extends GridLayout implements View.OnClickListener
     }
 
 
-    @Override
-    public void onClick(View v) {
-        if(moviesChBox.isChecked())
-            Toast.makeText(getContext(), "Movies",Toast.LENGTH_SHORT).show();
-        if(scienceChBox.isChecked())
-            Toast.makeText(getContext(), "Science", Toast.LENGTH_SHORT).show();
-        if(travelChBox.isChecked())
-            Toast.makeText(getContext(), "Travel", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if(moviesChBox.isChecked())
+//            Toast.makeText(getContext(), "Movies",Toast.LENGTH_SHORT).show();
+//        if(scienceChBox.isChecked())
+//            Toast.makeText(getContext(), "Science", Toast.LENGTH_SHORT).show();
+//        if(travelChBox.isChecked())
+//            Toast.makeText(getContext(), "Travel", Toast.LENGTH_SHORT).show();
+//    }
 
 
     public boolean atLeastOnBoxChecked(){

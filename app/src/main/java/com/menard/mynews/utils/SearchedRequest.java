@@ -5,7 +5,7 @@ import com.menard.mynews.view.CategorySelector;
 public class SearchedRequest {
 
 
-    private CategorySelector mCategorySelector;
+    private final CategorySelector mCategorySelector;
 
     public SearchedRequest(CategorySelector categorySelector) {
         mCategorySelector = categorySelector;
@@ -16,7 +16,7 @@ public class SearchedRequest {
     //}
 
     /**
-     * Return the string of section selected
+     * Return the string for the request
      * @return a string
      */
     public String getSections(String sectionSelected){
@@ -27,16 +27,20 @@ public class SearchedRequest {
 
     }
 
+    /**
+     * Return a string with all sections selected
+     * @return a string
+     */
     public String getSectionSelected(){
         String section ="";
         if(mCategorySelector.moviesChBox.isChecked()){
-            section += " \"Movies\"";
+            section += "\"Movies\"";
         }
         if(mCategorySelector.scienceChBox.isChecked()){
-            section += " \"Science\"";
+            section += "\"Science\"";
         }
         if(mCategorySelector.travelChBox.isChecked()){
-            section += " \"Travel\"";
+            section += "\"Travel\"";
         }
         return section;
     }

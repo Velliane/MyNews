@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 public class BaseSQLite extends SQLiteOpenHelper {
 
-    private static final String NAME_DATEBASE = "mynews.db";
+    private static final String NAME_DATABASE = "mynews.db";
     private static final int VERSION_DATABASE = 1;
 
     private static final String TABLE_ALREADY_READ_ARTICLES = "table_already_read_articles";
@@ -26,7 +26,7 @@ public class BaseSQLite extends SQLiteOpenHelper {
 
 
     public BaseSQLite(@Nullable Context context) {
-        super(context, NAME_DATEBASE, null, VERSION_DATABASE);
+        super(context, NAME_DATABASE, null, VERSION_DATABASE);
     }
 
 

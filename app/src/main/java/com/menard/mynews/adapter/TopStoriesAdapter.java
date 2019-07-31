@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,8 +30,8 @@ import saschpe.android.customtabs.WebViewFallback;
 
 public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ArticlesViewHolder>{
 
-    private List<Result> listResult;
-    private Context mContext;
+    private final List<Result> listResult;
+    private final Context mContext;
     private BaseSQLite mBaseSQLite;
 
     public TopStoriesAdapter(List<Result> list, Context context){
@@ -63,7 +62,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         articlesViewHolder.date.setText(DateUtils.parseZonedDate(result.getUpdatedDate()));
 
         if(mBaseSQLite.checkURL(result.getUrl())){
-            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bleue_grey));
+            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
         }
 
         //-- Get the first image in the list of multimedia --
@@ -98,9 +97,9 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
             super(itemView);
             imageView = itemView.findViewById(R.id.article_image);
-            title = itemView.findViewById(R.id.article_title);
+            title = itemView.findViewById(R.id.article_section);
             date = itemView.findViewById(R.id.article_date);
-            description = itemView.findViewById(R.id.article_description);
+            description = itemView.findViewById(R.id.article_title);
             relativeLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -2,7 +2,6 @@ package com.menard.mynews.controller.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,16 +22,23 @@ import com.menard.mynews.utils.DateUtils;
 import com.menard.mynews.utils.SearchedRequest;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
+    /** Edit Text */
     private EditText mSearchText;
+    /** Button Search*/
     private Button mSearchButton;
+    /** Text View BeginDate */
     private TextView mBeginDate;
+    /** Text View EndDate */
     private TextView mEndDate;
+    /** Category Selector */
     private CategorySelector mCategorySelector;
+    /** Searched Request */
     private SearchedRequest mSearchedRequest;
-
+    /** Keyword */
     String mTextSearched;
 
 
@@ -45,7 +51,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Search Articles");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         mSearchText = findViewById(R.id.activity_search_edit_txt);
         mSearchText.addTextChangedListener(this);
@@ -112,6 +118,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      * Show DatePickerDialog
+     * @param textView the text view clicked
      * @param year the actual year
      * @param month the actual month
      * @param day the actual day

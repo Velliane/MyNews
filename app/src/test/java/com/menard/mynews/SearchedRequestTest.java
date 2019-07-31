@@ -3,6 +3,7 @@ package com.menard.mynews;
 import com.menard.mynews.utils.SearchedRequest;
 import com.menard.mynews.view.CategorySelector;
 
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -10,16 +11,14 @@ import static org.junit.Assert.assertEquals;
 
 public class SearchedRequestTest {
 
-    private SearchedRequest searchedRequest = Mockito.spy(SearchedRequest.class);
-    private CategorySelector mCategorySelector = Mockito.spy(CategorySelector.class);
 
+    private final CategorySelector mCategorySelectorMocked = Mockito.mock(CategorySelector.class);
+    private final SearchedRequest searchedRequest = new SearchedRequest(mCategorySelectorMocked);
 
     @Test
     public void getThreeSectionSelected(){
-        searchedRequest = new SearchedRequest(mCategorySelector);
         String sectionSelected = "\"Travel\"\"Science\"\"Movies\"";
-
-        //when(searchedRequest.getSectionSelected()).thenReturn();
+        
         String selection = searchedRequest.getSections(sectionSelected);
 
         assertEquals("news_desk:(\"Travel\"\"Science\"\"Movies\")", selection);
@@ -36,7 +35,7 @@ public class SearchedRequestTest {
 
     @Test
     public void getOneSectionSelected(){
-        String sectionSelected = "\\\"Science\\\"";
+        String sectionSelected = "\"Science\"";
 
         String selection = searchedRequest.getSections(sectionSelected);
 

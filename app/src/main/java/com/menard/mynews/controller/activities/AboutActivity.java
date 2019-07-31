@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.menard.mynews.R;
 
+import java.util.Objects;
+
 public class AboutActivity extends AppCompatActivity {
 
     @Override
@@ -18,7 +20,7 @@ public class AboutActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("About");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
 }

@@ -2,19 +2,17 @@ package com.menard.mynews.controller.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.menard.mynews.R;
 import com.menard.mynews.adapter.TopStoriesAdapter;
@@ -26,20 +24,17 @@ import com.menard.mynews.utils.RetrofitService;
 
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TopStoriesFragment extends Fragment {
 
     /**
      * Retrofit Service
      */
-    private RetrofitService retrofitService = new RetrofitService();
+    private final RetrofitService retrofitService = new RetrofitService();
 
 
     public TopStoriesFragment() {

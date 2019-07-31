@@ -33,7 +33,7 @@ public class MostPopularFragment extends Fragment {
 
 
     private RecyclerView list;
-    private RetrofitService retrofitService = new RetrofitService();
+    private final RetrofitService retrofitService = new RetrofitService();
 
     public MostPopularFragment(){}
 

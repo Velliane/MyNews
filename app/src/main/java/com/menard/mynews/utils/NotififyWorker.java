@@ -33,7 +33,7 @@ import retrofit2.Retrofit;
 public class NotififyWorker extends Worker {
 
     private List<Doc> articleList;
-    private RetrofitService retrofitService = new RetrofitService();
+    private final RetrofitService retrofitService = new RetrofitService();
 
     public NotififyWorker (@NonNull Context context, @NonNull WorkerParameters parameters){
         super(context, parameters);

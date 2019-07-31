@@ -2,22 +2,23 @@ package com.menard.mynews;
 
 import android.widget.CheckBox;
 
+import androidx.test.platform.app.InstrumentationRegistry;
+
 import com.menard.mynews.view.CategorySelector;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.mockito.Mockito.when;
 
 public class CategorySelectorTest {
 
-    private CategorySelector mCategorySelector = Mockito.mock(CategorySelector.class);
-    private CheckBox mCheckBox = Mockito.mock(CheckBox.class);
+    private CategorySelector mCategorySelector = new CategorySelector(InstrumentationRegistry.getInstrumentation().getContext());
+    private CheckBox mCheckBoxScience;
+
 
     @Test
     public void atLeastOnBoxCheckedReturnTrue(){
-        when(mCheckBox.isChecked()).thenReturn(true);
+        mCheckBoxScience.isChecked();
 
         assertTrue(mCategorySelector.atLeastOnBoxChecked());
     }
