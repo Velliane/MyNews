@@ -63,6 +63,8 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
         if(mBaseSQLite.checkURL(result.getUrl())){
             articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
+        }else {
+            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
 
         //-- Get the first image in the list of multimedia --

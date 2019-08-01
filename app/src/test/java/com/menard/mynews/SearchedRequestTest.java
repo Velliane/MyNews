@@ -1,19 +1,14 @@
 package com.menard.mynews;
 
 import com.menard.mynews.utils.SearchedRequest;
-import com.menard.mynews.view.CategorySelector;
-
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 
 public class SearchedRequestTest {
 
-
-    private final CategorySelector mCategorySelectorMocked = Mockito.mock(CategorySelector.class);
-    private final SearchedRequest searchedRequest = new SearchedRequest(mCategorySelectorMocked);
+    private final SearchedRequest searchedRequest = new SearchedRequest();
 
     @Test
     public void getThreeSectionSelected(){

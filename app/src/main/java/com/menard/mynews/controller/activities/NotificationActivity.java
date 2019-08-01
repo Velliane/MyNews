@@ -50,7 +50,7 @@ public class NotificationActivity extends AppCompatActivity {
         textSearched = findViewById(R.id.activity_search_edit_txt);
         mCategorySelector = findViewById(R.id.activity_notification_category);
 
-        mSearchedRequest = new SearchedRequest(mCategorySelector);
+        mSearchedRequest = new SearchedRequest();
         //-- Get Shared Preferences --
         mSharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
         editor = mSharedPreferences.edit();
@@ -94,7 +94,7 @@ public class NotificationActivity extends AppCompatActivity {
             }
 
 
-            String section = mSearchedRequest.getSections(mSearchedRequest.getSectionSelected());
+            String section = mSearchedRequest.getSections(mCategorySelector.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
             Data data = new Data.Builder().putString(Constants.EXTRA_TITLE, Constants.TITLE)
                     .putString(Constants.EXTRA_TEXT,Constants.TEXT)
                     .putInt(Constants.EXTRA_ID, 1)

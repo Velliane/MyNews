@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         //-- Category selection --
         mCategorySelector = findViewById(R.id.activity_search_category_selection);
 
-        mSearchedRequest = new SearchedRequest(mCategorySelector);
+        mSearchedRequest = new SearchedRequest();
 
         //-- Date selection --
         mBeginDate = findViewById(R.id.activity_search_spinner_begin_date);
@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this, "Select at least on category", Toast.LENGTH_SHORT).show();
             }else {
                 mTextSearched = mSearchText.getText().toString();
-                String section = mSearchedRequest.getSections(mSearchedRequest.getSectionSelected());
+                String section = mSearchedRequest.getSections(mCategorySelector.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
 
                 Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
                 intent.putExtra(Constants.EXTRA_KEYWORD, mTextSearched);

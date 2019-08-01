@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
 
@@ -36,14 +37,14 @@ public class CategorySelector extends GridLayout {
             checkBoxList = new ArrayList<>();
 
             moviesChBox = findViewById(R.id.category_selection_movies);
-            //moviesChBox.setOnClickListener(this);
             checkBoxList.add(moviesChBox);
+            moviesChBox.setTag("Movies");
             scienceChBox = findViewById(R.id.category_selection_science);
-            //scienceChBox.setOnClickListener(this);
             checkBoxList.add(scienceChBox);
+            scienceChBox.setTag("Science");
             travelChBox = findViewById(R.id.category_selection_travel);
-            //travelChBox.setOnClickListener(this);
             checkBoxList.add(travelChBox);
+            travelChBox.setTag("Travel");
 
             isCheckButtonClicked = false;
     }
@@ -54,17 +55,10 @@ public class CategorySelector extends GridLayout {
     }
 
 
-//    @Override
-//    public void onClick(View v) {
-//        if(moviesChBox.isChecked())
-//            Toast.makeText(getContext(), "Movies",Toast.LENGTH_SHORT).show();
-//        if(scienceChBox.isChecked())
-//            Toast.makeText(getContext(), "Science", Toast.LENGTH_SHORT).show();
-//        if(travelChBox.isChecked())
-//            Toast.makeText(getContext(), "Travel", Toast.LENGTH_SHORT).show();
-//    }
-
-
+    /**
+     * Check if at least on CheckBox os checked
+     * @return true if at least one is checked, or false if not
+     */
     public boolean atLeastOnBoxChecked(){
         boolean isCheckButtonClicked = false;
         for(int i = 0; i< checkBoxList.size(); i++) {
@@ -73,4 +67,33 @@ public class CategorySelector extends GridLayout {
         }
         return isCheckButtonClicked;
     }
+
+    /**
+     * Return a string with the sections selected by the user
+     * @param checkedBoxList the list of checked CheckBox
+     * @return the string
+     */
+    public String getNewsDeskForLucene(List<CheckBox> checkedBoxList){
+        String newsDesk = "";
+        for(CheckBox checkBox : checkedBoxList) {
+            if (checkBox.isChecked()) {
+                newsDesk += "\"" + checkBox.getTag() + "\"";
+            }
+        }
+        return newsDesk;
+    }
+
+    /**
+     * Return a list of the checked CheckBox
+     * @return a List of CheckBox
+     */
+    public List<CheckBox> getCheckedBoxList(){
+        List<CheckBox> checkedBoxList = new ArrayList<>();
+        for(CheckBox checkBox: checkBoxList) {
+            if(checkBox.isChecked())
+                checkedBoxList.add(checkBox);
+        }
+        return checkedBoxList;
+    }
+
 }

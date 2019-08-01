@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.work.Data;
 import androidx.work.ListenableWorker;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -40,8 +41,7 @@ public class NotififyWorker extends Worker {
     }
 
     public static void scheduleReminder(Data data){
-        OneTimeWorkRequest notificationWork = new OneTimeWorkRequest.Builder(NotififyWorker.class)
-                                .setInitialDelay(30, TimeUnit.SECONDS)
+        PeriodicWorkRequest notificationWork = new PeriodicWorkRequest.Builder(NotififyWorker.class, 24, TimeUnit.HOURS, 2, TimeUnit.HOURS)
                                 .setInputData(data).build();
 
         WorkManager instance = WorkManager.getInstance();

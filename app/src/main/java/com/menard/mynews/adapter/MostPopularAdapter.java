@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,6 +64,8 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
         if(baseSQLite.checkURL(result.getUrl())){
             articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
+        }else {
+            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
 
         //-- Get the first image in the list of multimedia --
@@ -81,7 +84,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
 
     @Override
     public int getItemCount() {
-        return 20;
+        return listResult.size();
     }
 
     class ArticlesViewHolder extends RecyclerView.ViewHolder{
