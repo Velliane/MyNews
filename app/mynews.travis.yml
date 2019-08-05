@@ -1,5 +1,6 @@
 language : android
 sudo: false
+jdk: oraclejdk8
 
 android:
   components:
@@ -11,8 +12,7 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
-jdk:
-  -oraclejdk8
+
 
 licences:
   - android-sdk-preview-license-.+
