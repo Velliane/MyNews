@@ -12,8 +12,6 @@ android:
     - extra-android-m2repository
     - sys-img-armeabi-v7a-google_apis-25
 
-
-
 licences:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -24,7 +22,7 @@ cache:
     - "$HOME/.gradle/caches/"
     - "$HOME/.gradle/wrapper/"
     - "$HOME/.android/build-cache"
-    -
+
 before_script:
   - mkdir -p "$ANDROID_HOME/licenses"
   - cp ./google-licenses/* "$ANDROID_HOME/licenses/"
@@ -35,6 +33,6 @@ before_script:
 
 script:
   - ./gradlew build check
-  -
+
 before_install:
   - chmod +x gradlew
