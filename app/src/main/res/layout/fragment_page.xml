@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
 
-        android:text="An error occurs. Please refresh."
+        android:text="@string/fragment_error"
         android:textStyle="bold"
         android:textColor="@color/DarkBlue"
         android:visibility="gone"

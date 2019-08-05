@@ -12,7 +12,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="10dp"
-        android:contentDescription="The image of the article" />
+        android:contentDescription="@string/recycler_view_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:paddingEnd="10dp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:text="Titre" />
+                android:text="@string/recycler_view_category" />
 
             <TextView
                 android:id="@+id/article_date"
@@ -44,7 +44,7 @@
                 android:layout_alignParentEnd="true"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Date"/>
+                android:text="@string/recycler_view_date"/>
 
         </RelativeLayout>
         <TextView
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Description......"
+            android:text="@string/recycler_view_title"
             android:maxLines="2"
             android:ellipsize="end"/>
 

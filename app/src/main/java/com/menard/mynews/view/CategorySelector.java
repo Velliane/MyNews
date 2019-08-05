@@ -1,10 +1,10 @@
 package com.menard.mynews.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
 
@@ -49,6 +49,7 @@ public class CategorySelector extends GridLayout {
             isCheckButtonClicked = false;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return super.onTouchEvent(ev);

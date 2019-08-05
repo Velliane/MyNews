@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
+<GridLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/category_selection_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -10,7 +10,8 @@
     <CheckBox
         android:id="@+id/category_selection_movies"
         android:paddingEnd="100dp"
-        android:text="@string/drawer_section_movies"/>
+        android:text="@string/drawer_section_movies"
+        tools:ignore="RtlSymmetry" />
 
     <CheckBox
         android:id="@+id/category_selection_science"

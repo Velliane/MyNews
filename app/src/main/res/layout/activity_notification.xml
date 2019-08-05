@@ -18,7 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:hint="@string/search_hint_edit_txt"
-        android:layout_margin="20dp" />
+        android:layout_margin="20dp"
+        android:inputType="text"
+        tools:ignore="Autofill" />
 
 
     <com.menard.mynews.view.CategorySelector

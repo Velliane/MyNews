@@ -17,7 +17,7 @@
         android:layout_below="@+id/toolbar"
         android:hint="@string/search_hint_edit_txt"
         android:layout_margin="20dp"
-        tools:ignore="Autofill"
+        android:autofillHints="Keyword"
         android:inputType="text" />
 
     <GridLayout

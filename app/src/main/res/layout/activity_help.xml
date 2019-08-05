@@ -18,16 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Enabled/Disabled notifications"
+        android:text="@string/help_title_notification"
         android:textStyle="bold"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:layout_below="@id/toolbar"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Write a keyword and select at least one section. Then click on the switch button. Just click again in the switch button to disable the notification."
+        android:text="@string/help_notification"
         android:layout_below="@+id/help_activity_title_notification"/>
 
 </RelativeLayout>

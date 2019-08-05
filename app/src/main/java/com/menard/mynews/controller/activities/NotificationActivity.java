@@ -17,12 +17,12 @@ import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NotififyWorker;
 import com.menard.mynews.utils.SearchedRequest;
 
+import java.util.Objects;
+
 public class NotificationActivity extends AppCompatActivity {
 
 
-    /**
-     * Switch Button
-     */
+    /** Switch Button */
     private Switch mSwitch;
     /** Shared Preferences */
     public SharedPreferences mSharedPreferences;
@@ -31,6 +31,7 @@ public class NotificationActivity extends AppCompatActivity {
     public EditText textSearched;
     /** Category Selector */
     private CategorySelector mCategorySelector;
+    /** SearchedRequest */
     private SearchedRequest mSearchedRequest;
 
 
@@ -44,7 +45,7 @@ public class NotificationActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Notifications");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         mSwitch = findViewById(R.id.activity_notification_switch);
         textSearched = findViewById(R.id.activity_search_edit_txt);
@@ -82,14 +83,17 @@ public class NotificationActivity extends AppCompatActivity {
      */
     public void configureNotification(boolean isChecked) {
         if (isChecked) {
-            editor.putBoolean(Constants.PREFS_NOTIFICATION, true);
-            editor.apply();
 
-            //-- If edit text si empty, unchecked the switch button --
-            if (textSearched.getText().toString().equals("") && !mCategorySelector.atLeastOnBoxChecked()) {
-                Toast.makeText(NotificationActivity.this, "Input value or category must not be empty", Toast.LENGTH_SHORT).show();
+            //-- If edit text is empty or no category are selected, unchecked the switch button --
+            if (textSearched.getText().toString().equals("")) {
+                Toast.makeText(NotificationActivity.this, "Input value must not be empty", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
-                editor.putBoolean(Constants.PREFS_NOTIFICATION, false);
+            }else if (!mCategorySelector.atLeastOnBoxChecked()){
+                Toast.makeText(NotificationActivity.this, "Category must not be empty", Toast.LENGTH_SHORT).show();
+                mSwitch.setChecked(false);
+            }else{
+                Toast.makeText(this, "Notification are enabled", Toast.LENGTH_SHORT).show();
+                editor.putBoolean(Constants.PREFS_NOTIFICATION, true);
                 editor.apply();
             }
 
@@ -103,7 +107,6 @@ public class NotificationActivity extends AppCompatActivity {
                     .build();
             NotififyWorker.scheduleReminder(data);
 
-            Toast.makeText(this, "Notification are enabled", Toast.LENGTH_SHORT).show();
 
         } else {
             NotififyWorker.cancelReminder();
