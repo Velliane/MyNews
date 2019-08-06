@@ -35,6 +35,9 @@ before_script:
 
 script:
   - ./gradlew build check
+  - "sbt clean coverage test"
+
+after_success: "sbt coveralls"
 
 before_install:
   - chmod +x gradlew

@@ -9,8 +9,10 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ListenableWorker;
+import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -41,7 +43,8 @@ public class NotififyWorker extends Worker {
 
     public static void scheduleReminder(Data data){
         PeriodicWorkRequest notificationWork = new PeriodicWorkRequest.Builder(NotififyWorker.class, 24, TimeUnit.HOURS, 2, TimeUnit.HOURS)
-                                .setInputData(data).build();
+                .setConstraints(new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                .setInputData(data).build();
 
         WorkManager instance = WorkManager.getInstance();
         instance.enqueue(notificationWork);
@@ -83,7 +86,6 @@ public class NotififyWorker extends Worker {
 
         } catch (IOException e) {
             e.printStackTrace();
-            // TODO   Log.e("TAG", "response not successful");
         }
 
         return Result.success();

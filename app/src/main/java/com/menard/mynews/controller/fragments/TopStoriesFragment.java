@@ -81,6 +81,7 @@ public class TopStoriesFragment extends Fragment {
             public void onFailure(@NonNull Call<ArticleTopStories> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 //-- Show error message --
+                progressDialog.dismiss();
                 list.setVisibility(View.GONE);
                 textView.setVisibility(View.VISIBLE);
             }
