@@ -24,11 +24,11 @@ import com.menard.mynews.model.Category;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     /** ToolBar */
-    Toolbar toolbar;
+    private Toolbar toolbar;
     /** ViewPager */
-    ViewPager viewPager;
+    private ViewPager viewPager;
 
-    DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,6 +19,13 @@
     <CheckBox
         android:id="@+id/category_selection_travel"
         android:text="@string/drawer_section_travel"/>
+    <CheckBox
+        android:id="@+id/category_selection_arts"
+        android:text="@string/drawer_section_arts"/>
+
+    <CheckBox
+        android:id="@+id/category_selection_multimedia"
+        android:text="@string/drawer_section_multimedia"/>
 
 
 </GridLayout>

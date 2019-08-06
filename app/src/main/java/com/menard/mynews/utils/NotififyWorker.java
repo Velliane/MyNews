@@ -35,7 +35,7 @@ public class NotififyWorker extends Worker {
     private List<Doc> articleList;
     private final RetrofitService retrofitService = new RetrofitService();
 
-    public NotififyWorker (@NonNull Context context, @NonNull WorkerParameters parameters){
+    private NotififyWorker (@NonNull Context context, @NonNull WorkerParameters parameters){
         super(context, parameters);
     }
 

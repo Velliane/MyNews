@@ -38,8 +38,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private CategorySelector mCategorySelector;
     /** Searched Request */
     private SearchedRequest mSearchedRequest;
-    /** Keyword */
-    String mTextSearched;
 
 
     @Override
@@ -96,11 +94,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             if(!boxChecked){
                 Toast.makeText(this, "Select at least on category", Toast.LENGTH_SHORT).show();
             }else {
-                mTextSearched = mSearchText.getText().toString();
+                String textSearched = mSearchText.getText().toString();
                 String section = mSearchedRequest.getSections(mCategorySelector.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
 
                 Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
-                intent.putExtra(Constants.EXTRA_KEYWORD, mTextSearched);
+                intent.putExtra(Constants.EXTRA_KEYWORD, textSearched);
                 intent.putExtra(Constants.EXTRA_SECTION, section);
                 intent.putExtra(Constants.EXTRA_BEGIN_DATE, DateUtils.parseRequestDate(mBeginDate.getText().toString()));
                 intent.putExtra(Constants.EXTRA_END_DATE, DateUtils.parseRequestDate(mEndDate.getText().toString()));

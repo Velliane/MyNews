@@ -3,13 +3,19 @@ package com.menard.mynews.modelTest;
 import com.menard.mynews.model.search.ArticleSearched;
 import com.menard.mynews.model.search.Response;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class ArticleSearchedTest {
 
-    private ArticleSearched mArticleSearched = new ArticleSearched();
+    private ArticleSearched mArticleSearched;
+
+    @Before
+    public void init(){
+        mArticleSearched = new ArticleSearched();
+    }
 
     @Test
     public void getResponse(){

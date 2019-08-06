@@ -31,10 +31,10 @@ import retrofit2.Retrofit;
 
 public class TopStoriesFragment extends Fragment {
 
-    /**
-     * Retrofit Service
-     */
+    /** Retrofit Service */
     private final RetrofitService retrofitService = new RetrofitService();
+    /** Recycler View */
+    private RecyclerView list;
 
 
     public TopStoriesFragment() {
@@ -49,7 +49,7 @@ public class TopStoriesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View result = inflater.inflate(R.layout.fragment_page, container, false);
-        final RecyclerView list = result.findViewById(R.id.fragment_list);
+        list = result.findViewById(R.id.fragment_list);
         final TextView textView = result.findViewById(R.id.fragment_txtview);
 
         Retrofit retrofit = retrofitService.getRetrofit();
@@ -67,16 +67,11 @@ public class TopStoriesFragment extends Fragment {
             public void onResponse(@NonNull Call<ArticleTopStories> call, @NonNull Response<ArticleTopStories> response) {
 
                 if (response.isSuccessful()) {
+                    progressDialog.dismiss();
                     ArticleTopStories articleTopStories = response.body();
                     assert articleTopStories != null;
                     List<Result> articleList = articleTopStories.getResults();
-
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    list.setLayoutManager(layoutManager);
-                    TopStoriesAdapter adapter = new TopStoriesAdapter(articleList, getContext());
-                    list.setAdapter(adapter);
-
-                    progressDialog.dismiss();
+                    configureRecyclerView(articleList);
                 } else {
                     Log.e("TAG", "response not successful");
                 }
@@ -93,6 +88,17 @@ public class TopStoriesFragment extends Fragment {
 
         return result;
 
+    }
+
+    /**
+     * Configure the RecyclerView
+     * @param articleList the list of Result
+     */
+    private void configureRecyclerView(List<Result> articleList){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        list.setLayoutManager(layoutManager);
+        TopStoriesAdapter adapter = new TopStoriesAdapter(articleList, getContext());
+        list.setAdapter(adapter);
     }
 
 }

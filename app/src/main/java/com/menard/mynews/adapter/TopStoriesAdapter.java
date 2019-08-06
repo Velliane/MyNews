@@ -84,7 +84,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
     @Override
     public int getItemCount() {
-        return 20;
+        return listResult.size();
     }
 
     class ArticlesViewHolder extends RecyclerView.ViewHolder{

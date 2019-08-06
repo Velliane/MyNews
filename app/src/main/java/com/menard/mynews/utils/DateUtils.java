@@ -9,11 +9,11 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 public class DateUtils {
 
-    private static DateTimeFormatter searchedDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
-    private static DateTimeFormatter mostpopularDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static DateTimeFormatter requestDateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-    private static DateTimeFormatter humanDateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-    private static DateTimeFormatter humanDateTimeFormatterTwo = DateTimeFormatter.ofPattern("d/M/y");
+    private final static DateTimeFormatter searchedDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
+    private final static DateTimeFormatter mostpopularDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final static DateTimeFormatter requestDateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private final static DateTimeFormatter humanDateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private final static DateTimeFormatter humanDateTimeFormatterTwo = DateTimeFormatter.ofPattern("d/M/y");
 
     /**
      * Change the format of the date from SearchedArticles

@@ -58,7 +58,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
 
         holder.date.setText(DateUtils.parseSearchedDate(result.getPubDate()));
         if(baseSQLite.checkURL(result.getWebUrl())){
-            holder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.LightBlue));
+            holder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
         }else {
             holder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }

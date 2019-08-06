@@ -25,10 +25,10 @@ public class NotificationActivity extends AppCompatActivity {
     /** Switch Button */
     private Switch mSwitch;
     /** Shared Preferences */
-    public SharedPreferences mSharedPreferences;
-    public SharedPreferences.Editor editor;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor editor;
     /** EditText */
-    public EditText textSearched;
+    private EditText textSearched;
     /** Category Selector */
     private CategorySelector mCategorySelector;
     /** SearchedRequest */
@@ -64,15 +64,11 @@ public class NotificationActivity extends AppCompatActivity {
 
 
         //-- Enable or disable the notification by clicking on the switch button --
-        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //-- Save the input of the edittext in shared preferences --
-                editor.putString(Constants.PREFS_KEYWORD, textSearched.getText().toString());
-                editor.apply();
-                configureNotification(isChecked);
-            }
-
+        mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            //-- Save the input of the edittext in shared preferences --
+            editor.putString(Constants.PREFS_KEYWORD, textSearched.getText().toString());
+            editor.apply();
+            configureNotification(isChecked);
         });
     }
 
@@ -81,7 +77,7 @@ public class NotificationActivity extends AppCompatActivity {
      * Configure the notification
      * @param isChecked state of the switch button
      */
-    public void configureNotification(boolean isChecked) {
+    private void configureNotification(boolean isChecked) {
         if (isChecked) {
 
             //-- If edit text is empty or no category are selected, unchecked the switch button --

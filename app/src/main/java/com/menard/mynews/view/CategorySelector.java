@@ -15,10 +15,6 @@ import java.util.List;
 
 public class CategorySelector extends GridLayout {
 
-    public CheckBox moviesChBox;
-    public CheckBox scienceChBox;
-    public CheckBox travelChBox;
-    public boolean isCheckButtonClicked;
     private List<CheckBox> checkBoxList;
 
     public CategorySelector(Context context) {
@@ -36,17 +32,22 @@ public class CategorySelector extends GridLayout {
             inflater.inflate(R.layout.category_selection, this, true);
             checkBoxList = new ArrayList<>();
 
-            moviesChBox = findViewById(R.id.category_selection_movies);
+        CheckBox moviesChBox = findViewById(R.id.category_selection_movies);
             checkBoxList.add(moviesChBox);
             moviesChBox.setTag("Movies");
-            scienceChBox = findViewById(R.id.category_selection_science);
+        CheckBox scienceChBox = findViewById(R.id.category_selection_science);
             checkBoxList.add(scienceChBox);
             scienceChBox.setTag("Science");
-            travelChBox = findViewById(R.id.category_selection_travel);
+        CheckBox travelChBox = findViewById(R.id.category_selection_travel);
             checkBoxList.add(travelChBox);
             travelChBox.setTag("Travel");
+        CheckBox artsChBox = findViewById(R.id.category_selection_arts);
+            checkBoxList.add(artsChBox);
+            artsChBox.setTag("Arts");
+        CheckBox multimediaChBox = findViewById(R.id.category_selection_multimedia);
+            checkBoxList.add(multimediaChBox);
+            multimediaChBox.setTag("Multimedia");
 
-            isCheckButtonClicked = false;
     }
 
     @SuppressLint("ClickableViewAccessibility")

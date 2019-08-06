@@ -64,12 +64,13 @@ public class MostPopularFragment extends Fragment {
             public void onResponse(@NonNull Call<ArticleMostPopular> call,@NonNull Response<ArticleMostPopular> response) {
 
                 if (response.isSuccessful()) {
+                    progressDialog.dismiss();
                     ArticleMostPopular articleMostPopular = response.body();
                     assert articleMostPopular != null;
                     List<Result> articleList = articleMostPopular.getResults();
                     configureRecyclerView(articleList);
 
-                    progressDialog.dismiss();
+
                 }else {
                     Log.e("TAG", "response not successful");
                 }

@@ -2,18 +2,24 @@ package com.menard.mynews;
 
 import com.menard.mynews.utils.SearchedRequest;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class SearchedRequestTest {
 
-    private final SearchedRequest searchedRequest = new SearchedRequest();
+    private SearchedRequest searchedRequest;
+
+    @Before
+    public void init(){
+        searchedRequest = new SearchedRequest();
+    }
 
     @Test
     public void getThreeSectionSelected(){
         String sectionSelected = "\"Travel\"\"Science\"\"Movies\"";
-        
+
         String selection = searchedRequest.getSections(sectionSelected);
 
         assertEquals("news_desk:(\"Travel\"\"Science\"\"Movies\")", selection);

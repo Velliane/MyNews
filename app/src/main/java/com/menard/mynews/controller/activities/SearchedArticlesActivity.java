@@ -1,5 +1,6 @@
 package com.menard.mynews.controller.activities;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,11 +59,17 @@ public class SearchedArticlesActivity extends AppCompatActivity {
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, section, beginDate, endDate,Constants.API_KEY);
 
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
         call.enqueue(new Callback<ArticleSearched>() {
             @Override
             public void onResponse(@NonNull Call<ArticleSearched> call, @NonNull Response<ArticleSearched> response) {
 
                 if (response.isSuccessful()) {
+                    progressDialog.dismiss();
                     ArticleSearched articleSearched = response.body();
                     assert articleSearched != null;
                     List<Doc> articleList = articleSearched.getResponse().getDocs();
@@ -93,7 +100,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
     /**
      * Show an alertDialog in case of there's no articles available
      */
-    public void showAlertDialog(){
+    private void showAlertDialog(){
         new AlertDialog.Builder(this).setTitle("No articles find")
                 .setMessage("There is no articles available for your research")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {

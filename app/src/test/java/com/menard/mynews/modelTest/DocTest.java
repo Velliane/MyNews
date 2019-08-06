@@ -3,6 +3,7 @@ package com.menard.mynews.modelTest;
 import com.menard.mynews.model.search.Doc;
 import com.menard.mynews.model.search.Multimedium;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,7 +14,12 @@ import static org.junit.Assert.assertEquals;
 
 public class DocTest {
 
-    private Doc mDoc = new Doc();
+    private Doc mDoc;
+
+    @Before
+    public void init(){
+        mDoc = new Doc();
+    }
 
     @Test
     public void getWebUrl(){
