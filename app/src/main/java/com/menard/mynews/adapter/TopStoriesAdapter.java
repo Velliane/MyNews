@@ -55,17 +55,11 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         String imageURL = "";
         mBaseSQLite = new BaseSQLite(mContext);
 
-        articlesViewHolder.title.setText(result.getSection());
-        articlesViewHolder.description.setText(result.getTitle());
+        articlesViewHolder.section.setText(result.getSection());
+        articlesViewHolder.title.setText(result.getTitle());
 
         //-- Change the format of the date --
         articlesViewHolder.date.setText(DateUtils.parseZonedDate(result.getUpdatedDate()));
-
-        if(mBaseSQLite.checkURL(result.getUrl())){
-            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
-        }else {
-            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
-        }
 
         //-- Get the first image in the list of multimedia --
         if(result.getMultimedia().size() >= 1) {
@@ -76,6 +70,12 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
             Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         }else {
             Glide.with(mContext).load(mContext.getResources().getIdentifier("no_image_available_64", "drawable", mContext.getPackageName())).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
+        }
+
+        if(mBaseSQLite.checkURL(result.getUrl())){
+            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
+        }else {
+            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
 
 
@@ -90,18 +90,18 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
     class ArticlesViewHolder extends RecyclerView.ViewHolder{
 
         private final ImageView imageView;
-        private final TextView title;
+        private final TextView section;
         private final TextView date;
-        private final TextView description;
+        private final TextView title;
         private final RelativeLayout relativeLayout;
 
         ArticlesViewHolder(@NonNull final View itemView){
 
             super(itemView);
             imageView = itemView.findViewById(R.id.article_image);
-            title = itemView.findViewById(R.id.article_section);
+            section = itemView.findViewById(R.id.article_section);
             date = itemView.findViewById(R.id.article_date);
-            description = itemView.findViewById(R.id.article_title);
+            title = itemView.findViewById(R.id.article_title);
             relativeLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {

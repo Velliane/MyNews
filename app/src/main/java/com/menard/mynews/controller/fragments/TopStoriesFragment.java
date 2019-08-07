@@ -66,8 +66,8 @@ public class TopStoriesFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ArticleTopStories> call, @NonNull Response<ArticleTopStories> response) {
 
+                progressDialog.dismiss();
                 if (response.isSuccessful()) {
-                    progressDialog.dismiss();
                     ArticleTopStories articleTopStories = response.body();
                     assert articleTopStories != null;
                     List<Result> articleList = articleTopStories.getResults();

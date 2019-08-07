@@ -16,6 +16,11 @@ import java.util.List;
 public class CategorySelector extends GridLayout {
 
     private List<CheckBox> checkBoxList;
+    public CheckBox moviesChBox;
+    public CheckBox scienceChBox;
+    public CheckBox travelChBox;
+    public CheckBox artsChBox;
+    public CheckBox multimediaChBox;
 
     public CategorySelector(Context context) {
         super(context);
@@ -32,19 +37,19 @@ public class CategorySelector extends GridLayout {
             inflater.inflate(R.layout.category_selection, this, true);
             checkBoxList = new ArrayList<>();
 
-        CheckBox moviesChBox = findViewById(R.id.category_selection_movies);
+        moviesChBox = findViewById(R.id.category_selection_movies);
             checkBoxList.add(moviesChBox);
             moviesChBox.setTag("Movies");
-        CheckBox scienceChBox = findViewById(R.id.category_selection_science);
+        scienceChBox = findViewById(R.id.category_selection_science);
             checkBoxList.add(scienceChBox);
             scienceChBox.setTag("Science");
-        CheckBox travelChBox = findViewById(R.id.category_selection_travel);
+        travelChBox = findViewById(R.id.category_selection_travel);
             checkBoxList.add(travelChBox);
             travelChBox.setTag("Travel");
-        CheckBox artsChBox = findViewById(R.id.category_selection_arts);
+        artsChBox = findViewById(R.id.category_selection_arts);
             checkBoxList.add(artsChBox);
             artsChBox.setTag("Arts");
-        CheckBox multimediaChBox = findViewById(R.id.category_selection_multimedia);
+        multimediaChBox = findViewById(R.id.category_selection_multimedia);
             checkBoxList.add(multimediaChBox);
             multimediaChBox.setTag("Multimedia");
 
