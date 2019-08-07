@@ -2,7 +2,6 @@ package com.menard.mynews.controller.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;

@@ -2,6 +2,7 @@ package com.menard.mynews.controller.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -141,6 +142,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if(!"".equals(mSearchText.getText().toString())){
             mSearchButton.setEnabled(true);
+            mSearchButton.setBackgroundColor(getResources().getColor(R.color.LightBlue));
         }
     }
 

@@ -11,21 +11,26 @@
         android:id="@+id/category_selection_movies"
         android:paddingEnd="100dp"
         android:text="@string/drawer_section_movies"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:theme="@style/Switch"/>
 
     <CheckBox
         android:id="@+id/category_selection_science"
-        android:text="@string/drawer_section_science"/>
+        android:text="@string/drawer_section_science"
+        android:theme="@style/Switch"/>
     <CheckBox
         android:id="@+id/category_selection_travel"
-        android:text="@string/drawer_section_travel"/>
+        android:text="@string/drawer_section_travel"
+        android:theme="@style/Switch"/>
     <CheckBox
         android:id="@+id/category_selection_arts"
-        android:text="@string/drawer_section_arts"/>
+        android:text="@string/drawer_section_arts"
+        android:theme="@style/Switch"/>
 
     <CheckBox
         android:id="@+id/category_selection_multimedia"
-        android:text="@string/drawer_section_multimedia"/>
+        android:text="@string/drawer_section_multimedia"
+        android:theme="@style/Switch"/>
 
 
 </GridLayout>

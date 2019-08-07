@@ -1,6 +1,7 @@
 package com.menard.mynews.controller.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,12 +33,14 @@ public class SearchedArticlesActivity extends AppCompatActivity {
 
     private RecyclerView mListArticles;
     private final RetrofitService retrofitService = new RetrofitService();
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searched_articles);
 
+        mContext =this;
         //-- Toolbar --
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Search Articles");
@@ -69,10 +72,15 @@ public class SearchedArticlesActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ArticleSearched> call, @NonNull Response<ArticleSearched> response) {
 
                 if (response.isSuccessful()) {
+
                     progressDialog.dismiss();
                     ArticleSearched articleSearched = response.body();
                     assert articleSearched != null;
                     List<Doc> articleList = articleSearched.getResponse().getDocs();
+
+                    if(articleList.size() == 0){
+                        showAlertDialog();
+                    }
 
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SearchedArticlesActivity.this);
                     mListArticles.setLayoutManager(layoutManager);
@@ -101,7 +109,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
      * Show an alertDialog in case of there's no articles available
      */
     private void showAlertDialog(){
-        new AlertDialog.Builder(this).setTitle("No articles find")
+        new AlertDialog.Builder(mContext).setTitle("No articles find")
                 .setMessage("There is no articles available for your research")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
