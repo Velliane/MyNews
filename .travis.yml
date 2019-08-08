@@ -37,8 +37,7 @@ before_script:
 
 script:
   - ./gradlew build check
-  - android test -coverprofile=coverage.txt
 
 after_success:
-  - bash <(curl https://codecov.io/bash) CODECOV_TOKEN
+  - bash <(curl https://codecov.io/bash) | bash  - -f combined_coverage.txt -t CODECOV_TOKEN
 
