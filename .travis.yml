@@ -8,6 +8,13 @@ env:
     - ANDROID_BUILD_TOOLS_VERSION=27.0.3
     - ANDROID_ABI=armeabi-v7a
     - CODECOV_TOKEN="5c85f19c-9000-498c-922d-ca9aa4ad3937"
+    - ARTIFACTS_PATHS = "./logs:./build:/var/log"
+
+addons:
+  artifacts: true
+   s3_region: "eu-west-3"
+   paths:
+     - ARTIFACTS_PATHS
 
 android:
   components:
