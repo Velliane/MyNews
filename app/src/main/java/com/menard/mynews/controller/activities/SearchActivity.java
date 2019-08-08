@@ -96,7 +96,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this, "Select at least on category", Toast.LENGTH_SHORT).show();
             }else {
                 String textSearched = mSearchText.getText().toString();
-                String section = mSearchedRequest.getSections(mCategorySelector.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
+                String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
 
                 Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
                 intent.putExtra(Constants.EXTRA_KEYWORD, textSearched);
@@ -123,12 +123,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
      * @param day the actual day
      */
     private void showDatePickerDialog(final TextView textView, int year, int month, int day){
-        DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String newDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                textView.setText(newDate);
-            }
+        DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, (view, year1, month1, dayOfMonth) -> {
+            String newDate = dayOfMonth + "/" + (month1 + 1) + "/" + year1;
+            textView.setText(newDate);
         }, year, month, day);
         datePickerDialog.show();
     }

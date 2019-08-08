@@ -93,7 +93,7 @@ public class NotificationActivity extends AppCompatActivity {
             }
 
 
-            String section = mSearchedRequest.getSections(mCategorySelector.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
+            String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
             Data data = new Data.Builder().putString(Constants.EXTRA_TITLE, Constants.TITLE)
                     .putString(Constants.EXTRA_TEXT,Constants.TEXT)
                     .putInt(Constants.EXTRA_ID, 1)

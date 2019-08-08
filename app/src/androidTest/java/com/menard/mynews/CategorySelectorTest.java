@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.internal.runners.JUnit4ClassRunner;
 import org.junit.runner.RunWith;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
@@ -49,43 +51,55 @@ public class CategorySelectorTest {
     @Test
     public void ifTravelBoxCheckedReturnTravel(){
         mCategorySelector.travelChBox.setChecked(true);
-        List<CheckBox> checkBoxList = mCategorySelector.getCheckedBoxList();
 
-        assertEquals("\"Travel\"", mCategorySelector.getNewsDeskForLucene(checkBoxList));
+        List<String> list = new ArrayList<>();
+        list.add("Travel");
+
+        assertEquals(list, mCategorySelector.getCheckedBoxList());
     }
 
     @Test
     public void ifMoviesBoxCheckedReturnMovies(){
         mCategorySelector.moviesChBox.setChecked(true);
-        List<CheckBox> checkBoxList = mCategorySelector.getCheckedBoxList();
 
-        assertEquals("\"Movies\"", mCategorySelector.getNewsDeskForLucene(checkBoxList));
+        List<String> list = new ArrayList<>();
+        list.add("Movies");
+
+        assertEquals(list, mCategorySelector.getCheckedBoxList());
     }
 
     @Test
     public void ifScienceBoxCheckedReturnScience(){
         mCategorySelector.scienceChBox.setChecked(true);
-        List<CheckBox> checkBoxList = mCategorySelector.getCheckedBoxList();
 
-        assertEquals("\"Science\"", mCategorySelector.getNewsDeskForLucene(checkBoxList));
+        List<String> list = new ArrayList<>();
+        list.add("Science");
+
+        assertEquals(list, mCategorySelector.getCheckedBoxList());
     }
 
     @Test
     public void ifMoviesAndScienceBoxCheckedReturnMoviesScience(){
         mCategorySelector.moviesChBox.setChecked(true);
         mCategorySelector.scienceChBox.setChecked(true);
-        List<CheckBox> checkBoxList = mCategorySelector.getCheckedBoxList();
 
-        assertEquals("\"Movies\"\"Science\"", mCategorySelector.getNewsDeskForLucene(checkBoxList));
+        List<String> list = new ArrayList<>();
+        list.add("Movies");
+        list.add("Science");
+
+        assertEquals(list, mCategorySelector.getCheckedBoxList());
     }
 
     @Test
     public void ifMoviesAndTravelBoxCheckedReturnMoviesTravel(){
         mCategorySelector.moviesChBox.setChecked(true);
         mCategorySelector.travelChBox.setChecked(true);
-        List<CheckBox> checkBoxList = mCategorySelector.getCheckedBoxList();
 
-        assertEquals("\"Movies\"\"Travel\"", mCategorySelector.getNewsDeskForLucene(checkBoxList));
+        List<String> list = new ArrayList<>();
+        list.add("Movies");
+        list.add("Travel");
+
+        assertEquals(list, mCategorySelector.getCheckedBoxList());
     }
 
     @Test
@@ -93,9 +107,13 @@ public class CategorySelectorTest {
         mCategorySelector.moviesChBox.setChecked(true);
         mCategorySelector.scienceChBox.setChecked(true);
         mCategorySelector.travelChBox.setChecked(true);
-        List<CheckBox> checkBoxList = mCategorySelector.getCheckedBoxList();
 
-        assertEquals("\"Movies\"\"Science\"\"Travel\"", mCategorySelector.getNewsDeskForLucene(checkBoxList));
+        List<String> list = new ArrayList<>();
+        list.add("Movies");
+        list.add("Science");
+        list.add("Travel");
+
+        assertEquals(list, mCategorySelector.getCheckedBoxList());
     }
 
 }

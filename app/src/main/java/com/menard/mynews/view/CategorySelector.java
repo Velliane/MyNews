@@ -75,30 +75,17 @@ public class CategorySelector extends GridLayout {
         return isCheckButtonClicked;
     }
 
-    /**
-     * Return a string with the sections selected by the user
-     * @param checkedBoxList the list of checked CheckBox
-     * @return the string
-     */
-    public String getNewsDeskForLucene(List<CheckBox> checkedBoxList){
-        String newsDesk = "";
-        for(CheckBox checkBox : checkedBoxList) {
-            if (checkBox.isChecked()) {
-                newsDesk += "\"" + checkBox.getTag() + "\"";
-            }
-        }
-        return newsDesk;
-    }
 
     /**
      * Return a list of the checked CheckBox
      * @return a List of CheckBox
      */
-    public List<CheckBox> getCheckedBoxList(){
-        List<CheckBox> checkedBoxList = new ArrayList<>();
+    public List<String> getCheckedBoxList(){
+        List<String> checkedBoxList = new ArrayList<>();
         for(CheckBox checkBox: checkBoxList) {
-            if(checkBox.isChecked())
-                checkedBoxList.add(checkBox);
+            if (checkBox.isChecked()) {
+                checkedBoxList.add(checkBox.getTag().toString());
+            }
         }
         return checkedBoxList;
     }

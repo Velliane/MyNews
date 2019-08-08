@@ -5,6 +5,9 @@ import com.menard.mynews.utils.SearchedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class SearchedRequestTest {
@@ -42,4 +45,38 @@ public class SearchedRequestTest {
 
         assertEquals("news_desk:(\"Science\")", selection);
     }
+
+    @Test
+    public void getNewsDeskFromListOfOneString(){
+        List<String> list = new ArrayList<>();
+        list.add("Movies");
+
+        String newsDesk = searchedRequest.getNewsDeskForLucene(list);
+
+        assertEquals("\"Movies\"", newsDesk);
+    }
+
+    @Test
+    public void getNewsDeskFromListOfTwoString(){
+        List<String> list = new ArrayList<>();
+        list.add("Movies");
+        list.add("Multimedia");
+
+        String newsDesk = searchedRequest.getNewsDeskForLucene(list);
+
+        assertEquals("\"Movies\"\"Multimedia\"", newsDesk);
+    }
+
+    @Test
+    public void getNewsDeskFromListOfThreeString(){
+        List<String> list = new ArrayList<>();
+        list.add("Movies");
+        list.add("Multimedia");
+        list.add("Travel");
+
+        String newsDesk = searchedRequest.getNewsDeskForLucene(list);
+
+        assertEquals("\"Movies\"\"Multimedia\"\"Travel\"", newsDesk);
+    }
+
 }
