@@ -39,5 +39,5 @@ script:
   - ./gradlew build check
 
 after_success:
-  - bash <(curl https://codecov.io/bash)
+  - bash <(curl https://codecov.io/bash) CODECOV_TOKEN
 

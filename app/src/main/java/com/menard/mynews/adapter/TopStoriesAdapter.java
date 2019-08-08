@@ -104,12 +104,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
             title = itemView.findViewById(R.id.article_title);
             relativeLayout = itemView.findViewById(R.id.article_layout);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openCustomTabs();
-                }
-            });
+            itemView.setOnClickListener(v -> openCustomTabs());
         }
 
         /**
