@@ -23,8 +23,6 @@ public class NotificationActivity extends AppCompatActivity {
 
     /** Switch Button */
     private Switch mSwitch;
-    /** Shared Preferences */
-    private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor editor;
     /** EditText */
     private EditText textSearched;
@@ -52,13 +50,13 @@ public class NotificationActivity extends AppCompatActivity {
 
         mSearchedRequest = new SearchedRequest();
         //-- Get Shared Preferences --
-        mSharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-        editor = mSharedPreferences.edit();
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         //-- Check if notification are already enabled --
-        if (mSharedPreferences.getBoolean(Constants.PREFS_NOTIFICATION, false)) {
+        if (sharedPreferences.getBoolean(Constants.PREFS_NOTIFICATION, false)) {
             mSwitch.setChecked(true);
-            textSearched.setText(mSharedPreferences.getString(Constants.PREFS_KEYWORD, ""));
+            textSearched.setText(sharedPreferences.getString(Constants.PREFS_KEYWORD, ""));
         }
 
 

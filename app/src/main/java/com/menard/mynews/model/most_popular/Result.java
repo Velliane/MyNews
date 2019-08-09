@@ -16,9 +16,6 @@ public class Result {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("abstract")
-    @Expose
-    private String _abstract;
     @SerializedName("published_date")
     @Expose
     private String publishedDate;
@@ -51,14 +48,6 @@ public class Result {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getAbstract() {
-        return _abstract;
-    }
-
-    public void setAbstract(String _abstract) {
-        this._abstract = _abstract;
     }
 
     public String getPublishedDate() {

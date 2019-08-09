@@ -1,8 +1,12 @@
 package com.menard.mynews.modelTest;
 
+import com.menard.mynews.model.most_popular.Medium;
 import com.menard.mynews.model.most_popular.Result;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,6 +48,15 @@ public class ResultMostPopularTest {
         mResult.setPublishedDate(date);
 
         assertEquals("31/07/2019", mResult.getPublishedDate());
+    }
+
+    @Test
+    public void getMedia(){
+        List<Medium> list = new ArrayList<>();
+
+        mResult.setMedia(list);
+
+        assertEquals(list, mResult.getMedia());
     }
 
 }

@@ -1,17 +1,12 @@
 package com.menard.mynews;
 
-import android.widget.CheckBox;
-
 import androidx.test.platform.app.InstrumentationRegistry;
-
 import com.menard.mynews.view.CategorySelector;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.internal.runners.JUnit4ClassRunner;
 import org.junit.runner.RunWith;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

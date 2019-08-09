@@ -41,10 +41,18 @@ before_script:
   - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi $ANDROID_ABI
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
+  - "gem install travis-artifacts"
 
 script:
   - ./gradlew build check
 
+after_script:
+  - "travis-artifacts upload --path logs --path a/long/nested/path:short_alias"
+
+after_failure: # this will of course run only on failure
+  - "travis-artifacts upload --path debug/debug.log"
+
 after_success:
-  - bash <(curl https://codecov.io/bash) | bash  - -f combined_coverage.txt -t CODECOV_TOKEN
+  - bash <(curl https://codecov.io/bash) CODECOV_TOKEN
+  - "travis-artifacts upload --path build/build.tar.gz"
 

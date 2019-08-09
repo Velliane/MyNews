@@ -111,12 +111,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
     private void showAlertDialog(){
         new AlertDialog.Builder(mContext).setTitle("No articles find")
                 .setMessage("There is no articles available for your research")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onBackPressed();
-                    }
-                }).show();
+                .setPositiveButton("Ok", (dialog, which) -> onBackPressed()).show();
     }
 
 

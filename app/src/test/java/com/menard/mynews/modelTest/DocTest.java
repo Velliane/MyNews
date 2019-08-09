@@ -66,4 +66,12 @@ public class DocTest {
         assertEquals("Science", mDoc.getSectionName());
     }
 
+    @Test
+    public void getId(){
+        String id = "21";
+
+        mDoc.setId(id);
+
+        assertEquals("21", mDoc.getId());
+    }
 }

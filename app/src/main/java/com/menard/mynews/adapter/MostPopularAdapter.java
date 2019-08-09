@@ -55,8 +55,8 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         String imageURL;
         baseSQLite = new BaseSQLite(mContext);
 
-        articlesViewHolder.title.setText(result.getSection());
-        articlesViewHolder.description.setText(result.getTitle());
+        articlesViewHolder.section.setText(result.getSection());
+        articlesViewHolder.title.setText(result.getTitle());
 
         // Change format of the date
         articlesViewHolder.date.setText(DateUtils.parseMostPopularDate(result.getPublishedDate()));
@@ -89,26 +89,21 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     class ArticlesViewHolder extends RecyclerView.ViewHolder{
 
         private final ImageView imageView;
-        private final TextView title;
+        private final TextView section;
         private final TextView date;
-        private final TextView description;
+        private final TextView title;
         private final RelativeLayout relativeLayout;
 
         ArticlesViewHolder(@NonNull final View itemView){
 
             super(itemView);
             imageView = itemView.findViewById(R.id.article_image);
-            title = itemView.findViewById(R.id.article_section);
+            section = itemView.findViewById(R.id.article_section);
             date = itemView.findViewById(R.id.article_date);
-            description = itemView.findViewById(R.id.article_title);
+            title = itemView.findViewById(R.id.article_title);
             relativeLayout = itemView.findViewById(R.id.article_layout);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openCustomTabs();
-                }
-            });
+            itemView.setOnClickListener(v -> openCustomTabs());
         }
 
         /**
