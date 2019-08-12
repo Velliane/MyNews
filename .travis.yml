@@ -8,11 +8,11 @@ env:
     - ANDROID_BUILD_TOOLS_VERSION=27.0.3
     - ANDROID_ABI=armeabi-v7a
     - CODECOV_TOKEN="5c85f19c-9000-498c-922d-ca9aa4ad3937"
-    - ARTIFACTS_REGION ="eu-west-3"
+#    - ARTIFACTS_REGION ="eu-west-3"
 
 addons:
   artifacts: true
-   s3-region: ARTIFACTS_REGION
+#   s3-region: ARTIFACTS_REGION
    paths:
      - $(git ls-files -o | tr "\n" ":")
 
@@ -41,16 +41,16 @@ before_script:
   - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi $ANDROID_ABI
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
-  - "gem install travis-artifacts"
+#  - "gem install travis-artifacts"
 
 script:
   - ./gradlew build check
 
-after_script:
-  - "travis-artifacts upload --path logs --path a/long/nested/path:short_alias"
-
-after_failure: # this will of course run only on failure
-  - "travis-artifacts upload --path debug/debug.log"
+#after_script:
+#  - "travis-artifacts upload --path logs --path a/long/nested/path:short_alias"
+#
+#after_failure: # this will of course run only on failure
+#  - "travis-artifacts upload --path debug/debug.log"
 
 after_success:
   - bash <(curl https://codecov.io/bash) CODECOV_TOKEN
