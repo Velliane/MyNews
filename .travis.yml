@@ -11,10 +11,10 @@ env:
 #    - ARTIFACTS_REGION ="eu-west-3"
 
 addons:
-  artifacts: true
-#   s3-region: ARTIFACTS_REGION
+  artifacts:
+   s3-region: ARTIFACTS_REGION
    paths:
-     - $(git ls-files -o | tr "\n" ":")
+     - $(git ls-files -o)
 
 android:
   components:
