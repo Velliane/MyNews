@@ -8,10 +8,13 @@ env:
     - ANDROID_BUILD_TOOLS_VERSION=27.0.3
     - ANDROID_ABI=armeabi-v7a
     - CODECOV_TOKEN="5c85f19c-9000-498c-922d-ca9aa4ad3937"
-    - "ARTIFACTS_AWS_REGION=eu-west-3"
+    - ARTIFACTS_REGION ="eu-west-3"
 
-#addons:
-#  artifacts: true
+addons:
+  artifacts: true
+   s3-region: ARTIFACTS_REGION
+   paths:
+     - $(git ls-files -o | tr "\n" ":")
 
 android:
   components:
