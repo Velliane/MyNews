@@ -53,6 +53,6 @@ script:
 #  - "travis-artifacts upload --path debug/debug.log"
 
 after_success:
-  - bash <(curl https://codecov.io/bash) CODECOV_TOKEN
-  - "travis-artifacts upload --path build/build.tar.gz"
+  - bash <(curl https://codecov.io/bash) -t CODECOV_TOKEN
+#  - "travis-artifacts upload --path build/build.tar.gz"
 
