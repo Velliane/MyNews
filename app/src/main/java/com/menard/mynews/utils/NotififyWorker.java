@@ -37,7 +37,7 @@ public class NotififyWorker extends Worker {
     private List<Doc> articleList;
     private final RetrofitService retrofitService = new RetrofitService();
 
-    private NotififyWorker (@NonNull Context context, @NonNull WorkerParameters parameters){
+    public NotififyWorker(@NonNull Context context, @NonNull WorkerParameters parameters){
         super(context, parameters);
     }
 
@@ -54,6 +54,7 @@ public class NotififyWorker extends Worker {
         WorkManager instance = WorkManager.getInstance();
         instance.cancelAllWork();
     }
+
 
 
     @NonNull

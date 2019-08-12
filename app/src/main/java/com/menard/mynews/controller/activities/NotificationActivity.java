@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.work.Data;
 
-import com.menard.mynews.view.CategorySelector;
+import com.menard.mynews.view.CategorySelectorView;
 import com.menard.mynews.R;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.NotififyWorker;
@@ -22,12 +22,12 @@ public class NotificationActivity extends AppCompatActivity {
 
 
     /** Switch Button */
-    private Switch mSwitch;
+    public Switch mSwitch;
     private SharedPreferences.Editor editor;
     /** EditText */
     private EditText textSearched;
     /** Category Selector */
-    private CategorySelector mCategorySelector;
+    private CategorySelectorView mCategorySelectorView;
     /** SearchedRequest */
     private SearchedRequest mSearchedRequest;
 
@@ -46,7 +46,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         mSwitch = findViewById(R.id.activity_notification_switch);
         textSearched = findViewById(R.id.activity_search_edit_txt);
-        mCategorySelector = findViewById(R.id.activity_notification_category);
+        mCategorySelectorView = findViewById(R.id.activity_notification_category);
 
         mSearchedRequest = new SearchedRequest();
         //-- Get Shared Preferences --
@@ -81,7 +81,7 @@ public class NotificationActivity extends AppCompatActivity {
             if (textSearched.getText().toString().equals("")) {
                 Toast.makeText(NotificationActivity.this, "Input value must not be empty", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
-            }else if (!mCategorySelector.atLeastOnBoxChecked()){
+            }else if (!mCategorySelectorView.atLeastOnBoxChecked()){
                 Toast.makeText(NotificationActivity.this, "Category must not be empty", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
             }else{
@@ -91,7 +91,7 @@ public class NotificationActivity extends AppCompatActivity {
             }
 
 
-            String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
+            String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));
             Data data = new Data.Builder().putString(Constants.EXTRA_TITLE, Constants.TITLE)
                     .putString(Constants.EXTRA_TEXT,Constants.TEXT)
                     .putInt(Constants.EXTRA_ID, 1)

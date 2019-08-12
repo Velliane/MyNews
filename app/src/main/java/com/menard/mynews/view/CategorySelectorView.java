@@ -13,7 +13,7 @@ import com.menard.mynews.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategorySelector extends GridLayout {
+public class CategorySelectorView extends GridLayout {
 
     private List<CheckBox> checkBoxList;
     public CheckBox moviesChBox;
@@ -22,12 +22,12 @@ public class CategorySelector extends GridLayout {
     public CheckBox artsChBox;
     public CheckBox multimediaChBox;
 
-    public CategorySelector(Context context) {
+    public CategorySelectorView(Context context) {
         super(context);
         initView();
     }
 
-    public CategorySelector(Context context, AttributeSet attributeSet) {
+    public CategorySelectorView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         initView();
     }

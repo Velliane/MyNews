@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.menard.mynews.view.CategorySelector;
+import com.menard.mynews.view.CategorySelectorView;
 import com.menard.mynews.R;
 import com.menard.mynews.utils.Constants;
 import com.menard.mynews.utils.DateUtils;
@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     /** Text View EndDate */
     private TextView mEndDate;
     /** Category Selector */
-    private CategorySelector mCategorySelector;
+    private CategorySelectorView mCategorySelectorView;
     /** Searched Request */
     private SearchedRequest mSearchedRequest;
 
@@ -57,7 +57,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mSearchButton.setOnClickListener(this);
 
         //-- Category selection --
-        mCategorySelector = findViewById(R.id.activity_search_category_selection);
+        mCategorySelectorView = findViewById(R.id.activity_search_category_selection);
 
         mSearchedRequest = new SearchedRequest();
 
@@ -89,12 +89,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
         //-- Start SearchedArticlesActivity with filter --
         if(v == mSearchButton){
-            boolean boxChecked = mCategorySelector.atLeastOnBoxChecked();
+            boolean boxChecked = mCategorySelectorView.atLeastOnBoxChecked();
             if(!boxChecked){
                 Toast.makeText(this, "Select at least on category", Toast.LENGTH_SHORT).show();
             }else {
                 String textSearched = mSearchText.getText().toString();
-                String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelector.getCheckedBoxList()));
+                String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));
 
                 Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
                 intent.putExtra(Constants.EXTRA_KEYWORD, textSearched);

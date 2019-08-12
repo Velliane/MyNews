@@ -24,7 +24,7 @@
         app:backgroundTint="@color/LightBlue"/>
 
 
-    <com.menard.mynews.view.CategorySelector
+    <com.menard.mynews.view.CategorySelectorView
         android:id="@+id/activity_notification_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

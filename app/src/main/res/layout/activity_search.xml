@@ -78,7 +78,7 @@
     </GridLayout>
 
 
-    <com.menard.mynews.view.CategorySelector
+    <com.menard.mynews.view.CategorySelectorView
         android:id="@+id/activity_search_category_selection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
