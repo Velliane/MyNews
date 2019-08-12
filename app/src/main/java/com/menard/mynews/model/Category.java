@@ -9,7 +9,7 @@ public enum Category {
     TRAVEL("TRAVEL");
 
 
-    private final String mName;
+    public final String mName;
 
     Category(String name){
         this.mName = name;

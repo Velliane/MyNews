@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     /** ViewPager */
     private ViewPager viewPager;
-
+    /** Drawer Layout */
     private DrawerLayout drawerLayout;
 
     @Override

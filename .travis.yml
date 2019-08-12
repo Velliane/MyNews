@@ -40,9 +40,10 @@ before_script:
   - android-wait-for-emulator
 
 script:
-  - ./gradlew build jacocoTestReport assembleAndroidTest
   - cat codecov.yml | curl --data-binary @- https://codecov.io/validate
+  - ./gradlew build check
   - ./gradlew connectedCheck
+  - ./gradlew clean createDebugCoverageReport jacocoTestReport
 
 after_success:
   - bash <(curl https://codecov.io/bash) -t CODECOV_TOKEN
