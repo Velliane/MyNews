@@ -32,6 +32,8 @@ public class NotificationActivity extends AppCompatActivity {
     private SearchedRequest mSearchedRequest;
 
 
+    public NotificationActivity(){
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

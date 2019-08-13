@@ -3,10 +3,11 @@ jdk: oraclejdk8
 
 env:
   global:
-    - ANDROID_API_LEVEL=27
+    - ANDROID_API_LEVEL=28
     - EMULATOR_API_LEVEL=22
-    - ANDROID_BUILD_TOOLS_VERSION=27.0.3
+    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
     - ANDROID_ABI=armeabi-v7a
+    - ADB_INSTALL_TIMEOUT=5
 
 addons:
   artifacts:
@@ -24,12 +25,18 @@ android:
   components:
     - tools
     - platform-tools
+    - tools
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - android-$ANDROID_API_LEVEL
     - android-$EMULATOR_API_LEVEL
     - extra-android-support
     - extra-google-m2repository
     - extra-android-m2repository
     - sys-img-armeabi-v7a-android-$EMULATOR_API_LEVEL
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
@@ -38,17 +45,20 @@ cache:
     - "$HOME/.android/build-cache"
 
 before_install:
-  - yes | sdkmanager "platforms;android-27"
+  - yes | sdkmanager "platforms;android-28"
 
 before_script:
   - chmod +x gradlew
+  - ./gradlew build jacocoTestReport assembleAndroidTest
   - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi $ANDROID_ABI
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 script:
   - cat codecov.yml | curl --data-binary @- https://codecov.io/validate
-  - ./gradlew build check
+  - ./gradlew connectedCheck
+#  - ./gradlew build check
 #  - ./gradlew clean createDebugCoverageReport jacocoTestReport
 
 after_success:

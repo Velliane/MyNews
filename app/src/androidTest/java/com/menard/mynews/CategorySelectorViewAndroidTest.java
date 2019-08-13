@@ -24,7 +24,13 @@ public class CategorySelectorViewAndroidTest {
 
     @Before
     public void init(){
-        mCategorySelectorView = new CategorySelectorView(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mCategorySelectorView = new CategorySelectorView(InstrumentationRegistry.getInstrumentation().getTargetContext());
+            }
+
+        });
     }
 
 
