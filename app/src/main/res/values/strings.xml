@@ -34,7 +34,7 @@
     <string name="help_title_notification">Enabled/Disabled notifications</string>
     <string name="help_notification">Write a keyword and select at least one section. Then click on the switch button. Just click again in the switch button to disable the notification.</string>
     <string name="help_title_search">Search for articles</string>
-    <string name="help_search">Write a keyword and select at least one section. You can select a begin and a end date to precise your research. Then click on the search button.</string>
+    <string name="help_search">Write a keyword and select at least one section. You can select a begin and a end publish date to precise your research. Then click on the search button.</string>
 
     <!-- Fragment -->
     <string name="fragment_error">An error occurs. Please refresh.</string>

@@ -21,7 +21,7 @@ public interface NewYorkTimesAPI {
     Call<ArticleMostPopular> getMostPopular(@Query("api-key") String value);
 
     @GET("svc/search/v2/articlesearch.json?sort=newest")
-    Call<ArticleSearched> getSearched(@Query("q") String keywords, @Nullable @Query("fq") String filterSection, @Nullable @Query("begin_date") String beginDate, @Nullable @Query("end_date") String endDate, @Query("api-key") String value);
+    Call<ArticleSearched> getSearched(@Query("q") String keywords, @Query("fq") String filterSection, @Nullable @Query("begin_date") String beginDate, @Nullable @Query("end_date") String endDate, @Query("api-key") String value);
 
 
 }

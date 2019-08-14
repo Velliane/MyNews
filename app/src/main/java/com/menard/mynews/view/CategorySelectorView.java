@@ -34,7 +34,7 @@ public class CategorySelectorView extends GridLayout {
 
     private void initView(){
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            inflater.inflate(R.layout.category_selection, this, true);
+            inflater.inflate(R.layout.category_selection_view, this, true);
             checkBoxList = new ArrayList<>();
 
         moviesChBox = findViewById(R.id.category_selection_movies);
@@ -76,7 +76,7 @@ public class CategorySelectorView extends GridLayout {
     }
 
 
-    /**
+     /**
      * Return a list of the checked CheckBox
      * @return a List of CheckBox
      */

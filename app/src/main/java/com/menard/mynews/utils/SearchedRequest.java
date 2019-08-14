@@ -8,7 +8,6 @@ public class SearchedRequest {
     public SearchedRequest() {
     }
 
-
     /**
      * Return the string for the request
      * @return a string
@@ -27,12 +26,12 @@ public class SearchedRequest {
      * @return the string
      */
     public String getNewsDeskForLucene(List<String> checkedBoxList){
-        String newsDesk = "";
+        StringBuilder newsDesk = new StringBuilder();
         for(String section : checkedBoxList) {
-                newsDesk += "\"" + section + "\"";
+                newsDesk.append("\"").append(section).append("\"");
 
         }
-        return newsDesk;
+        return newsDesk.toString();
     }
 
 }

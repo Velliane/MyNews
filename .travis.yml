@@ -14,13 +14,6 @@ addons:
    paths:
      - $(git ls-files -o)
 
-deploy:
-  provider: s3
-  access_key_id: ARTIFACTS_KEY
-  secret_access_key: ARTIFACTS_SECRET
-  bucket: ARTIFACTS_BUCKET
-  skip_cleanup: true
-
 android:
   components:
     - tools
@@ -57,10 +50,7 @@ before_script:
 
 script:
   - cat codecov.yml | curl --data-binary @- https://codecov.io/validate
-#  - ./gradlew connectedCheck
-#  - ./gradlew build check
-#  - ./gradlew clean createDebugCoverageReport jacocoTestReport
 
 after_success:
-  - bash <(curl https://codecov.io/bash) -t CODECOV_TOKEN
+  - bash <(curl https://codecov.io/bash)
 

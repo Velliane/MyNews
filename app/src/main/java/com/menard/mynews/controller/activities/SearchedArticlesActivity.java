@@ -1,9 +1,10 @@
 package com.menard.mynews.controller.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -33,6 +34,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
     private RecyclerView mListArticles;
     private final RetrofitService retrofitService = new RetrofitService();
     private Context mContext;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
         String beginDate = intent.getStringExtra(Constants.EXTRA_BEGIN_DATE);
         String endDate = intent.getStringExtra(Constants.EXTRA_END_DATE);
 
-
+        mProgressBar = findViewById(R.id.searched_articles_activity_progress_bar);
         mListArticles = findViewById(R.id.activity_search_list_articles);
 
         //-- Get list of articles --
@@ -61,18 +63,13 @@ public class SearchedArticlesActivity extends AppCompatActivity {
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, section, beginDate, endDate,Constants.API_KEY);
 
-        final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
         call.enqueue(new Callback<ArticleSearched>() {
             @Override
             public void onResponse(@NonNull Call<ArticleSearched> call, @NonNull Response<ArticleSearched> response) {
 
                 if (response.isSuccessful()) {
 
-                    progressDialog.dismiss();
+                    mProgressBar.setVisibility(View.INVISIBLE);
                     ArticleSearched articleSearched = response.body();
                     assert articleSearched != null;
                     List<Doc> articleList = articleSearched.getResponse().getDocs();
@@ -86,6 +83,7 @@ public class SearchedArticlesActivity extends AppCompatActivity {
                     SearchedAdapter adapter = new SearchedAdapter(articleList, SearchedArticlesActivity.this);
                     mListArticles.setAdapter(adapter);
                 }else {
+                    mProgressBar.setVisibility(View.INVISIBLE);
                     showAlertDialog();
                 }
             }
@@ -93,6 +91,8 @@ public class SearchedArticlesActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<ArticleSearched> call,@NonNull Throwable t) {
                 t.printStackTrace();
+                mProgressBar.setVisibility(View.INVISIBLE);
+
             }
         });
 
