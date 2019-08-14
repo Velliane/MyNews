@@ -1,11 +1,11 @@
 package com.menard.mynews.controller.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,22 +51,17 @@ public class TopStoriesFragment extends Fragment {
         View result = inflater.inflate(R.layout.fragment_page, container, false);
         list = result.findViewById(R.id.fragment_list);
         final TextView textView = result.findViewById(R.id.fragment_txtview);
+        ProgressBar progressBar = result.findViewById(R.id.fragment_progress);
 
         Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("home", Constants.API_KEY);
 
-        final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
-
         call.enqueue(new Callback<ArticleTopStories>() {
             @Override
             public void onResponse(@NonNull Call<ArticleTopStories> call, @NonNull Response<ArticleTopStories> response) {
 
-                progressDialog.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
                 if (response.isSuccessful()) {
                     ArticleTopStories articleTopStories = response.body();
                     assert articleTopStories != null;
@@ -81,8 +76,8 @@ public class TopStoriesFragment extends Fragment {
             public void onFailure(@NonNull Call<ArticleTopStories> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 //-- Show error message --
-                progressDialog.dismiss();
                 list.setVisibility(View.GONE);
+                progressBar.setVisibility(View.INVISIBLE);
                 textView.setVisibility(View.VISIBLE);
             }
         });

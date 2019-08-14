@@ -91,7 +91,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if(v == mSearchButton){
             boolean boxChecked = mCategorySelectorView.atLeastOnBoxChecked();
             if(!boxChecked){
-                Toast.makeText(this, "Select at least on category", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Select at least one category", Toast.LENGTH_SHORT).show();
             }else {
                 String textSearched = mSearchText.getText().toString();
                 String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));

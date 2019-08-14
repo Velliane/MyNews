@@ -81,13 +81,13 @@ public class NotificationActivity extends AppCompatActivity {
 
             //-- If edit text is empty or no category are selected, unchecked the switch button --
             if (textSearched.getText().toString().equals("")) {
-                Toast.makeText(NotificationActivity.this, "Input value must not be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationActivity.this, "Please write a keyword", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
             }else if (!mCategorySelectorView.atLeastOnBoxChecked()){
-                Toast.makeText(NotificationActivity.this, "Category must not be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationActivity.this, "Select at least one category", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
             }else{
-                Toast.makeText(this, "Notification are enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Notifications are enabled", Toast.LENGTH_SHORT).show();
                 editor.putBoolean(Constants.PREFS_NOTIFICATION, true);
                 editor.apply();
             }
@@ -104,6 +104,7 @@ public class NotificationActivity extends AppCompatActivity {
 
 
         } else {
+            Toast.makeText(this, "Notifications are disabled", Toast.LENGTH_SHORT).show();
             NotififyWorker.cancelReminder();
             editor.putBoolean(Constants.PREFS_NOTIFICATION, false);
             editor.apply();

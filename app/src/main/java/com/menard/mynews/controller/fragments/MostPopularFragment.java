@@ -1,11 +1,11 @@
 package com.menard.mynews.controller.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +32,9 @@ import retrofit2.Retrofit;
 public class MostPopularFragment extends Fragment {
 
 
+    /** Recycler View */
     private RecyclerView list;
+    /** Retrofit Service */
     private final RetrofitService retrofitService = new RetrofitService();
 
     public MostPopularFragment(){}
@@ -48,23 +50,18 @@ public class MostPopularFragment extends Fragment {
         View result = inflater.inflate(R.layout.fragment_page, container, false);
         list = result.findViewById(R.id.fragment_list);
         final TextView textView = result.findViewById(R.id.fragment_txtview);
+        ProgressBar progressBar = result.findViewById(R.id.fragment_progress);
 
         Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleMostPopular> call = newYorkTimesAPI.getMostPopular(Constants.API_KEY);
-
-        final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
 
         call.enqueue(new Callback<ArticleMostPopular>() {
             @Override
             public void onResponse(@NonNull Call<ArticleMostPopular> call,@NonNull Response<ArticleMostPopular> response) {
 
                 if (response.isSuccessful()) {
-                    progressDialog.dismiss();
+                    progressBar.setVisibility(View.INVISIBLE);
                     ArticleMostPopular articleMostPopular = response.body();
                     assert articleMostPopular != null;
                     List<Result> articleList = articleMostPopular.getResults();
@@ -81,6 +78,7 @@ public class MostPopularFragment extends Fragment {
                 t.printStackTrace();
                 //-- Show error message --
                 list.setVisibility(View.GONE);
+                progressBar.setVisibility(View.INVISIBLE);
                 textView.setVisibility(View.VISIBLE);
             }
         });

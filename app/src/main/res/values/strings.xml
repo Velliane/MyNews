@@ -33,6 +33,8 @@
     <!-- Help -->
     <string name="help_title_notification">Enabled/Disabled notifications</string>
     <string name="help_notification">Write a keyword and select at least one section. Then click on the switch button. Just click again in the switch button to disable the notification.</string>
+    <string name="help_title_search">Search for articles</string>
+    <string name="help_search">Write a keyword and select at least one section. You can select a begin and a end date to precise your research. Then click on the search button.</string>
 
     <!-- Fragment -->
     <string name="fragment_error">An error occurs. Please refresh.</string>
@@ -42,5 +44,9 @@
     <string name="recycler_view_category">Category</string>
     <string name="recycler_view_date">Date</string>
     <string name="recycler_view_title">Title</string>
+
+    <!-- About -->
+    <string name="about_description">This is the version 1.0 of MyNews</string>
+    <string name="about_contact">For more information, feel free to contact me at: \n<i>emmanuelle.em.menard@gmail.com</i></string>
 
 </resources>
