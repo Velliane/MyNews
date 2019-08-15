@@ -61,7 +61,7 @@ public class NotififyWorker extends Worker {
     @Override
     public ListenableWorker.Result doWork() {
 
-        //-- Get extras from intent --
+        //-- Get data --
         final String title = getInputData().getString(Constants.EXTRA_TITLE);
         final String text = getInputData().getString(Constants.EXTRA_TEXT);
         final int id = (int) getInputData().getLong(Constants.EXTRA_ID, 0);
