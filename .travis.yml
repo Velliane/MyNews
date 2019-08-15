@@ -60,8 +60,6 @@ fixes:
 
 script:
   - cat codecov.yml | curl --data-binary @- https://codecov.io/validate
-#  - ./gradlew build check
-  - ./gradlew connectedCheck
 
 after_success:
   - bash <(curl https://codecov.io/bash)
