@@ -1,5 +1,6 @@
 language : android
 jdk: oraclejdk8
+sudo: false
 
 env:
   global:
@@ -12,6 +13,9 @@ addons:
   artifacts:
    paths:
      - $(git ls-files -o)
+
+licenses:
+  - '.+'
 
 android:
   components:
