@@ -48,6 +48,11 @@ before_script:
   - sleep 300
   - adb shell input keyevent 82 &
 
+fixes:
+  - "before/::after/"  # move path   e.g., "before/path" => "after/path"
+  - "::after/"         # move root   e.g., "path/" => "after/path/"
+  - "before/::"        # reduce root e.g., "before/path/" => "path/"
+
 script:
   - cat codecov.yml | curl --data-binary @- https://codecov.io/validate
   - ./gradlew build check
