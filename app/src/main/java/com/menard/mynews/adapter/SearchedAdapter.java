@@ -117,7 +117,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
                     Uri.parse(mListResult.get(itemPosition).getWebUrl()), new WebViewFallback());
 
             baseSQLite.addNewURL(mListResult.get(itemPosition).getWebUrl());
-            notifyDataSetChanged();
+            notifyItemChanged(itemPosition);
         }
 
     }

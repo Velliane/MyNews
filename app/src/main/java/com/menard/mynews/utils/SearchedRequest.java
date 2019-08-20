@@ -10,9 +10,10 @@ public class SearchedRequest {
 
     /**
      * Return the string for the request
+     *
      * @return a string
      */
-    public String getSections(String sectionSelected){
+    public String getSections(String sectionSelected) {
         String sections = "news_desk:(";
         sections += sectionSelected;
         sections += ")";
@@ -22,13 +23,14 @@ public class SearchedRequest {
 
     /**
      * Return a string with the sections selected by the user
+     *
      * @param checkedBoxList the list of checked CheckBox
      * @return the string
      */
-    public String getNewsDeskForLucene(List<String> checkedBoxList){
+    public String getNewsDeskForLucene(List<String> checkedBoxList) {
         StringBuilder newsDesk = new StringBuilder();
-        for(String section : checkedBoxList) {
-                newsDesk.append("\"").append(section).append("\"");
+        for (String section : checkedBoxList) {
+            newsDesk.append("\"").append(section).append("\"");
 
         }
         return newsDesk.toString();

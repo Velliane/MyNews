@@ -63,6 +63,9 @@ public class SearchedArticlesActivity extends AppCompatActivity {
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleSearched> call = newYorkTimesAPI.getSearched(keyword, section, beginDate, endDate,Constants.API_KEY);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(SearchedArticlesActivity.this);
+        mListArticles.setLayoutManager(layoutManager);
+
         call.enqueue(new Callback<ArticleSearched>() {
             @Override
             public void onResponse(@NonNull Call<ArticleSearched> call, @NonNull Response<ArticleSearched> response) {
@@ -78,8 +81,6 @@ public class SearchedArticlesActivity extends AppCompatActivity {
                         showAlertDialog();
                     }
 
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(SearchedArticlesActivity.this);
-                    mListArticles.setLayoutManager(layoutManager);
                     SearchedAdapter adapter = new SearchedAdapter(articleList, SearchedArticlesActivity.this);
                     mListArticles.setAdapter(adapter);
                 }else {

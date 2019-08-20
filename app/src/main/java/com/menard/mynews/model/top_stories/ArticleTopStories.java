@@ -28,4 +28,8 @@ public class ArticleTopStories {
         return results;
     }
 
+    public  void setResults(List<Result> results){
+        this.results = results;
+    }
+
 }

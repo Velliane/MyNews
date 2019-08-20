@@ -31,15 +31,20 @@ import retrofit2.Retrofit;
 
 public class MoviesFragment extends Fragment {
 
-    /** Recycler View */
+    /**
+     * Recycler View
+     */
     private RecyclerView list;
-    /** Retrofit Service */
+    /**
+     * Retrofit Service
+     */
     private final RetrofitService retrofitService = new RetrofitService();
 
-    public MoviesFragment(){}
+    public MoviesFragment() {
+    }
 
     public static MoviesFragment newInstance() {
-       return new MoviesFragment();
+        return new MoviesFragment();
     }
 
     @Nullable
@@ -51,13 +56,16 @@ public class MoviesFragment extends Fragment {
         final TextView textView = result.findViewById(R.id.fragment_txtview);
         ProgressBar progressBar = result.findViewById(R.id.fragment_progress);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        list.setLayoutManager(layoutManager);
+
         Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("movies", Constants.API_KEY);
 
         call.enqueue(new Callback<ArticleTopStories>() {
             @Override
-            public void onResponse(@NonNull Call<ArticleTopStories> call,@NonNull Response<ArticleTopStories> response) {
+            public void onResponse(@NonNull Call<ArticleTopStories> call, @NonNull Response<ArticleTopStories> response) {
 
                 if (response.isSuccessful()) {
                     progressBar.setVisibility(View.INVISIBLE);
@@ -71,7 +79,7 @@ public class MoviesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ArticleTopStories> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArticleTopStories> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 //-- Show error message --
                 list.setVisibility(View.GONE);
@@ -85,11 +93,10 @@ public class MoviesFragment extends Fragment {
 
     /**
      * Configure the RecyclerView
+     *
      * @param articleList the list of Result
      */
-    private void configureRecyclerView(List<Result> articleList){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        list.setLayoutManager(layoutManager);
+    private void configureRecyclerView(List<Result> articleList) {
         TopStoriesAdapter adapter = new TopStoriesAdapter(articleList, getContext());
         list.setAdapter(adapter);
     }

@@ -35,7 +35,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
     private final Context mContext;
     private BaseSQLite baseSQLite;
 
-    public MostPopularAdapter(List<Result> list, Context context){
+    public MostPopularAdapter(List<Result> list, Context context) {
         listResult = list;
         mContext = context;
     }
@@ -61,9 +61,9 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         // Change format of the date
         articlesViewHolder.date.setText(DateUtils.parseMostPopularDate(result.getPublishedDate()));
 
-        if(baseSQLite.checkURL(result.getUrl())){
+        if (baseSQLite.checkURL(result.getUrl())) {
             articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
-        }else {
+        } else {
             articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
 
@@ -72,13 +72,12 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         imageURL = mediaMetadatumList.get(0).getUrl();
 
         //-- Add it in the ImageView with Glide --
-        if(mediaMetadatumList.size() > 0) {
+        if (mediaMetadatumList.size() > 0) {
             Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
-        }else {
-            Glide.with(mContext).load(mContext.getResources().getIdentifier("no_image_available_64", "drawable", mContext.getPackageName())).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
+        } else {
+            Glide.with(mContext).load(R.drawable.no_image_available_64).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         }
     }
-
 
 
     @Override
@@ -86,7 +85,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         return listResult.size();
     }
 
-    class ArticlesViewHolder extends RecyclerView.ViewHolder{
+    class ArticlesViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView imageView;
         private final TextView section;
@@ -94,7 +93,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         private final TextView title;
         private final RelativeLayout relativeLayout;
 
-        ArticlesViewHolder(@NonNull final View itemView){
+        ArticlesViewHolder(@NonNull final View itemView) {
 
             super(itemView);
             imageView = itemView.findViewById(R.id.article_image);
@@ -109,7 +108,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         /**
          * Open CustomTabs
          */
-        private void openCustomTabs(){
+        private void openCustomTabs() {
             final int itemPosition = getAdapterPosition();
             CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
                     .setToolbarColor(mContext.getResources().getColor(R.color.colorPrimary))
@@ -121,7 +120,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
                     Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
 
             baseSQLite.addNewURL(listResult.get(itemPosition).getUrl());
-            notifyDataSetChanged();
+            notifyItemChanged(itemPosition);
         }
 
     }

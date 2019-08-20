@@ -69,7 +69,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         if(result.getMultimedia().size() > 0) {
             Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         }else {
-            Glide.with(mContext).load(mContext.getResources().getIdentifier("no_image_available_64", "drawable", mContext.getPackageName())).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
+            Glide.with(mContext).load(R.drawable.no_image_available_64).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         }
 
         if(mBaseSQLite.checkURL(result.getUrl())){
@@ -122,7 +122,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
             CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
                     Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
             mBaseSQLite.addNewURL(listResult.get(itemPosition).getUrl());
-            notifyDataSetChanged();
+            notifyItemChanged(itemPosition);
         }
 
     }

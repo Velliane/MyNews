@@ -26,7 +26,6 @@ import com.menard.mynews.model.search.Doc;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -62,8 +61,6 @@ public class NotififyWorker extends Worker {
     public ListenableWorker.Result doWork() {
 
         //-- Get data --
-        final String title = getInputData().getString(Constants.EXTRA_TITLE);
-        final String text = getInputData().getString(Constants.EXTRA_TEXT);
         final int id = (int) getInputData().getLong(Constants.EXTRA_ID, 0);
         String keyword = getInputData().getString(Constants.EXTRA_KEYWORD);
         String section = getInputData().getString(Constants.EXTRA_SECTION);
@@ -82,7 +79,7 @@ public class NotififyWorker extends Worker {
             String nbrArticle = getNumberOfNewArticles();
             //-- Send notification only if new articles are available --
             if(!nbrArticle.equals("0")) {
-               sendNotification(title, text, nbrArticle, id);
+               sendNotification(nbrArticle, id);
             }
 
         } catch (IOException e) {
@@ -94,12 +91,10 @@ public class NotififyWorker extends Worker {
 
     /**
      * Send the notification with the params
-     * @param title title
-     * @param text text
      * @param number the number of new articles
      * @param id the id of the notification
      */
-    private void sendNotification(String title, String text, String number,  int id){
+    private void sendNotification(String number,  int id){
         Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(Constants.EXTRA_ID, id);
@@ -109,17 +104,17 @@ public class NotififyWorker extends Worker {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
-            Objects.requireNonNull(notificationManager).createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(channel);
         }
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext(), "default")
-                .setContentTitle(title)
-                .setContentText(number + text)
+                .setContentTitle(Constants.TITLE)
+                .setContentText(number + Constants.TEXT)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true);
 
-        Objects.requireNonNull(notificationManager).notify(id, notification.build());
+        notificationManager.notify(id, notification.build());
     }
 
     /**

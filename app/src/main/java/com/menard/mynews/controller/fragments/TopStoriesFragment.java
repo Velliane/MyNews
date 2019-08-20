@@ -31,11 +31,16 @@ import retrofit2.Retrofit;
 
 public class TopStoriesFragment extends Fragment {
 
-    /** Retrofit Service */
+    /**
+     * Retrofit Service
+     */
     private final RetrofitService retrofitService = new RetrofitService();
-    /** Recycler View */
+    /**
+     * Recycler View
+     */
     private RecyclerView list;
 
+    List<Result> articleList;
 
     public TopStoriesFragment() {
     }
@@ -52,6 +57,9 @@ public class TopStoriesFragment extends Fragment {
         list = result.findViewById(R.id.fragment_list);
         final TextView textView = result.findViewById(R.id.fragment_txtview);
         ProgressBar progressBar = result.findViewById(R.id.fragment_progress);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        list.setLayoutManager(layoutManager);
 
         Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
@@ -88,11 +96,10 @@ public class TopStoriesFragment extends Fragment {
 
     /**
      * Configure the RecyclerView
+     *
      * @param articleList the list of Result
      */
-    private void configureRecyclerView(List<Result> articleList){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        list.setLayoutManager(layoutManager);
+    private void configureRecyclerView(List<Result> articleList) {
         TopStoriesAdapter adapter = new TopStoriesAdapter(articleList, getContext());
         list.setAdapter(adapter);
     }

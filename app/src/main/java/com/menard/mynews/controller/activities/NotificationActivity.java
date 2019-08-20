@@ -21,18 +21,26 @@ import java.util.Objects;
 public class NotificationActivity extends AppCompatActivity {
 
 
-    /** Switch Button */
+    /**
+     * Switch Button
+     */
     public Switch mSwitch;
     private SharedPreferences.Editor editor;
-    /** EditText */
+    /**
+     * EditText
+     */
     private EditText textSearched;
-    /** Category Selector */
+    /**
+     * Category Selector
+     */
     private CategorySelectorView mCategorySelectorView;
-    /** SearchedRequest */
+    /**
+     * SearchedRequest
+     */
     private SearchedRequest mSearchedRequest;
 
 
-    public NotificationActivity(){
+    public NotificationActivity() {
     }
 
     @Override
@@ -74,6 +82,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     /**
      * Configure the notification
+     *
      * @param isChecked state of the switch button
      */
     private void configureNotification(boolean isChecked) {
@@ -83,10 +92,10 @@ public class NotificationActivity extends AppCompatActivity {
             if (textSearched.getText().toString().equals("")) {
                 Toast.makeText(NotificationActivity.this, "Please write a keyword", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
-            }else if (!mCategorySelectorView.atLeastOnBoxChecked()){
+            } else if (!mCategorySelectorView.atLeastOnBoxChecked()) {
                 Toast.makeText(NotificationActivity.this, "Select at least one category", Toast.LENGTH_SHORT).show();
                 mSwitch.setChecked(false);
-            }else{
+            } else {
                 Toast.makeText(this, "Notifications are enabled", Toast.LENGTH_SHORT).show();
                 editor.putBoolean(Constants.PREFS_NOTIFICATION, true);
                 editor.apply();
@@ -94,9 +103,7 @@ public class NotificationActivity extends AppCompatActivity {
 
 
             String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));
-            Data data = new Data.Builder().putString(Constants.EXTRA_TITLE, Constants.TITLE)
-                    .putString(Constants.EXTRA_TEXT,Constants.TEXT)
-                    .putInt(Constants.EXTRA_ID, 1)
+            Data data = new Data.Builder().putInt(Constants.EXTRA_ID, 1)
                     .putString(Constants.EXTRA_KEYWORD, textSearched.getText().toString())
                     .putString(Constants.EXTRA_SECTION, section)
                     .build();

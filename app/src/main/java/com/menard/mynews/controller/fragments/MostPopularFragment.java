@@ -32,12 +32,17 @@ import retrofit2.Retrofit;
 public class MostPopularFragment extends Fragment {
 
 
-    /** Recycler View */
+    /**
+     * Recycler View
+     */
     private RecyclerView list;
-    /** Retrofit Service */
+    /**
+     * Retrofit Service
+     */
     private final RetrofitService retrofitService = new RetrofitService();
 
-    public MostPopularFragment(){}
+    public MostPopularFragment() {
+    }
 
     public static MostPopularFragment newInstance() {
         return new MostPopularFragment();
@@ -52,13 +57,16 @@ public class MostPopularFragment extends Fragment {
         final TextView textView = result.findViewById(R.id.fragment_txtview);
         ProgressBar progressBar = result.findViewById(R.id.fragment_progress);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        list.setLayoutManager(layoutManager);
+
         Retrofit retrofit = retrofitService.getRetrofit();
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleMostPopular> call = newYorkTimesAPI.getMostPopular(Constants.API_KEY);
 
         call.enqueue(new Callback<ArticleMostPopular>() {
             @Override
-            public void onResponse(@NonNull Call<ArticleMostPopular> call,@NonNull Response<ArticleMostPopular> response) {
+            public void onResponse(@NonNull Call<ArticleMostPopular> call, @NonNull Response<ArticleMostPopular> response) {
 
                 if (response.isSuccessful()) {
                     progressBar.setVisibility(View.INVISIBLE);
@@ -67,14 +75,13 @@ public class MostPopularFragment extends Fragment {
                     List<Result> articleList = articleMostPopular.getResults();
                     configureRecyclerView(articleList);
 
-
-                }else {
+                } else {
                     Log.e("TAG", "response not successful");
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<ArticleMostPopular> call,@NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArticleMostPopular> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 //-- Show error message --
                 list.setVisibility(View.GONE);
@@ -87,11 +94,10 @@ public class MostPopularFragment extends Fragment {
 
     /**
      * Configure the RecyclerView
+     *
      * @param articleList the list of Result
      */
-    private void configureRecyclerView(List<Result> articleList){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        list.setLayoutManager(layoutManager);
+    private void configureRecyclerView(List<Result> articleList) {
         MostPopularAdapter adapter = new MostPopularAdapter(articleList, getContext());
         list.setAdapter(adapter);
     }
