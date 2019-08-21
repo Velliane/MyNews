@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -56,15 +57,11 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
         holder.section.setText(result.getSectionName());
         holder.title.setText(result.getAbstract());
 
+        //-- Change the format of the date --
         holder.date.setText(DateUtils.parseSearchedDate(result.getPubDate()));
-        if(baseSQLite.checkURL(result.getWebUrl())){
-            holder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
-        }else {
-            holder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
-        }
 
+        //-- Add image in the ImageView with Glide --
         List<Multimedium> multimediumList = result.getMultimedia();
-
         if(multimediumList.size() > 0) {
             imageURL = multimediumList.get(0).getUrl();
             Glide.with(mContext).load("https://static01.nyt.com/"+imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
@@ -72,7 +69,12 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
             Glide.with(mContext).load(R.drawable.no_image_available_64).placeholder(new ColorDrawable(Color.BLACK)).into(holder.imageView);
         }
 
-
+        //-- Check if url already saved in SQLite Database  and change background color accordingly --
+        if(baseSQLite.checkURL(result.getWebUrl())){
+            holder.constraintLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
+        }else {
+            holder.constraintLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+        }
 
     }
 
@@ -88,7 +90,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
         private final TextView section;
         private final TextView date;
         private final TextView title;
-        private final RelativeLayout relativeLayout;
+        private final ConstraintLayout constraintLayout;
 
         ArticlesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,7 +98,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Articl
             section = itemView.findViewById(R.id.article_section);
             date = itemView.findViewById(R.id.article_date);
             title = itemView.findViewById(R.id.article_title);
-            relativeLayout = itemView.findViewById(R.id.article_layout);
+            constraintLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(v -> openCustomTabs());
         }

@@ -6,8 +6,6 @@ import android.os.Bundle;
 
 import com.menard.mynews.R;
 
-import java.util.Objects;
-
 public class AboutActivity extends AppCompatActivity {
 
 
@@ -20,7 +18,7 @@ public class AboutActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("About");
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 

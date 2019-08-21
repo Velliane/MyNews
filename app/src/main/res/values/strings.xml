@@ -26,6 +26,8 @@
     <string name="search_begin_date">Begin Date</string>
     <string name="search_end_date">End Date</string>
     <string name="search_button">SEARCH</string>
+    <string name="search_no_articles_title">No articles found</string>
+    <string name="search_no_articles_text">"There is no articles available for your research"</string>
 
     <!-- Notification Activity Layout -->
     <string name="notification_switch">Enable notifications (once per day)</string>

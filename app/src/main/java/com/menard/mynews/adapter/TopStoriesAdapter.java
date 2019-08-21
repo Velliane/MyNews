@@ -14,11 +14,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.menard.mynews.BaseSQLite;
 import com.menard.mynews.R;
+import com.menard.mynews.controller.activities.MainActivity;
 import com.menard.mynews.model.top_stories.Result;
 import com.menard.mynews.utils.DateUtils;
 
@@ -28,13 +30,13 @@ import saschpe.android.customtabs.CustomTabsHelper;
 import saschpe.android.customtabs.WebViewFallback;
 
 
-public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ArticlesViewHolder>{
+public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.ArticlesViewHolder> {
 
     private final List<Result> listResult;
     private final Context mContext;
     private BaseSQLite mBaseSQLite;
 
-    public TopStoriesAdapter(List<Result> list, Context context){
+    public TopStoriesAdapter(List<Result> list, Context context) {
         listResult = list;
         mContext = context;
 
@@ -52,7 +54,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
     public void onBindViewHolder(@NonNull ArticlesViewHolder articlesViewHolder, int position) {
 
         Result result = listResult.get(position);
-        String imageURL = "";
+        String imageURL;
         mBaseSQLite = new BaseSQLite(mContext);
 
         articlesViewHolder.section.setText(result.getSection());
@@ -61,23 +63,20 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         //-- Change the format of the date --
         articlesViewHolder.date.setText(DateUtils.parseZonedDate(result.getUpdatedDate()));
 
-        //-- Get the first image in the list of multimedia --
-        if(result.getMultimedia().size() >= 1) {
+        //-- Add fist image if the list of Multimedia in the ImageView with Glide --
+        if (result.getMultimedia().size() > 0) {
             imageURL = result.getMultimedia().get(0).getUrl();
-        }
-        //-- Add it in the ImageView with Glide --
-        if(result.getMultimedia().size() > 0) {
             Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
-        }else {
+        } else {
             Glide.with(mContext).load(R.drawable.no_image_available_64).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         }
 
-        if(mBaseSQLite.checkURL(result.getUrl())){
-            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
-        }else {
-            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+        //-- Check if url already saved in SQLite Database  and change background color accordingly --
+        if (mBaseSQLite.checkURL(result.getUrl())) {
+            articlesViewHolder.constraintLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
+        } else {
+            articlesViewHolder.constraintLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
-
 
 
     }
@@ -87,22 +86,22 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         return listResult.size();
     }
 
-    class ArticlesViewHolder extends RecyclerView.ViewHolder{
+    class ArticlesViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView imageView;
         private final TextView section;
         private final TextView date;
         private final TextView title;
-        private final RelativeLayout relativeLayout;
+        private final ConstraintLayout constraintLayout;
 
-        ArticlesViewHolder(@NonNull final View itemView){
+        ArticlesViewHolder(@NonNull final View itemView) {
 
             super(itemView);
             imageView = itemView.findViewById(R.id.article_image);
             section = itemView.findViewById(R.id.article_section);
             date = itemView.findViewById(R.id.article_date);
             title = itemView.findViewById(R.id.article_title);
-            relativeLayout = itemView.findViewById(R.id.article_layout);
+            constraintLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(v -> openCustomTabs());
         }
@@ -110,7 +109,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
         /**
          * Open CustomTabs
          */
-        private void openCustomTabs(){
+        private void openCustomTabs() {
             int itemPosition = getAdapterPosition();
 
             CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().addDefaultShareMenuItem()
@@ -121,6 +120,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.Ar
 
             CustomTabsHelper.openCustomTab(mContext, customTabsIntent,
                     Uri.parse(listResult.get(itemPosition).getUrl()), new WebViewFallback());
+
             mBaseSQLite.addNewURL(listResult.get(itemPosition).getUrl());
             notifyItemChanged(itemPosition);
         }

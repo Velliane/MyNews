@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -61,12 +61,6 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         // Change format of the date
         articlesViewHolder.date.setText(DateUtils.parseMostPopularDate(result.getPublishedDate()));
 
-        if (baseSQLite.checkURL(result.getUrl())) {
-            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
-        } else {
-            articlesViewHolder.relativeLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
-        }
-
         //-- Get the first image in the list of multimedia --
         List<MediaMetadatum> mediaMetadatumList = result.getMedia().get(0).getMediaMetadata();
         imageURL = mediaMetadatumList.get(0).getUrl();
@@ -76,6 +70,13 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
             Glide.with(mContext).load(imageURL).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
         } else {
             Glide.with(mContext).load(R.drawable.no_image_available_64).placeholder(new ColorDrawable(Color.BLACK)).into(articlesViewHolder.imageView);
+        }
+
+        //-- Check if url already saved in SQLite Database  and change background color accordingly --
+        if (baseSQLite.checkURL(result.getUrl())) {
+            articlesViewHolder.constraintLayout.setBackgroundColor(mContext.getResources().getColor(R.color.blue_grey));
+        } else {
+            articlesViewHolder.constraintLayout.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
     }
 
@@ -91,7 +92,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
         private final TextView section;
         private final TextView date;
         private final TextView title;
-        private final RelativeLayout relativeLayout;
+        private final ConstraintLayout constraintLayout;
 
         ArticlesViewHolder(@NonNull final View itemView) {
 
@@ -100,7 +101,7 @@ public class MostPopularAdapter extends RecyclerView.Adapter<MostPopularAdapter.
             section = itemView.findViewById(R.id.article_section);
             date = itemView.findViewById(R.id.article_date);
             title = itemView.findViewById(R.id.article_title);
-            relativeLayout = itemView.findViewById(R.id.article_layout);
+            constraintLayout = itemView.findViewById(R.id.article_layout);
 
             itemView.setOnClickListener(v -> openCustomTabs());
         }

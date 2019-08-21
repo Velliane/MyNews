@@ -4,16 +4,12 @@ import java.util.List;
 
 public class SearchedRequest {
 
-
-    public SearchedRequest() {
-    }
-
     /**
      * Return the string for the request
      *
      * @return a string
      */
-    public String getSections(String sectionSelected) {
+    public static String getSections(String sectionSelected) {
         String sections = "news_desk:(";
         sections += sectionSelected;
         sections += ")";
@@ -27,7 +23,7 @@ public class SearchedRequest {
      * @param checkedBoxList the list of checked CheckBox
      * @return the string
      */
-    public String getNewsDeskForLucene(List<String> checkedBoxList) {
+    public static String getNewsDeskForLucene(List<String> checkedBoxList) {
         StringBuilder newsDesk = new StringBuilder();
         for (String section : checkedBoxList) {
             newsDesk.append("\"").append(section).append("\"");

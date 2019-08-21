@@ -34,10 +34,6 @@ public class NotificationActivity extends AppCompatActivity {
      * Category Selector
      */
     private CategorySelectorView mCategorySelectorView;
-    /**
-     * SearchedRequest
-     */
-    private SearchedRequest mSearchedRequest;
 
 
     public NotificationActivity() {
@@ -58,7 +54,6 @@ public class NotificationActivity extends AppCompatActivity {
         textSearched = findViewById(R.id.activity_search_edit_txt);
         mCategorySelectorView = findViewById(R.id.activity_notification_category);
 
-        mSearchedRequest = new SearchedRequest();
         //-- Get Shared Preferences --
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -102,14 +97,14 @@ public class NotificationActivity extends AppCompatActivity {
             }
 
 
-            String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));
+            String section = SearchedRequest.getSections(SearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));
             Data data = new Data.Builder().putInt(Constants.EXTRA_ID, 1)
                     .putString(Constants.EXTRA_KEYWORD, textSearched.getText().toString())
                     .putString(Constants.EXTRA_SECTION, section)
                     .build();
             NotififyWorker.scheduleReminder(data);
 
-
+        //-- Disabled the notifications when switch button in unchecked --
         } else {
             Toast.makeText(this, "Notifications are disabled", Toast.LENGTH_SHORT).show();
             NotififyWorker.cancelReminder();

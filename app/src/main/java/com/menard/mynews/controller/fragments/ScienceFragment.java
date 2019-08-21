@@ -63,7 +63,6 @@ public class ScienceFragment extends Fragment {
         NewYorkTimesAPI newYorkTimesAPI = retrofit.create(NewYorkTimesAPI.class);
         Call<ArticleTopStories> call = newYorkTimesAPI.getTopStories("science", Constants.API_KEY);
 
-
         call.enqueue(new Callback<ArticleTopStories>() {
             @Override
             public void onResponse(@NonNull Call<ArticleTopStories> call, @NonNull Response<ArticleTopStories> response) {

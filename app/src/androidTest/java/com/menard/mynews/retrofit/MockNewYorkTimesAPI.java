@@ -2,7 +2,6 @@ package com.menard.mynews.retrofit;
 
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.util.ContentLengthInputStream;
 import com.menard.mynews.model.most_popular.ArticleMostPopular;
 import com.menard.mynews.model.search.ArticleSearched;
 import com.menard.mynews.model.search.Doc;

@@ -35,8 +35,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mEndDate;
     /** Category Selector */
     private CategorySelectorView mCategorySelectorView;
-    /** Searched Request */
-    private SearchedRequest mSearchedRequest;
 
 
     @Override
@@ -58,8 +56,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         //-- Category selection --
         mCategorySelectorView = findViewById(R.id.activity_search_category_selection);
-
-        mSearchedRequest = new SearchedRequest();
 
         //-- Date selection --
         mBeginDate = findViewById(R.id.activity_search_spinner_begin_date);
@@ -94,7 +90,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this, "Select at least one category", Toast.LENGTH_SHORT).show();
             }else {
                 String textSearched = mSearchText.getText().toString();
-                String section = mSearchedRequest.getSections(mSearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));
+                String section = SearchedRequest.getSections(SearchedRequest.getNewsDeskForLucene(mCategorySelectorView.getCheckedBoxList()));
 
                 Intent intent = new Intent(SearchActivity.this, SearchedArticlesActivity.class);
                 intent.putExtra(Constants.EXTRA_KEYWORD, textSearched);
@@ -106,12 +102,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
 
     /**
      * Show DatePickerDialog
@@ -144,5 +134,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

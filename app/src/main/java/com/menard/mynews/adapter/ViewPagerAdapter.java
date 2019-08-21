@@ -17,9 +17,8 @@ import com.menard.mynews.model.Category;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
-   protected ViewPagerAdapter(FragmentManager manager) {
+    protected ViewPagerAdapter(FragmentManager manager) {
         super(manager);
-
     }
 
     @Override
